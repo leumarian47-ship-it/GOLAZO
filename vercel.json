@@ -1,0 +1,16 @@
+{
+  "cleanUrls": true,
+  "routes": [
+    { "src": "/privacy", "dest": "/Privacy/Index.html" },
+    { "src": "/terms", "dest": "/Terms/Index.html" },
+    { "src": "/responsible", "dest": "/Responsible/Index.html" },
+    { "src": "/cookies", "dest": "/Cookies/Index.html" },
+    { "src": "/register", "dest": "/Register/Index.html" },
+    { "src": "/predict", "dest": "/index.html" },
+    { "src": "/leaderboard", "dest": "/index.html" },
+    { "src": "/war-room", "dest": "/index.html" },
+    { "src": "/teams", "dest": "/index.html" },
+    { "src": "/business", "dest": "/index.html" },
+    { "src": "/contact", "dest": "/index.html" }
+  ]
+}
