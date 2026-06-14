@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Policy — GOLAZO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --fire: #FF3C00;
+      --fire-dim: #CC3000;
+      --ash: #1a1a1a;
+      --bone: #F5F0E8;
+      --muted: #6b6b6b;
+      --line: #2a2a2a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--bone);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    nav { border-bottom: 1px solid var(--line); padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Anton', sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; color: var(--bone); text-decoration: none; }
+    .nav-logo span { color: var(--fire); }
+    .nav-back { font-size: 0.85rem; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--fire); }
+    .hero { border-bottom: 1px solid var(--line); padding: 64px 40px 48px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -10%; right: -10%; bottom: 0;
+      background: linear-gradient(8deg, transparent 60%, rgba(255,60,0,0.04) 100%);
+      pointer-events: none;
+    }
+    .hero-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fire); border: 1px solid var(--fire); padding: 4px 12px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Anton', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: 0.04em; line-height: 1.05; text-transform: uppercase; margin-bottom: 16px; }
+    .hero-meta { color: var(--muted); font-size: 0.85rem; letter-spacing: 0.05em; }
+    .content { max-width: 760px; margin: 0 auto; padding: 60px 40px 80px; }
+    .section { margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+    .section:last-child { border-bottom: none; margin-bottom: 0; }
+    .section-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fire); margin-bottom: 12px; }
+    h2 { font-family: 'Anton', sans-serif; font-size: 1.5rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bone); margin-bottom: 16px; }
+    p { color: var(--bone); opacity: 0.85; margin-bottom: 14px; font-size: 0.97rem; }
+    p:last-child { margin-bottom: 0; }
+    ul { list-style: none; margin: 14px 0; padding: 0; }
+    ul li { padding: 6px 0 6px 20px; position: relative; color: var(--bone); opacity: 0.85; font-size: 0.97rem; }
+    ul li::before { content: '—'; position: absolute; left: 0; color: var(--fire); }
+    a { color: var(--fire); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .cookie-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+    .cookie-table th {
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fire);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 12px;
+    }
+    .cookie-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--bone);
+      opacity: 0.85;
+      vertical-align: top;
+    }
+    .cookie-table tr:last-child td { border-bottom: none; }
+    .cookie-table tr:hover td { background: var(--ash); }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border: 1px solid;
+    }
+    .badge-essential { color: var(--fire); border-color: var(--fire-dim); }
+    .badge-analytics { color: #6b9fff; border-color: #3a5fa0; }
+    .badge-marketing { color: #b0b0b0; border-color: #4a4a4a; }
+
+    .contact-block { background: var(--ash); border: 1px solid var(--line); padding: 28px 32px; margin-top: 20px; }
+    .contact-block p { margin-bottom: 8px; }
+    .contact-block strong { color: var(--bone); font-weight: 700; }
+    footer { border-top: 1px solid var(--line); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-legal { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-legal a { font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+    .footer-legal a:hover { color: var(--fire); }
+    .footer-badge { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); border: 1px solid var(--line); padding: 4px 10px; }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 48px 20px 36px; }
+      .content { padding: 40px 20px 60px; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+      .cookie-table { font-size: 0.82rem; }
+      .cookie-table th, .cookie-table td { padding: 8px 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">GOL<span>AZ</span>O</a>
+    <a href="/" class="nav-back">← Back to GOLAZO</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-tag">Legal</div>
+    <h1>Cookie Policy</h1>
+    <p class="hero-meta">Last updated: June 2025 &nbsp;·&nbsp; Effective: June 14, 2025</p>
+  </div>
+
+  <div class="content">
+
+    <div class="section">
+      <div class="section-num">01</div>
+      <h2>What Are Cookies</h2>
+      <p>Cookies are small text files stored on your device when you visit a website. They help websites remember your preferences, keep you logged in, and understand how you use the platform.</p>
+      <p>GOLAZO uses cookies and similar technologies (local storage, session storage) to operate and improve your experience.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-num">02</div>
+      <h2>Cookies We Use</h2>
+      <table class="cookie-table">
+        <thead>
+          <tr>
+            <th>Cookie</th>
+            <th>Type</th>
+            <th>Purpose</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>sb-auth-token</code></td>
+            <td><span class="badge badge-essential">Essential</span></td>
+            <td>Keeps you logged in to your GOLAZO account</td>
+            <td>Session</td>
+          </tr>
+          <tr>
+            <td><code>golazo_prefs</code></td>
+            <td><span class="badge badge-essential">Essential</span></td>
+            <td>Stores your language and display preferences</td>
+            <td>1 year</td>
+          </tr>
+          <tr>
+            <td><code>cookie_consent</code></td>
+            <td><span class="badge badge-essential">Essential</span></td>
+            <td>Remembers your cookie consent choice</td>
+            <td>1 year</td>
+          </tr>
+          <tr>
+            <td><code>_ga</code></td>
+            <td><span class="badge badge-analytics">Analytics</span></td>
+            <td>Google Analytics — anonymous usage statistics</td>
+            <td>2 years</td>
+          </tr>
+          <tr>
+            <td><code>_ga_*</code></td>
+            <td><span class="badge badge-analytics">Analytics</span></td>
+            <td>Google Analytics session tracking</td>
+            <td>2 years</td>
+          </tr>
+          <tr>
+            <td>Affiliate tracking</td>
+            <td><span class="badge badge-marketing">Marketing</span></td>
+            <td>Tracks referrals to licensed betting partners</td>
+            <td>30 days</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-num">03</div>
+      <h2>Essential vs Optional Cookies</h2>
+      <p><strong>Essential cookies</strong> are required for GOLAZO to function. They cannot be disabled without breaking core features like login and preferences.</p>
+      <p><strong>Analytics cookies</strong> help us understand how users navigate GOLAZO so we can improve it. All data is anonymised.</p>
+      <p><strong>Marketing cookies</strong> are used by our affiliate partners to track referrals. These are only active if you click an affiliate link.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-num">04</div>
+      <h2>Third-Party Cookies</h2>
+      <p>When you click links to licensed betting operators (Betano, Superbet, Bet365), those sites may set their own cookies according to their own cookie policies. GOLAZO has no control over third-party cookies.</p>
+      <p>We recommend reviewing the cookie policies of any external sites you visit.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-num">05</div>
+      <h2>Managing Cookies</h2>
+      <p>You can control and delete cookies through your browser settings:</p>
+      <ul>
+        <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+        <li><a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+        <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+        <li><a href="https://support.microsoft.com/en-us/windows/delete-and-manage-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener">Microsoft Edge</a></li>
+      </ul>
+      <p>Note: disabling essential cookies may prevent you from using certain GOLAZO features, including login and predictions.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-num">06</div>
+      <h2>Your Consent</h2>
+      <p>When you first visit GOLAZO, you will be shown a cookie banner. You can choose to accept all cookies or only essential ones.</p>
+      <p>You may withdraw or change your consent at any time by clearing your cookies and revisiting the site, or by contacting us directly.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-num">07</div>
+      <h2>Contact</h2>
+      <div class="contact-block">
+        <p><strong>GOLAZO Cookie Enquiries</strong></p>
+        <p>Email: <a href="mailto:contactgolazo777@gmail.com">contactgolazo777@gmail.com</a></p>
+        <p>Response time: within 30 days</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-legal">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+      <a href="/cookies">Cookie Policy</a>
+      <a href="/responsible">Responsible Gambling</a>
+    </div>
+    <div class="footer-badge">18+ | PLAY RESPONSIBLY</div>
+  </footer>
+
+</body>
+</html>
