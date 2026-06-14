@@ -1,112 +1,235 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Joc Responsabil — GOLAZO</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--black:#0d0d0d;--fire:#FF3C00;--ash:#1a1a1a;--bone:#F5F0E8;--muted:#6b6b6b;--line:#2a2a2a}
-body{background:var(--black);color:var(--bone);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
-nav{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(13,13,13,.95);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 48px;z-index:100;backdrop-filter:blur(12px)}
-.nav-logo{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.08em;color:var(--bone);text-decoration:none}
-.nav-logo span{color:var(--fire)}
-.container{max-width:760px;margin:0 auto;padding:120px 48px 80px}
-h1{font-family:'Anton',sans-serif;font-size:clamp(36px,5vw,56px);letter-spacing:.03em;color:var(--bone);line-height:.95;margin-bottom:12px}
-.subtitle{font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--line)}
-h2{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--bone);margin:36px 0 12px}
-p{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:16px}
-a{color:var(--fire);text-decoration:none}
-ul{margin:0 0 16px 20px}
-li{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:6px}
-.back{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:40px;transition:color .2s}
-.back:hover{color:var(--bone)}
-.alert{background:var(--ash);border:1px solid var(--line);border-left:3px solid var(--fire);padding:24px;margin:24px 0}
-.alert p{margin:0;color:var(--bone);font-size:16px;line-height:1.6}
-.helpline{background:var(--ash);border:1px solid var(--line);padding:24px;margin:16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.helpline-name{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.04em;color:var(--bone)}
-.helpline-contact{font-size:14px;color:var(--fire);font-weight:500}
-@media(max-width:640px){nav{padding:0 20px}.container{padding:100px 20px 60px}.helpline{flex-direction:column;align-items:flex-start}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsible Gambling — GOLAZO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --fire: #FF3C00;
+      --fire-dim: #CC3000;
+      --ash: #1a1a1a;
+      --bone: #F5F0E8;
+      --muted: #6b6b6b;
+      --line: #2a2a2a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--bone);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    nav {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { font-family: 'Anton', sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; color: var(--bone); text-decoration: none; }
+    .nav-logo span { color: var(--fire); }
+    .nav-back { font-size: 0.85rem; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--fire); }
+    .hero { border-bottom: 1px solid var(--line); padding: 64px 40px 48px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -10%; right: -10%; bottom: 0;
+      background: linear-gradient(8deg, transparent 60%, rgba(255,60,0,0.04) 100%);
+      pointer-events: none;
+    }
+    .hero-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fire); border: 1px solid var(--fire); padding: 4px 12px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Anton', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: 0.04em; line-height: 1.05; text-transform: uppercase; margin-bottom: 16px; }
+    .hero-meta { color: var(--muted); font-size: 0.85rem; letter-spacing: 0.05em; }
+    .content { max-width: 760px; margin: 0 auto; padding: 60px 40px 80px; }
+    .section { margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+    .section:last-child { border-bottom: none; margin-bottom: 0; }
+    .section-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fire); margin-bottom: 12px; }
+    h2 { font-family: 'Anton', sans-serif; font-size: 1.5rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bone); margin-bottom: 16px; }
+    p { color: var(--bone); opacity: 0.85; margin-bottom: 14px; font-size: 0.97rem; }
+    p:last-child { margin-bottom: 0; }
+    ul { list-style: none; margin: 14px 0; padding: 0; }
+    ul li { padding: 6px 0 6px 20px; position: relative; color: var(--bone); opacity: 0.85; font-size: 0.97rem; }
+    ul li::before { content: '—'; position: absolute; left: 0; color: var(--fire); }
+    a { color: var(--fire); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .warning-block {
+      background: rgba(255,60,0,0.06);
+      border: 1px solid var(--fire-dim);
+      padding: 24px 28px;
+      margin: 20px 0;
+    }
+    .warning-block p { opacity: 1; }
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .help-card {
+      background: var(--ash);
+      border: 1px solid var(--line);
+      padding: 20px 22px;
+    }
+    .help-card .org { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fire); margin-bottom: 6px; }
+    .help-card .desc { font-size: 0.88rem; color: var(--muted); margin-bottom: 10px; }
+    .help-card a { font-size: 0.88rem; font-weight: 500; }
+
+    .quiz {
+      background: var(--ash);
+      border: 1px solid var(--line);
+      padding: 28px 32px;
+      margin-top: 20px;
+    }
+    .quiz p { font-weight: 500; margin-bottom: 16px; opacity: 1; }
+    .quiz ul li { opacity: 1; margin-bottom: 4px; }
+
+    .contact-block { background: var(--ash); border: 1px solid var(--line); padding: 28px 32px; margin-top: 20px; }
+    .contact-block p { margin-bottom: 8px; }
+    .contact-block strong { color: var(--bone); font-weight: 700; }
+
+    footer { border-top: 1px solid var(--line); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-legal { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-legal a { font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+    .footer-legal a:hover { color: var(--fire); }
+    .footer-badge { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); border: 1px solid var(--line); padding: 4px 10px; }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 48px 20px 36px; }
+      .content { padding: 40px 20px 60px; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+      .help-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-<nav><a href="/" class="nav-logo">GOL<span>A</span>ZO</a></nav>
-<div class="container">
-  <a href="/" class="back">← Înapoi la GOLAZO</a>
-  <h1>JOC<br>RESPONSABIL</h1>
-  <p class="subtitle">GOLAZO se angajează pentru un mediu de divertisment sigur</p>
 
-  <div class="alert">
-    <p>🛑 <strong>Dacă simți că pariurile îți afectează viața, caută ajutor imediat.</strong> Există resurse gratuite disponibile 24/7.</p>
+  <nav>
+    <a href="/" class="nav-logo">GOL<span>AZ</span>O</a>
+    <a href="/" class="nav-back">← Back to GOLAZO</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-tag">Safety</div>
+    <h1>Responsible Gambling</h1>
+    <p class="hero-meta">GOLAZO takes problem gambling seriously. Read this if you or someone you know needs support.</p>
   </div>
 
-  <h2>GOLAZO ȘI JOCUL RESPONSABIL</h2>
-  <p>GOLAZO este o platformă de predicții pentru <strong>divertisment</strong>. Nu oferim servicii de pariuri. Linkurile noastre afiliate duc către platforme de pariuri licențiate, unde utilizatorii decid în mod independent dacă pariază sau nu.</p>
-  <p>Ne angajăm să promovăm un mediu sigur și să informăm utilizatorii despre riscurile asociate jocurilor de noroc.</p>
+  <div class="content">
 
-  <h2>SEMNE ALE PROBLEMELOR CU JOCURILE DE NOROC</h2>
-  <ul>
-    <li>Pariezi mai mult decât îți permiți să pierzi</li>
-    <li>Pariezi pentru a recupera pierderi anterioare</li>
-    <li>Jocul interferează cu munca, familia sau relațiile</li>
-    <li>Minți despre cât pariezi</li>
-    <li>Te gândești obsesiv la pariuri</li>
-    <li>Împrumuți bani pentru a paria</li>
-  </ul>
-
-  <h2>SFATURI PENTRU UN JOC RESPONSABIL</h2>
-  <ul>
-    <li>Stabilește un buget fix și respectă-l</li>
-    <li>Nu paria bani pe care nu îți permiți să îi pierzi</li>
-    <li>Privește pariurile ca divertisment, nu ca sursă de venit</li>
-    <li>Ia pauze regulate</li>
-    <li>Nu paria sub influența alcoolului sau stresului</li>
-    <li>Folosește instrumentele de auto-excludere oferite de platforme</li>
-  </ul>
-
-  <h2>RESURSE DE AJUTOR — ROMÂNIA</h2>
-
-  <div class="helpline">
-    <div>
-      <div class="helpline-name">Jucători Anonimi România</div>
-      <p style="font-size:13px;color:var(--muted);margin:4px 0 0;">Grupuri de suport pentru dependența de jocuri de noroc</p>
+    <div class="section">
+      <div class="section-num">01</div>
+      <h2>Our Commitment</h2>
+      <p>GOLAZO is a <strong>free-to-play prediction platform</strong>. We do not accept bets directly. However, we link to licensed betting operators and take our responsibility seriously.</p>
+      <div class="warning-block">
+        <p>⚠️ <strong>Gambling is for adults only (18+).</strong> It should be entertainment, not a source of income. Never gamble with money you cannot afford to lose.</p>
+      </div>
+      <p>If you choose to bet, we urge you to do so within your means, with full awareness of the risks involved.</p>
     </div>
-    <div class="helpline-contact"><a href="https://www.jaromania.org" target="_blank">jaromania.org</a></div>
-  </div>
 
-  <div class="helpline">
-    <div>
-      <div class="helpline-name">GamCare</div>
-      <p style="font-size:13px;color:var(--muted);margin:4px 0 0;">Consiliere și suport internațional</p>
+    <div class="section">
+      <div class="section-num">02</div>
+      <h2>Know the Signs</h2>
+      <p>Problem gambling can affect anyone. Ask yourself honestly:</p>
+      <div class="quiz">
+        <p>If you answer YES to 2 or more of these, consider seeking help:</p>
+        <ul>
+          <li>Do you spend more than you intended to bet?</li>
+          <li>Do you chase losses by betting more?</li>
+          <li>Have you borrowed money to gamble?</li>
+          <li>Does gambling affect your relationships or work?</li>
+          <li>Do you feel anxious or irritable when not gambling?</li>
+          <li>Have you tried to stop gambling but couldn't?</li>
+        </ul>
+      </div>
     </div>
-    <div class="helpline-contact"><a href="https://www.gamcare.org.uk" target="_blank">gamcare.org.uk</a></div>
-  </div>
 
-  <div class="helpline">
-    <div>
-      <div class="helpline-name">GambleAware</div>
-      <p style="font-size:13px;color:var(--muted);margin:4px 0 0;">Informații și resurse despre jocul responsabil</p>
+    <div class="section">
+      <div class="section-num">03</div>
+      <h2>Safer Gambling Tips</h2>
+      <ul>
+        <li>Set a strict budget before you start — and stick to it</li>
+        <li>Never gamble to recover losses</li>
+        <li>Set time limits on your gambling sessions</li>
+        <li>Use deposit limits offered by licensed operators</li>
+        <li>Take regular breaks during sessions</li>
+        <li>Don't gamble when emotional, stressed, or under the influence</li>
+        <li>Treat gambling as entertainment, not investment</li>
+      </ul>
     </div>
-    <div class="helpline-contact"><a href="https://www.gambleaware.org" target="_blank">gambleaware.org</a></div>
-  </div>
 
-  <div class="helpline">
-    <div>
-      <div class="helpline-name">Betano — Auto-excludere</div>
-      <p style="font-size:13px;color:var(--muted);margin:4px 0 0;">Setează limite sau exclude-te de pe platformă</p>
+    <div class="section">
+      <div class="section-num">04</div>
+      <h2>Self-Exclusion</h2>
+      <p>If you feel your gambling is out of control, you can self-exclude from licensed operators. Self-exclusion prevents you from accessing gambling sites for a set period.</p>
+      <ul>
+        <li><strong>Romania</strong> — Contact ONJN: <a href="https://www.onjn.gov.ro" target="_blank" rel="noopener">onjn.gov.ro</a></li>
+        <li><strong>UK</strong> — GamStop: <a href="https://www.gamstop.co.uk" target="_blank" rel="noopener">gamstop.co.uk</a></li>
+        <li><strong>EU</strong> — Contact your national gambling regulator</li>
+      </ul>
+      <p>All licensed operators are required to honour self-exclusion requests.</p>
     </div>
-    <div class="helpline-contact"><a href="https://www.betano.ro/responsible-gaming/" target="_blank">betano.ro/responsible-gaming</a></div>
+
+    <div class="section">
+      <div class="section-num">05</div>
+      <h2>Support Organisations</h2>
+      <div class="help-grid">
+        <div class="help-card">
+          <div class="org">GamCare (UK)</div>
+          <div class="desc">Free counselling and support for gambling problems.</div>
+          <a href="https://www.gamcare.org.uk" target="_blank" rel="noopener">gamcare.org.uk</a>
+        </div>
+        <div class="help-card">
+          <div class="org">Gamblers Anonymous</div>
+          <div class="desc">International peer support network.</div>
+          <a href="https://www.gamblersanonymous.org" target="_blank" rel="noopener">gamblersanonymous.org</a>
+        </div>
+        <div class="help-card">
+          <div class="org">BeGambleAware</div>
+          <div class="desc">Resources, tools and treatment referrals.</div>
+          <a href="https://www.begambleaware.org" target="_blank" rel="noopener">begambleaware.org</a>
+        </div>
+        <div class="help-card">
+          <div class="org">ONJN (România)</div>
+          <div class="desc">Autoritatea Națională pentru Jocuri de Noroc.</div>
+          <a href="https://www.onjn.gov.ro" target="_blank" rel="noopener">onjn.gov.ro</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-num">06</div>
+      <h2>Contact GOLAZO</h2>
+      <p>If you have concerns about responsible gambling content on our platform, or would like us to add additional resources, please contact us:</p>
+      <div class="contact-block">
+        <p><strong>GOLAZO Responsible Gambling</strong></p>
+        <p>Email: <a href="mailto:contactgolazo777@gmail.com">contactgolazo777@gmail.com</a></p>
+        <p>We take all concerns seriously and respond within 48 hours.</p>
+      </div>
+    </div>
+
   </div>
 
-  <h2>PROTECȚIA MINORILOR</h2>
-  <p>GOLAZO este o platformă dedicată exclusiv persoanelor cu vârsta de <strong>minimum 18 ani</strong>. Nu colectăm date de la minori în mod intenționat. Dacă ești părinte și crezi că un minor a accesat platforma, contactează-ne la <a href="mailto:privacy@golazo.app">privacy@golazo.app</a>.</p>
-  <p>Recomandăm folosirea de software de control parental pentru a restricționa accesul minorilor la conținut de gambling.</p>
+  <footer>
+    <div class="footer-legal">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+      <a href="/cookies">Cookie Policy</a>
+      <a href="/responsible">Responsible Gambling</a>
+    </div>
+    <div class="footer-badge">18+ | PLAY RESPONSIBLY</div>
+  </footer>
 
-  <h2>CONTACT</h2>
-  <p>Pentru orice problemă legată de jocul responsabil: <a href="mailto:responsible@golazo.app">responsible@golazo.app</a></p>
-</div>
 </body>
 </html>
-
