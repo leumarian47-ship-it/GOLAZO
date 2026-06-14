@@ -1,15 +1,15 @@
 {
   "rewrites": [
-    { "source": "/privacy", "destination": "/Privacy/index.html" },
-    { "source": "/terms", "destination": "/Terms/index.html" },
+    { "source": "/privacy",     "destination": "/Privacy/index.html" },
+    { "source": "/terms",       "destination": "/Terms/index.html" },
     { "source": "/responsible", "destination": "/Responsible/index.html" },
-    { "source": "/cookies", "destination": "/Cookies/index.html" },
-    { "source": "/register", "destination": "/Register/index.html" },
-    { "source": "/predict", "destination": "/index.html" },
+    { "source": "/cookies",     "destination": "/Cookies/index.html" },
+    { "source": "/register",    "destination": "/Register/index.html" },
+    { "source": "/predict",     "destination": "/Predict/index.html" },
     { "source": "/leaderboard", "destination": "/index.html" },
-    { "source": "/war-room", "destination": "/index.html" },
-    { "source": "/teams", "destination": "/index.html" },
-    { "source": "/business", "destination": "/index.html" },
-    { "source": "/contact", "destination": "/index.html" }
+    { "source": "/war-room",    "destination": "/index.html" },
+    { "source": "/teams",       "destination": "/index.html" },
+    { "source": "/business",    "destination": "/index.html" },
+    { "source": "/contact",     "destination": "/index.html" }
   ]
 }
