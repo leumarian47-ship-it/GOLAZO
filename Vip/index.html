@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d">
+<title>VIP Telegram — GOLAZO World Cup 2026</title>
+<meta name="description" content="Intră în grupul VIP GOLAZO. Predicții zilnice bazate pe statistici reale, tips exclusive și recap-uri post-meci. 69 RON/săptămână.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:    #0d0d0d;
+  --fire:     #FF3C00;
+  --fire-dim: #CC3000;
+  --ash:      #1a1a1a;
+  --bone:     #F5F0E8;
+  --muted:    #6b6b6b;
+  --line:     #2a2a2a;
+  --green:    #1a6644;
+  --nav-h:    64px;
+  --strip-h:  52px;
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--black);
+  color: var(--bone);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--nav-h);
+  padding-bottom: var(--strip-h);
+}
+
+/* FILM GRAIN */
+#grain {
+  position: fixed;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.028;
+  will-change: transform;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  padding: 0 48px;
+  height: var(--nav-h);
+  background: var(--black);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  letter-spacing: .08em;
+  color: var(--bone);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--fire); }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--bone); }
+.nav-links a.active { color: var(--fire); }
+.nav-cta {
+  background: var(--fire);
+  color: var(--black) !important;
+  padding: 8px 20px;
+  font-weight: 700 !important;
+  transition: background .2s !important;
+}
+.nav-cta:hover { background: var(--fire-dim) !important; }
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--bone);
+  transition: transform .3s, opacity .3s;
+}
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: var(--ash);
+  border-bottom: 1px solid var(--line);
+  z-index: 899;
+  padding: 24px 24px 32px;
+  flex-direction: column;
+  gap: 0;
+}
+.nav-mobile.open { display: flex; }
+.nav-mobile a {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  transition: color .2s;
+}
+.nav-mobile a:hover, .nav-mobile a.active { color: var(--fire); }
+.nav-mobile a:last-child { border-bottom: none; }
+
+/* HERO */
+.hero {
+  position: relative;
+  padding: 100px 48px 80px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: -40px;
+  width: 600px; height: 400px;
+  background: var(--fire);
+  opacity: .04;
+  transform: skewY(-8deg);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--fire);
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 28px;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--fire);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .3; }
+}
+.hero h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: .95;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero h1 span { color: var(--fire); }
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+.hero-sub strong { color: var(--bone); font-weight: 500; }
+
+/* MEMBERS BADGE */
+.members-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--ash);
+  border: 1px solid var(--line);
+  padding: 12px 20px;
+  margin-bottom: 40px;
+}
+.members-dot {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+.members-text {
+  font-size: 13px;
+  color: var(--muted);
+}
+.members-text strong {
+  color: var(--bone);
+  font-weight: 700;
+}
+
+/* PRICING */
+.pricing-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--line);
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  max-width: 900px;
+}
+.pricing-card {
+  padding: 40px 32px;
+  border-right: 1px solid var(--line);
+  position: relative;
+}
+.pricing-card:last-child { border-right: none; }
+.pricing-card.featured {
+  background: var(--ash);
+}
+.pricing-card.featured::before {
+  content: 'CEL MAI POPULAR';
+  position: absolute;
+  top: -1px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--fire);
+  color: var(--black);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 4px 12px;
+}
+.pricing-period {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.pricing-price {
+  font-family: 'Anton', sans-serif;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--bone);
+  margin-bottom: 4px;
+}
+.pricing-price span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.pricing-desc {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+.pricing-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.pricing-features li {
+  font-size: 13px;
+  color: var(--bone);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pricing-features li::before {
+  content: '✓';
+  color: var(--fire);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.btn-vip {
+  display: block;
+  width: 100%;
+  background: var(--fire);
+  color: var(--black);
+  border: none;
+  padding: 14px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn-vip:hover { background: var(--fire-dim); }
+.btn-vip-outline {
+  display: block;
+  width: 100%;
+  background: none;
+  color: var(--bone);
+  border: 1px solid var(--line);
+  padding: 14px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.btn-vip-outline:hover { border-color: var(--bone); }
+
+/* HOW IT WORKS */
+.how-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--line);
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  margin-top: 48px;
+}
+.step {
+  padding: 32px 28px;
+  border-right: 1px solid var(--line);
+}
+.step:last-child { border-right: none; }
+.step-num {
+  font-family: 'Anton', sans-serif;
+  font-size: 48px;
+  color: var(--fire);
+  opacity: .3;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--bone);
+  margin-bottom: 8px;
+  letter-spacing: .02em;
+}
+.step-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* BENEFITS */
+.benefits-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--line);
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  margin-top: 48px;
+}
+.benefit {
+  padding: 40px 32px;
+  border-right: 1px solid var(--line);
+}
+.benefit:last-child { border-right: none; }
+.benefit-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.benefit-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.benefit-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* PAYMENT INFO */
+.payment-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--line);
+  background: var(--ash);
+}
+.payment-box {
+  max-width: 600px;
+  border: 1px solid var(--line);
+  padding: 40px;
+}
+.payment-box h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.payment-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.payment-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.payment-step-num {
+  width: 28px;
+  height: 28px;
+  background: var(--fire);
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.payment-step-text {
+  font-size: 14px;
+  color: var(--bone);
+  line-height: 1.6;
+  padding-top: 4px;
+}
+.payment-step-text a {
+  color: var(--fire);
+  text-decoration: none;
+  font-weight: 500;
+}
+.payment-step-text a:hover { text-decoration: underline; }
+.payment-note {
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  line-height: 1.6;
+}
+
+/* CTA FINAL */
+.cta-section {
+  padding: 100px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%;
+  transform: translateX(-50%) skewY(-8deg);
+  width: 800px; height: 400px;
+  background: var(--fire);
+  opacity: .03;
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.cta-section h2 span { color: var(--fire); }
+.cta-section p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 40px;
+}
+.cta-btn-big {
+  display: inline-block;
+  background: var(--fire);
+  color: var(--black);
+  padding: 18px 48px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .2s;
+}
+.cta-btn-big:hover { background: var(--fire-dim); }
+
+/* FOOTER STRIP */
+.footer-strip {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--strip-h);
+  background: var(--ash);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 800;
+  padding: 0 24px;
+}
+.footer-strip a {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .04em;
+  transition: color .2s;
+}
+.footer-strip a:hover { color: var(--bone); }
+.footer-strip span { color: var(--line); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .hero { padding: 60px 24px 60px; }
+  .pricing-section, .how-section, .benefits-section, .payment-section, .cta-section { padding: 60px 24px; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-card { border-right: none; border-bottom: 1px solid var(--line); }
+  .pricing-card:last-child { border-bottom: none; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .step:nth-child(2) { border-right: none; }
+  .step:nth-child(3) { border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+  .step:nth-child(4) { border-right: none; border-top: 1px solid var(--line); }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .benefit { border-right: none; border-bottom: 1px solid var(--line); }
+  .benefit:last-child { border-bottom: none; }
+  .payment-box { padding: 28px 20px; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 42px; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .step { border-right: none !important; border-top: 1px solid var(--line); }
+  .step:first-child { border-top: none; }
+  .pricing-price { font-size: 44px; }
+}
+</style>
+</head>
+<body>
+
+<!-- FILM GRAIN -->
+<canvas id="grain"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">GOL<span>AZO</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Acasă</a></li>
+    <li><a href="/predict">Predicții</a></li>
+    <li><a href="/newsletter">Newsletter</a></li>
+    <li><a href="/vip" class="active">VIP</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="/">Acasă</a>
+  <a href="/predict">Predicții</a>
+  <a href="/newsletter">Newsletter</a>
+  <a href="/vip" class="active">VIP Telegram</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Grup privat activ</div>
+  <h1>GOLAZO<br><span>VIP</span></h1>
+  <p class="hero-sub">
+    Predicții zilnice bazate pe <strong>statistici reale</strong>, tips exclusive înainte de fiecare meci și recap-uri post-meci. Fără zgomot. Fără spam.
+  </p>
+  <div class="members-badge">
+    <div class="members-dot"></div>
+    <span class="members-text"><strong>1 membri activi</strong> în grup acum</span>
+  </div>
+  <br>
+  <a href="#pricing" class="btn-vip" style="display:inline-block; width:auto; padding: 16px 40px;">VREAU ACCES VIP →</a>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-label">Prețuri</div>
+  <div class="section-title">ALEGE PLANUL TĂU</div>
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-period">Săptămânal</div>
+      <div class="pricing-price">69 <span>RON</span></div>
+      <div class="pricing-desc">Acces 7 zile. Ideal dacă vrei să testezi.</div>
+      <ul class="pricing-features">
+        <li>Predicții zilnice</li>
+        <li>Tips pre-meci</li>
+        <li>Recap post-meci</li>
+        <li>Statistici echipe</li>
+      </ul>
+      <a href="#cum-intri" class="btn-vip-outline">ÎNCEPE →</a>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-period">Lunar</div>
+      <div class="pricing-price">199 <span>RON</span></div>
+      <div class="pricing-desc">Acces 30 zile. Cea mai bună valoare.</div>
+      <ul class="pricing-features">
+        <li>Predicții zilnice</li>
+        <li>Tips pre-meci</li>
+        <li>Recap post-meci</li>
+        <li>Statistici echipe</li>
+        <li>Analize head-to-head</li>
+      </ul>
+      <a href="#cum-intri" class="btn-vip">INTRU ÎN VIP →</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-period">Tot turneul</div>
+      <div class="pricing-price">300 <span>RON</span></div>
+      <div class="pricing-desc">Acces până pe 19 Iulie 2026. Toate meciurile.</div>
+      <ul class="pricing-features">
+        <li>Predicții zilnice</li>
+        <li>Tips pre-meci</li>
+        <li>Recap post-meci</li>
+        <li>Statistici echipe</li>
+        <li>Analize head-to-head</li>
+        <li>Acces prioritar grup</li>
+      </ul>
+      <a href="#cum-intri" class="btn-vip-outline">ÎNCEPE →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="cum-intri">
+  <div class="section-label">Proces</div>
+  <div class="section-title">CUM INTRI ÎN GRUP</div>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Alegi planul</div>
+      <div class="step-desc">Săptămânal, lunar sau tot turneul — tu decizi cât vrei să testezi.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Plătești pe Revolut</div>
+      <div class="step-desc">Trimiți suma pe Revolut. Rapid, simplu, sigur. Link direct mai jos.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Ne trimiți confirmarea</div>
+      <div class="step-desc">Ne scrii pe Telegram cu dovada plății și perioada aleasă.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Acces imediat</div>
+      <div class="step-desc">Te adăugăm în grupul privat în maxim 1 oră. De acum ești VIP.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="payment-section">
+  <div class="section-label">Plată</div>
+  <div class="payment-box">
+    <h3>PASII EXACTI</h3>
+    <div class="payment-steps">
+      <div class="payment-step">
+        <div class="payment-step-num">1</div>
+        <div class="payment-step-text">
+          Trimite suma pe Revolut: <a href="https://revolut.me/m_leu19" target="_blank" rel="noopener">revolut.me/m_leu19</a><br>
+          <small style="color:var(--muted);">69 RON / 199 RON / 300 RON — în funcție de planul ales</small>
+        </div>
+      </div>
+      <div class="payment-step">
+        <div class="payment-step-num">2</div>
+        <div class="payment-step-text">
+          În mesajul Revolut scrie: <strong>"VIP Săptămânal"</strong>, <strong>"VIP Lunar"</strong> sau <strong>"VIP Turneu"</strong>
+        </div>
+      </div>
+      <div class="payment-step">
+        <div class="payment-step-num">3</div>
+        <div class="payment-step-text">
+          Contactează-ne pe Telegram cu screenshot-ul plății: <a href="https://t.me/LeuM47" target="_blank" rel="noopener">t.me/golazo_vip</a>
+        </div>
+      </div>
+      <div class="payment-step">
+        <div class="payment-step-num">4</div>
+        <div class="payment-step-text">
+          Te adăugăm în grupul privat în maxim <strong>1 oră</strong>.
+        </div>
+      </div>
+    </div>
+    <div class="payment-note">
+      ⚠ Predicțiile GOLAZO sunt bazate pe statistici istorice și nu garantează rezultate. Joacă responsabil. 18+
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-section">
+  <div class="section-label">Ce primești</div>
+  <div class="section-title">CE CONȚINE GRUPUL</div>
+  <div class="benefits-grid">
+    <div class="benefit">
+      <div class="benefit-icon">📊</div>
+      <div class="benefit-title">Statistici Reale</div>
+      <div class="benefit-desc">Analize bazate pe date istorice 30+ ani. Win rate, head-to-head, formă recentă — nu opinii, ci numere.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">⚡</div>
+      <div class="benefit-title">Tips Zilnice</div>
+      <div class="benefit-desc">Postăm înainte de fiecare meci important. Ești mereu cu un pas înaintea celorlalți.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🎯</div>
+      <div class="benefit-title">Zero Spam</div>
+      <div class="benefit-desc">Grup privat, doar conținut relevant. Fără reclame, fără zgomot. Doar ce contează.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <h2>GATA SĂ INTRI<br><span>ÎN JOC?</span></h2>
+  <p>Grupul e privat. Locurile sunt limitate.</p>
+  <a href="https://revolut.me/m_leu19" target="_blank" rel="noopener" class="cta-btn-big">INTRU ÎN VIP → 69 RON/SĂPT</a>
+</section>
+
+<!-- FOOTER STRIP -->
+<footer class="footer-strip">
+  <a href="/privacy">Privacy</a>
+  <span>|</span>
+  <a href="/terms">Terms</a>
+  <span>|</span>
+  <a href="/responsible">Joc Responsabil</a>
+  <span>|</span>
+  <span style="color:var(--muted); font-size:11px;">© 2026 GOLAZO. 18+</span>
+</footer>
+
+<script>
+// Film grain
+(function() {
+  var canvas = document.getElementById('grain');
+  var ctx = canvas.getContext('2d');
+  var w, h;
+  function resize() {
+    w = canvas.width = window.innerWidth * 4;
+    h = canvas.height = window.innerHeight * 4;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  function drawGrain() {
+    var imageData = ctx.createImageData(w, h);
+    var data = imageData.data;
+    for (var i = 0; i < data.length; i += 4) {
+      var v = Math.random() * 255 | 0;
+      data[i] = data[i+1] = data[i+2] = v;
+      data[i+3] = 255;
+    }
+    ctx.putImageData(imageData, 0, 0);
+    canvas.style.transform = 'translate(' + (Math.random()*4-2) + '%,' + (Math.random()*4-2) + '%)';
+  }
+  setInterval(drawGrain, 1000/20);
+})();
+
+// Hamburger
+var hamburger = document.getElementById('hamburger');
+var navMobile = document.getElementById('navMobile');
+hamburger.addEventListener('click', function() {
+  var open = navMobile.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+});
+
+// Smooth scroll pentru anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
