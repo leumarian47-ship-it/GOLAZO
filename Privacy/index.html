@@ -1,95 +1,324 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Politică de Confidențialitate — GOLAZO</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--black:#0d0d0d;--fire:#FF3C00;--ash:#1a1a1a;--bone:#F5F0E8;--muted:#6b6b6b;--line:#2a2a2a}
-body{background:var(--black);color:var(--bone);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
-nav{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(13,13,13,.95);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 48px;z-index:100;backdrop-filter:blur(12px)}
-.nav-logo{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.08em;color:var(--bone);text-decoration:none}
-.nav-logo span{color:var(--fire)}
-.container{max-width:760px;margin:0 auto;padding:120px 48px 80px}
-h1{font-family:'Anton',sans-serif;font-size:clamp(36px,5vw,56px);letter-spacing:.03em;color:var(--bone);line-height:.95;margin-bottom:12px}
-.subtitle{font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--line)}
-h2{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--bone);margin:36px 0 12px}
-p{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:16px}
-a{color:var(--fire);text-decoration:none}
-ul{margin:0 0 16px 20px}
-li{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:6px}
-.back{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:40px;transition:color .2s}
-.back:hover{color:var(--bone)}
-@media(max-width:640px){nav{padding:0 20px}.container{padding:100px 20px 60px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — GOLAZO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --fire: #FF3C00;
+      --fire-dim: #CC3000;
+      --ash: #1a1a1a;
+      --bone: #F5F0E8;
+      --muted: #6b6b6b;
+      --line: #2a2a2a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--bone);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--bone);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--fire); }
+    .nav-back {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--fire); }
+
+    /* HERO */
+    .hero {
+      border-bottom: 1px solid var(--line);
+      padding: 64px 40px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -10%; right: -10%; bottom: 0;
+      background: linear-gradient(8deg, transparent 60%, rgba(255,60,0,0.04) 100%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fire);
+      border: 1px solid var(--fire);
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero-meta {
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
+    .section {
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--line);
+    }
+    .section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .section-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fire);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bone);
+      margin-bottom: 16px;
+    }
+    p {
+      color: var(--bone);
+      opacity: 0.85;
+      margin-bottom: 14px;
+      font-size: 0.97rem;
+    }
+    p:last-child { margin-bottom: 0; }
+    ul {
+      list-style: none;
+      margin: 14px 0;
+      padding: 0;
+    }
+    ul li {
+      padding: 6px 0 6px 20px;
+      position: relative;
+      color: var(--bone);
+      opacity: 0.85;
+      font-size: 0.97rem;
+    }
+    ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--fire);
+    }
+    a { color: var(--fire); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .contact-block {
+      background: var(--ash);
+      border: 1px solid var(--line);
+      padding: 28px 32px;
+      margin-top: 20px;
+    }
+    .contact-block p { margin-bottom: 8px; }
+    .contact-block strong {
+      color: var(--bone);
+      font-weight: 700;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-legal a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .footer-legal a:hover { color: var(--fire); }
+    .footer-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 4px 10px;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 48px 20px 36px; }
+      .content { padding: 40px 20px 60px; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-<nav><a href="/" class="nav-logo">GOL<span>A</span>ZO</a></nav>
-<div class="container">
-  <a href="/" class="back">← Înapoi la GOLAZO</a>
-  <h1>POLITICĂ DE<br>CONFIDENȚIALITATE</h1>
-  <p class="subtitle">Ultima actualizare: 14 Iunie 2026</p>
 
-  <h2>1. CINE SUNTEM</h2>
-  <p>GOLAZO este o platformă digitală de predicții sportive pentru divertisment, accesibilă la adresa golazo-hazel.vercel.app. Nu suntem un operator de jocuri de noroc și nu oferim servicii de pariuri cu bani reali.</p>
+  <nav>
+    <a href="/" class="nav-logo">GOL<span>AZ</span>O</a>
+    <a href="/" class="nav-back">← Back to GOLAZO</a>
+  </nav>
 
-  <h2>2. DATE COLECTATE</h2>
-  <p>Colectăm următoarele date când folosești platforma:</p>
-  <ul>
-    <li>Adresă de email (pentru cont și newsletter)</li>
-    <li>Prenume (opțional, pentru personalizare)</li>
-    <li>Date de utilizare (pagini vizitate, predicții introduse)</li>
-    <li>Date tehnice (adresă IP, tip browser, dispozitiv)</li>
-  </ul>
+  <div class="hero">
+    <div class="hero-tag">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="hero-meta">Last updated: June 2025 &nbsp;·&nbsp; Effective: June 14, 2025</p>
+  </div>
 
-  <h2>3. CUM FOLOSIM DATELE</h2>
-  <ul>
-    <li>Crearea și gestionarea contului tău</li>
-    <li>Trimiterea newsletterului zilnic (cu consimțământul tău explicit)</li>
-    <li>Îmbunătățirea platformei și a experienței de utilizare</li>
-    <li>Comunicări legate de serviciu (actualizări, securitate)</li>
-  </ul>
+  <div class="content">
 
-  <h2>4. TEMEI LEGAL (GDPR)</h2>
-  <p>Prelucrăm datele tale în baza:</p>
-  <ul>
-    <li><strong>Consimțământ</strong> — pentru newsletter și cookie-uri opționale</li>
-    <li><strong>Contract</strong> — pentru furnizarea serviciului platformei</li>
-    <li><strong>Interes legitim</strong> — pentru securitate și prevenirea fraudelor</li>
-  </ul>
+    <div class="section">
+      <div class="section-num">01</div>
+      <h2>Who We Are</h2>
+      <p>GOLAZO ("we", "our", "us") is a digital platform providing football statistics, World Cup 2026 predictions, and sports entertainment content. We are committed to protecting your personal data and your right to privacy.</p>
+      <p>For questions about this policy, contact us at: <a href="mailto:contactgolazo777@gmail.com">contactgolazo777@gmail.com</a></p>
+    </div>
 
-  <h2>5. LINKURI AFILIATE</h2>
-  <p>GOLAZO conține linkuri către platforme de pariuri partenere (Betano, Superbet, Bet365). Dacă accesezi aceste linkuri și te înregistrezi, putem primi un comision. Aceste platforme au propriile politici de confidențialitate. Te încurajăm să le consulți înainte de înregistrare.</p>
-  <p><strong>18+ | Joacă responsabil | Pariurile pot crea dependență</strong></p>
+    <div class="section">
+      <div class="section-num">02</div>
+      <h2>Data We Collect</h2>
+      <p>We collect information you provide directly to us and data generated through your use of GOLAZO:</p>
+      <ul>
+        <li><strong>Account data</strong> — email address, username, country</li>
+        <li><strong>Prediction data</strong> — your match predictions and scores</li>
+        <li><strong>Usage data</strong> — pages visited, features used, session duration</li>
+        <li><strong>Device data</strong> — browser type, operating system, IP address</li>
+        <li><strong>Newsletter data</strong> — email address and subscription preferences</li>
+        <li><strong>Cookie data</strong> — see our <a href="/cookies">Cookie Policy</a></li>
+      </ul>
+    </div>
 
-  <h2>6. PĂSTRAREA DATELOR</h2>
-  <p>Păstrăm datele tale atât timp cât contul este activ. La ștergerea contului, datele personale sunt eliminate în 30 de zile, cu excepția datelor necesare obligațiilor legale.</p>
+    <div class="section">
+      <div class="section-num">03</div>
+      <h2>How We Use Your Data</h2>
+      <p>Your data is used exclusively to operate and improve GOLAZO:</p>
+      <ul>
+        <li>Providing and personalising the prediction platform</li>
+        <li>Sending match alerts and newsletter emails (with your consent)</li>
+        <li>Calculating leaderboards and rankings</li>
+        <li>Improving platform performance and user experience</li>
+        <li>Complying with legal obligations</li>
+      </ul>
+      <p>We do <strong>not</strong> sell your personal data to third parties.</p>
+    </div>
 
-  <h2>7. DREPTURILE TALE (GDPR)</h2>
-  <ul>
-    <li>Dreptul de acces la datele tale</li>
-    <li>Dreptul la rectificare</li>
-    <li>Dreptul la ștergere ("dreptul de a fi uitat")</li>
-    <li>Dreptul la portabilitate</li>
-    <li>Dreptul de opoziție la prelucrare</li>
-    <li>Dreptul de a retrage consimțământul oricând</li>
-  </ul>
-  <p>Pentru exercitarea acestor drepturi, contactează-ne la: <a href="mailto:privacy@golazo.app">privacy@golazo.app</a></p>
+    <div class="section">
+      <div class="section-num">04</div>
+      <h2>Affiliate Links & Third Parties</h2>
+      <p>GOLAZO contains affiliate links to licensed betting operators (Betano, Superbet, Bet365). Clicking these links may result in us receiving a commission at no cost to you.</p>
+      <p>These operators have their own privacy policies. We are not responsible for their data practices. All affiliate partners are licensed and regulated in their respective jurisdictions.</p>
+      <p><strong>18+ only.</strong> Gambling involves financial risk. Please gamble responsibly.</p>
+    </div>
 
-  <h2>8. COOKIE-URI</h2>
-  <p>Folosim cookie-uri esențiale pentru funcționarea platformei și cookie-uri analitice (cu consimțământul tău). Vezi <a href="/cookies">Politica de Cookie-uri</a> pentru detalii complete.</p>
+    <div class="section">
+      <div class="section-num">05</div>
+      <h2>Data Storage & Security</h2>
+      <p>Your data is stored securely using Supabase (PostgreSQL), hosted on servers within the EU. We implement industry-standard security measures including encryption in transit (TLS) and at rest.</p>
+      <p>We retain your data for as long as your account is active or as required by law. You may request deletion at any time.</p>
+    </div>
 
-  <h2>9. SECURITATE</h2>
-  <p>Datele sunt stocate securizat prin Supabase (infrastructură cu certificare SOC 2). Folosim conexiuni HTTPS/TLS pentru toate transferurile de date.</p>
+    <div class="section">
+      <div class="section-num">06</div>
+      <h2>Your Rights (GDPR)</h2>
+      <p>If you are located in the European Economic Area, you have the following rights:</p>
+      <ul>
+        <li><strong>Access</strong> — request a copy of your personal data</li>
+        <li><strong>Rectification</strong> — correct inaccurate data</li>
+        <li><strong>Erasure</strong> — request deletion of your data</li>
+        <li><strong>Portability</strong> — receive your data in a structured format</li>
+        <li><strong>Objection</strong> — object to processing based on legitimate interests</li>
+        <li><strong>Withdraw consent</strong> — at any time, for consent-based processing</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="mailto:contactgolazo777@gmail.com">contactgolazo777@gmail.com</a>. We will respond within 30 days.</p>
+    </div>
 
-  <h2>10. CONTACT</h2>
-  <p>Pentru orice întrebare legată de confidențialitate:<br>
-  Email: <a href="mailto:privacy@golazo.app">privacy@golazo.app</a></p>
-  <p>Ai dreptul să depui o plângere la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP): <a href="https://www.dataprotection.ro" target="_blank">dataprotection.ro</a></p>
-</div>
+    <div class="section">
+      <div class="section-num">07</div>
+      <h2>Cookies</h2>
+      <p>We use cookies and similar technologies to operate the platform, remember your preferences, and analyse usage. For full details, see our <a href="/cookies">Cookie Policy</a>.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-num">08</div>
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will notify registered users via email of material changes. The "Last updated" date at the top of this page will always reflect the most recent version.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-num">09</div>
+      <h2>Contact</h2>
+      <div class="contact-block">
+        <p><strong>GOLAZO Privacy</strong></p>
+        <p>Email: <a href="mailto:contactgolazo777@gmail.com">contactgolazo777@gmail.com</a></p>
+        <p>Response time: within 30 days</p>
+        <p style="margin-top:12px; opacity:0.6; font-size:0.85rem;">For urgent data protection matters, you may also contact your local Data Protection Authority.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-legal">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+      <a href="/cookies">Cookie Policy</a>
+      <a href="/responsible">Responsible Gambling</a>
+    </div>
+    <div class="footer-badge">18+ | PLAY RESPONSIBLY</div>
+  </footer>
+
 </body>
 </html>
-
