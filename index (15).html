@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d">
+<title>Predicții — GOLAZO World Cup 2026</title>
+<meta name="description" content="Prezice toate cele 104 meciuri ale Cupei Mondiale 2026. Fără cont, fără login. Câștigă puncte, urcă în clasament.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   RESET + ROOT
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:    #0d0d0d;
+  --fire:     #FF3C00;
+  --fire-dim: #CC3000;
+  --ash:      #1a1a1a;
+  --bone:     #F5F0E8;
+  --muted:    #6b6b6b;
+  --line:     #2a2a2a;
+  --green:    #1a6644;
+  --nav-h:    64px;
+  --strip-h:  52px;
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--black);
+  color: var(--bone);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--nav-h);
+  padding-bottom: var(--strip-h);
+}
+
+/* ============================================================
+   FILM GRAIN
+   ============================================================ */
+#grain {
+  position: fixed;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.028;
+  will-change: transform;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  padding: 0 48px;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(13,13,13,.95);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px;
+  letter-spacing: .08em;
+  color: var(--bone);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--fire); }
+.nav-links {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--bone); }
+.nav-links a.active { color: var(--fire); }
+.nav-cta {
+  background: var(--fire);
+  color: var(--black) !important;
+  padding: 10px 22px;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .2s !important;
+}
+.nav-cta:hover { background: var(--fire-dim) !important; }
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-hamburger span {
+  width: 24px; height: 2px;
+  background: var(--bone);
+  display: block;
+  transition: transform .3s, opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+#mobileNav {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: var(--ash);
+  border-bottom: 1px solid var(--line);
+  z-index: 899;
+  padding: 24px 24px 32px;
+}
+#mobileNav.open { display: block; }
+#mobileNav ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+#mobileNav ul li { border-bottom: 1px solid var(--line); }
+#mobileNav ul li:first-child { border-top: 1px solid var(--line); }
+.mob-link {
+  display: block;
+  padding: 16px 0;
+  color: var(--bone);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+.mob-link:hover { color: var(--fire); }
+.mob-cta {
+  display: block;
+  margin-top: 24px;
+  background: var(--fire);
+  color: var(--black);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 16px;
+  text-align: center;
+}
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+.page-header {
+  padding: 64px 48px 48px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: 'PREDICT';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(80px, 14vw, 200px);
+  color: var(--line);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: .02em;
+}
+.page-header-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.page-header-copy .overline {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 12px;
+  display: block;
+}
+.page-header h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(40px, 6vw, 80px);
+  letter-spacing: .03em;
+  color: var(--bone);
+  line-height: .92;
+}
+
+/* Score summary */
+.score-summary {
+  display: flex;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+}
+.score-cell {
+  background: var(--ash);
+  padding: 16px 24px;
+  text-align: center;
+  min-width: 80px;
+}
+.score-cell-num {
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+  letter-spacing: .04em;
+  color: var(--bone);
+  display: block;
+  line-height: 1;
+}
+.score-cell-num.fire { color: var(--fire); }
+.score-cell-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   NICKNAME MODAL
+   ============================================================ */
+#nicknameOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,13,13,.92);
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+#nicknameOverlay.hidden { display: none; }
+.nickname-box {
+  background: var(--ash);
+  border: 1px solid var(--line);
+  padding: 40px;
+  max-width: 440px;
+  width: 100%;
+}
+.nickname-box h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: 32px;
+  letter-spacing: .04em;
+  color: var(--bone);
+  margin-bottom: 8px;
+}
+.nickname-box p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.nick-input {
+  width: 100%;
+  background: var(--black);
+  border: 1px solid var(--line);
+  color: var(--bone);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color .2s;
+  border-radius: 0;
+  -webkit-appearance: none;
+  margin-bottom: 12px;
+  display: block;
+}
+.nick-input:focus { border-color: var(--bone); }
+.nick-input::placeholder { color: var(--muted); }
+.nick-submit {
+  width: 100%;
+  background: var(--fire);
+  color: var(--black);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background .2s;
+  border-radius: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.nick-submit:hover { background: var(--fire-dim); }
+.nick-disclaimer {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ============================================================
+   TABS
+   ============================================================ */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  background: var(--black);
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 800;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 18px 24px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab-btn:hover { color: var(--bone); }
+.tab-btn.active { color: var(--fire); border-bottom-color: var(--fire); }
+
+/* ============================================================
+   TAB CONTENT
+   ============================================================ */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ============================================================
+   GROUP SECTION
+   ============================================================ */
+.groups-wrap {
+  padding: 48px;
+}
+.group-block {
+  margin-bottom: 56px;
+}
+.group-block:last-child { margin-bottom: 0; }
+.group-label {
+  font-family: 'Anton', sans-serif;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.group-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.group-name {
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+  letter-spacing: .06em;
+  color: var(--bone);
+  margin-right: 8px;
+}
+.matches-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+/* ============================================================
+   MATCH PREDICT CARD
+   ============================================================ */
+.match-predict-card {
+  background: var(--black);
+  padding: 20px;
+  position: relative;
+  transition: background .15s;
+}
+.match-predict-card:hover { background: var(--ash); }
+.match-predict-card.done { background: var(--ash); }
+.match-predict-card.done::after {
+  content: '✓';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  background: var(--fire);
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+}
+.mc-meta {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.mc-meta .status-pill {
+  padding: 2px 6px;
+  font-size: 9px;
+  font-weight: 700;
+}
+.mc-meta .status-pill.ft { background: var(--line); color: var(--muted); }
+.mc-meta .status-pill.upcoming { background: var(--fire); color: var(--black); }
+.mc-meta .status-pill.locked { background: var(--muted); color: var(--black); }
+
+.mc-teams {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.mc-team { flex: 1; }
+.mc-team.right { text-align: right; }
+.mc-flag { font-size: 22px; display: block; margin-bottom: 4px; line-height: 1; }
+.mc-name {
+  font-family: 'Anton', sans-serif;
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: var(--bone);
+}
+.mc-vs {
+  text-align: center;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+.mc-vs-text {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--muted);
+}
+
+/* Result display for finished matches */
+.mc-result {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  letter-spacing: .06em;
+  color: var(--bone);
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.mc-prediction-result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+}
+.mc-prediction-result.correct-exact { border-color: var(--fire); color: var(--fire); }
+.mc-prediction-result.correct-winner { border-color: var(--bone); color: var(--bone); }
+.mc-prediction-result.wrong { border-color: var(--line); color: var(--muted); }
+
+/* Score input */
+.mc-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.score-inp {
+  width: 44px;
+  height: 44px;
+  background: var(--black);
+  border: 1px solid var(--line);
+  color: var(--bone);
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  text-align: center;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  transition: border-color .2s;
+  -moz-appearance: textfield;
+  flex-shrink: 0;
+}
+.score-inp::-webkit-inner-spin-button,
+.score-inp::-webkit-outer-spin-button { -webkit-appearance: none; }
+.score-inp:focus { border-color: var(--fire); }
+.score-inp:disabled { opacity: .4; cursor: not-allowed; }
+.score-sep {
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.mc-predict-btn {
+  flex: 1;
+  background: var(--fire);
+  color: var(--black);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border: none;
+  padding: 12px 8px;
+  cursor: pointer;
+  transition: background .2s;
+  border-radius: 0;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+.mc-predict-btn:hover { background: var(--fire-dim); }
+.mc-predict-btn:disabled { background: var(--line); color: var(--muted); cursor: not-allowed; }
+.mc-predict-btn.saved {
+  background: var(--green);
+  color: var(--bone);
+}
+
+/* User prediction display */
+.mc-my-pred {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+.mc-my-pred strong { color: var(--bone); font-weight: 500; }
+
+/* ============================================================
+   KNOCKOUT BRACKET
+   ============================================================ */
+.knockout-wrap {
+  padding: 48px;
+}
+.knockout-phase {
+  margin-bottom: 48px;
+}
+.phase-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.phase-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.bracket-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.bracket-grid.r16 { grid-template-columns: repeat(4, 1fr); }
+.bracket-grid.qf  { grid-template-columns: repeat(4, 1fr); }
+.bracket-grid.sf  { grid-template-columns: repeat(2, 1fr); }
+.bracket-grid.f   { grid-template-columns: 1fr; }
+.bracket-grid.tp  { grid-template-columns: 1fr; }
+
+/* ============================================================
+   LEADERBOARD
+   ============================================================ */
+.lb-wrap {
+  padding: 48px;
+}
+.lb-table {
+  border: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.lb-table-head {
+  display: grid;
+  grid-template-columns: 48px 1fr 80px 80px 80px;
+  background: var(--ash);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 20px;
+}
+.lb-th {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.lb-table-row {
+  display: grid;
+  grid-template-columns: 48px 1fr 80px 80px 80px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+  transition: background .15s;
+}
+.lb-table-row:last-child { border-bottom: none; }
+.lb-table-row:hover { background: var(--ash); }
+.lb-table-row.me { background: rgba(255,60,0,.06); border-left: 2px solid var(--fire); }
+.lb-pos {
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  letter-spacing: .04em;
+  color: var(--muted);
+}
+.lb-pos.top3 { color: var(--fire); }
+.lb-player-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bone);
+}
+.lb-player-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.lb-td {
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  letter-spacing: .04em;
+  color: var(--bone);
+}
+.lb-td.pts { color: var(--fire); }
+.lb-note {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: center;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-top: none;
+}
+
+/* ============================================================
+   RULES SECTION
+   ============================================================ */
+.rules-wrap {
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+.rules-card {
+  border: 1px solid var(--line);
+  padding: 32px;
+}
+.rules-card h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px;
+  letter-spacing: .04em;
+  color: var(--bone);
+  margin-bottom: 20px;
+}
+.rules-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.rules-list li {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.rules-list li::before {
+  content: '';
+  width: 4px; height: 4px;
+  background: var(--fire);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.points-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 20px;
+}
+.point-cell {
+  background: var(--black);
+  padding: 20px;
+  text-align: center;
+}
+.point-val {
+  font-family: 'Anton', sans-serif;
+  font-size: 36px;
+  letter-spacing: .04em;
+  color: var(--fire);
+  display: block;
+  line-height: 1;
+}
+.point-desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+  display: block;
+}
+
+/* ============================================================
+   AFFILIATE STRIP
+   ============================================================ */
+.affiliate-strip {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--strip-h);
+  background: var(--ash);
+  border-top: 1px solid var(--line);
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  padding: 0 48px;
+  gap: 24px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.aff-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.aff-partners { display: flex; gap: 20px; align-items: center; flex: 1; }
+.aff-partner {
+  font-family: 'Anton', sans-serif;
+  font-size: 13px;
+  letter-spacing: .06em;
+  color: var(--bone);
+  text-decoration: none;
+}
+.aff-separator { width: 1px; height: 16px; background: var(--line); }
+.aff-disclaimer { font-size: 10px; color: var(--muted); flex-shrink: 0; letter-spacing: .03em; }
+
+/* ============================================================
+   FOCUS
+   ============================================================ */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--fire);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  nav { padding: 0 24px; }
+  .groups-wrap, .knockout-wrap, .lb-wrap, .rules-wrap { padding: 32px 24px; }
+  .page-header { padding: 48px 24px 36px; }
+  .matches-list { grid-template-columns: 1fr 1fr; }
+  .bracket-grid.r16 { grid-template-columns: repeat(2, 1fr); }
+  .bracket-grid.qf  { grid-template-columns: repeat(2, 1fr); }
+  .rules-wrap { grid-template-columns: 1fr; gap: 24px; }
+  .affiliate-strip { padding: 0 24px; }
+}
+
+@media (max-width: 640px) {
+  :root { --strip-h: 48px; }
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .page-header { padding: 32px 20px 28px; }
+  .page-header::before { display: none; }
+  .groups-wrap, .knockout-wrap, .lb-wrap, .rules-wrap { padding: 24px 20px; }
+  .matches-list { grid-template-columns: 1fr; }
+  .bracket-grid.r16 { grid-template-columns: 1fr; }
+  .bracket-grid.qf  { grid-template-columns: 1fr; }
+  .bracket-grid.sf  { grid-template-columns: 1fr; }
+  .score-summary { flex-wrap: wrap; }
+  .page-header-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .affiliate-strip { padding: 0 20px; gap: 12px; }
+  .aff-disclaimer { display: none; }
+  .aff-separator { display: none; }
+  .aff-partner { font-size: 10px; }
+  .lb-table-head, .lb-table-row { grid-template-columns: 36px 1fr 60px 60px 60px; padding: 10px 14px; }
+  .tab-btn { padding: 14px 16px; font-size: 11px; }
+  .rules-wrap { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 1600px) {
+  nav { padding: 0 80px; }
+  .page-header, .groups-wrap, .knockout-wrap, .lb-wrap, .rules-wrap { padding-left: 80px; padding-right: 80px; }
+  .affiliate-strip { padding: 0 80px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Film Grain -->
+<canvas id="grain"></canvas>
+
+<!-- ============================================================
+     NICKNAME MODAL
+     ============================================================ -->
+<div id="nicknameOverlay" class="hidden" role="dialog" aria-modal="true" aria-label="Alege nickname">
+  <div class="nickname-box">
+    <h2>ALEGE UN<br><span style="color:var(--fire)">NICKNAME</span></h2>
+    <p>Fără cont, fără parolă. Doar un nickname ca să apari în clasament. Datele rămân pe dispozitivul tău.</p>
+    <input type="text" id="nickInput" class="nick-input" placeholder="Ex: GolazoFan, Tigrul91..." maxlength="20" autocomplete="off">
+    <button class="nick-submit" id="nickSubmit">Intru în joc →</button>
+    <p class="nick-disclaimer">Fără email, fără cont. Zero date personale colectate.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav id="nav">
+  <a href="/" class="nav-logo">GOL<span>A</span>ZO</a>
+  <ul class="nav-links">
+    <li><a href="/">Acasă</a></li>
+    <li><a href="/predict" class="active">Predicții</a></li>
+    <li><a href="/leaderboard">Clasament</a></li>
+    <a href="/predict" class="nav-cta">Joacă Gratuit</a>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Meniu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobileNav" role="navigation" aria-label="Meniu mobil">
+  <ul>
+    <li><a href="/" class="mob-link">Acasă</a></li>
+    <li><a href="/predict" class="mob-link">Predicții</a></li>
+    <li><a href="/leaderboard" class="mob-link">Clasament</a></li>
+  </ul>
+  <a href="/predict" class="mob-cta">Joacă Gratuit</a>
+</div>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-copy">
+      <span class="overline">World Cup 2026 · 104 meciuri</span>
+      <h1>PREZICE.<br><span style="color:var(--fire)">CÂȘTIGĂ.</span></h1>
+    </div>
+    <div class="score-summary" id="scoreSummary">
+      <div class="score-cell">
+        <span class="score-cell-num fire" id="totalPts">0</span>
+        <span class="score-cell-label">Puncte</span>
+      </div>
+      <div class="score-cell">
+        <span class="score-cell-num" id="totalPred">0</span>
+        <span class="score-cell-label">Preziceri</span>
+      </div>
+      <div class="score-cell">
+        <span class="score-cell-num" id="exactHits">0</span>
+        <span class="score-cell-label">Scor exact</span>
+      </div>
+      <div class="score-cell">
+        <span class="score-cell-num" id="winnerHits">0</span>
+        <span class="score-cell-label">Câștigătoare</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TABS
+     ============================================================ -->
+<div class="tabs" id="tabBar">
+  <button class="tab-btn active" data-tab="grupe">Faza Grupelor</button>
+  <button class="tab-btn" data-tab="optimi">Optimi (R16)</button>
+  <button class="tab-btn" data-tab="sferturi">Sferturi</button>
+  <button class="tab-btn" data-tab="semifinale">Semifinale</button>
+  <button class="tab-btn" data-tab="finala">Finală</button>
+  <button class="tab-btn" data-tab="clasament">Clasament</button>
+  <button class="tab-btn" data-tab="sharecard">🏆 Share Card</button>
+  <button class="tab-btn" data-tab="newsletter">📧 Newsletter</button>
+  <button class="tab-btn" data-tab="reguli">Reguli & Punctaj</button>
+</div>
+
+<!-- ============================================================
+     TAB: GRUPE
+     ============================================================ -->
+<div class="tab-content active" id="tab-grupe">
+  <div class="groups-wrap" id="groupsContainer">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<!-- ============================================================
+     TAB: OPTIMI
+     ============================================================ -->
+<div class="tab-content" id="tab-optimi">
+  <div class="knockout-wrap">
+    <div class="knockout-phase">
+      <div class="phase-title">Optimi de Finală — 16 meciuri</div>
+      <div class="bracket-grid r16" id="r16Container"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TAB: SFERTURI
+     ============================================================ -->
+<div class="tab-content" id="tab-sferturi">
+  <div class="knockout-wrap">
+    <div class="knockout-phase">
+      <div class="phase-title">Sferturi de Finală — 8 meciuri</div>
+      <div class="bracket-grid qf" id="qfContainer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TAB: SEMIFINALE
+     ============================================================ -->
+<div class="tab-content" id="tab-semifinale">
+  <div class="knockout-wrap">
+    <div class="knockout-phase">
+      <div class="phase-title">Semifinale — 4 meciuri</div>
+      <div class="bracket-grid sf" id="sfContainer"></div>
+    </div>
+    <div class="knockout-phase" style="margin-top:40px;">
+      <div class="phase-title">Finală Mică (Locul 3)</div>
+      <div class="bracket-grid tp" id="tpContainer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TAB: FINALA
+     ============================================================ -->
+<div class="tab-content" id="tab-finala">
+  <div class="knockout-wrap">
+    <div class="knockout-phase">
+      <div class="phase-title">Marea Finală — 19 Iulie 2026</div>
+      <div class="bracket-grid f" id="finalContainer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TAB: CLASAMENT
+     ============================================================ -->
+<div class="tab-content" id="tab-clasament">
+  <div class="lb-wrap">
+    <div class="lb-table">
+      <div class="lb-table-head">
+        <span class="lb-th">#</span>
+        <span class="lb-th">Jucător</span>
+        <span class="lb-th">Pts</span>
+        <span class="lb-th">Exacte</span>
+        <span class="lb-th">Prezis</span>
+      </div>
+      <div id="lbBody"><!-- JS renders --></div>
+    </div>
+    <div class="lb-note">
+      Clasamentul este stocat local pe dispozitivul tău. În Săptămâna 2 GOLAZO lansează clasament global cu Supabase.
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TAB: REGULI
+     ============================================================ -->
+<div class="tab-content" id="tab-reguli">
+  <div class="rules-wrap">
+    <div class="rules-card">
+      <h3>SISTEM<br><span style="color:var(--fire)">PUNCTAJ</span></h3>
+      <div class="points-grid">
+        <div class="point-cell">
+          <span class="point-val">3 PTS</span>
+          <span class="point-desc">Scor exact<br>(ex: 2-1 prezis → 2-1 final)</span>
+        </div>
+        <div class="point-cell">
+          <span class="point-val">1 PT</span>
+          <span class="point-desc">Câștigătoare corectă<br>(ex: prezici 2-0 → final 3-1)</span>
+        </div>
+        <div class="point-cell">
+          <span class="point-val">0 PTS</span>
+          <span class="point-desc">Predicție greșită sau nefăcută</span>
+        </div>
+        <div class="point-cell" style="background:rgba(255,60,0,.06);">
+          <span class="point-val" style="font-size:24px;">BONUS</span>
+          <span class="point-desc">3 streak → flacără 🔥<br>7 streak → badge special</span>
+        </div>
+      </div>
+    </div>
+    <div class="rules-card">
+      <h3>CUM<br><span style="color:var(--fire)">FUNCȚIONEAZĂ</span></h3>
+      <ul class="rules-list">
+        <li>Alegi un nickname — fără email, fără parolă</li>
+        <li>Prezici scorul exact pentru fiecare meci (ex: 2 - 1)</li>
+        <li>Predicțiile se salvează automat pe dispozitivul tău</li>
+        <li>Poți modifica o predicție până la kickoff</li>
+        <li>Rezultatele reale sunt actualizate zilnic de echipa GOLAZO</li>
+        <li>Punctele se calculează automat după fiecare meci terminat</li>
+        <li>Meciurile terminate (FT) sunt blocate — nu mai poți edita</li>
+        <li>Meciurile din knockout se deblochează pe parcurs</li>
+        <li>În Săptămâna 2 lansăm clasament global cu sincronizare</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TAB: SHARE CARD
+     ============================================================ -->
+<div class="tab-content" id="tab-sharecard">
+  <div class="groups-wrap" style="max-width:600px;">
+    <h2 style="font-family:'Anton',sans-serif;font-size:32px;letter-spacing:.06em;margin-bottom:8px;">
+      SHARE <span style="color:var(--fire)">CARD</span>
+    </h2>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:32px;">Generează imaginea ta de 1080×1080 și distribu-o pe Instagram, WhatsApp, TikTok.</p>
+
+    <canvas id="shareCanvas" width="1080" height="1080" style="width:100%;max-width:480px;display:block;border:1px solid var(--line);margin-bottom:20px;"></canvas>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button onclick="generateShareCard()" style="background:var(--fire);color:var(--black);border:none;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:.08em;padding:14px 28px;cursor:pointer;">
+        🔄 GENEREAZĂ
+      </button>
+      <button onclick="downloadShareCard()" style="background:var(--ash);color:var(--bone);border:1px solid var(--line);font-family:'Anton',sans-serif;font-size:15px;letter-spacing:.08em;padding:14px 28px;cursor:pointer;">
+        ⬇ DESCARCĂ
+      </button>
+    </div>
+    <p style="color:var(--muted);font-size:12px;margin-top:16px;">Imaginea se salvează ca PNG 1080×1080 — perfectă pentru Instagram Stories și WhatsApp.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     TAB: NEWSLETTER
+     ============================================================ -->
+<div class="tab-content" id="tab-newsletter">
+  <div class="groups-wrap" style="max-width:560px;">
+    <h2 style="font-family:'Anton',sans-serif;font-size:32px;letter-spacing:.06em;margin-bottom:8px;">
+      NEWSLETTER <span style="color:var(--fire)">VIP</span>
+    </h2>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:32px;">Primești zilnic, cu 2 ore înainte de meciuri: predicții, statistici, tips exclusive. Zero spam.</p>
+
+    <div style="background:var(--ash);border:1px solid var(--line);padding:32px;">
+      <div style="display:flex;flex-direction:column;gap:16px;" id="mlForm">
+        <div>
+          <label style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px;">Prenume</label>
+          <input type="text" id="mlName" placeholder="Ex: Andrei" maxlength="50" style="width:100%;background:var(--black);border:1px solid var(--line);color:var(--bone);padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;outline:none;box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px;">Email *</label>
+          <input type="email" id="mlEmail" placeholder="email@tau.com" maxlength="100" style="width:100%;background:var(--black);border:1px solid var(--line);color:var(--bone);padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;outline:none;box-sizing:border-box;">
+        </div>
+        <button onclick="submitMailerLite()" id="mlBtn" style="background:var(--fire);color:var(--black);border:none;font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.08em;padding:16px;cursor:pointer;width:100%;">
+          VREAU TIPS GRATUITE →
+        </button>
+        <p id="mlMsg" style="font-size:13px;color:var(--muted);text-align:center;min-height:20px;"></p>
+        <p style="font-size:11px;color:var(--muted);text-align:center;line-height:1.6;">
+          Prin abonare, ești de acord cu <a href="/privacy" style="color:var(--fire);">Privacy Policy</a>.<br>
+          Te poți dezabona oricând. Zero spam, promitem.
+        </p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:24px;">
+      <div style="background:var(--ash);border:1px solid var(--line);padding:20px;text-align:center;">
+        <div style="font-family:'Anton',sans-serif;font-size:28px;color:var(--fire);">📩</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.06em;text-transform:uppercase;">Daily Tips</div>
+      </div>
+      <div style="background:var(--ash);border:1px solid var(--line);padding:20px;text-align:center;">
+        <div style="font-family:'Anton',sans-serif;font-size:28px;color:var(--fire);">⚽</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.06em;text-transform:uppercase;">Statistici</div>
+      </div>
+      <div style="background:var(--ash);border:1px solid var(--line);padding:20px;text-align:center;">
+        <div style="font-family:'Anton',sans-serif;font-size:28px;color:var(--fire);">🔥</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.06em;text-transform:uppercase;">Zero Spam</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     AFFILIATE STRIP
+     ============================================================ -->
+<div class="affiliate-strip">
+  <span class="aff-label">PARTENERI</span>
+  <div class="aff-partners">
+    <a href="https://www.betano.ro" target="_blank" rel="noopener noreferrer sponsored" class="aff-partner">BETANO</a>
+    <div class="aff-separator"></div>
+    <a href="https://www.superbet.ro" target="_blank" rel="noopener noreferrer sponsored" class="aff-partner">SUPERBET</a>
+    <div class="aff-separator"></div>
+    <a href="https://www.bet365.com" target="_blank" rel="noopener noreferrer sponsored" class="aff-partner">BET365</a>
+  </div>
+  <span class="aff-disclaimer">18+ · Joacă responsabil · Pariurile pot crea dependență</span>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function() {
+'use strict';
+
+/* ============================================================
+   DATA — toate cele 104 meciuri WC2026 hardcodate
+   Status: 'ft' = terminat | 'upcoming' = programat | 'tbd' = echipe necunoscute
+   result: [goluri_acasă, goluri_deplasare] (null = neprezent)
+   ============================================================ */
+var MATCHES = [
+  /* ---- GRUP A ---- */
+  { id:'A1', group:'A', home:'🇲🇽', away:'🇿🇦', hn:'Mexic',       an:'Africa de Sud', date:'11 Iun', status:'ft', result:[2,0] },
+  { id:'A2', group:'A', home:'🇺🇸', away:'🇨🇦', hn:'SUA',         an:'Canada',        date:'14 Iun', status:'upcoming', result:null },
+  { id:'A3', group:'A', home:'🇿🇦', away:'🇺🇸', hn:'Africa de Sud',an:'SUA',          date:'18 Iun', status:'upcoming', result:null },
+  { id:'A4', group:'A', home:'🇨🇦', away:'🇲🇽', hn:'Canada',      an:'Mexic',         date:'18 Iun', status:'upcoming', result:null },
+  { id:'A5', group:'A', home:'🇿🇦', away:'🇨🇦', hn:'Africa de Sud',an:'Canada',       date:'22 Iun', status:'upcoming', result:null },
+  { id:'A6', group:'A', home:'🇲🇽', away:'🇺🇸', hn:'Mexic',       an:'SUA',           date:'22 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP B ---- */
+  { id:'B1', group:'B', home:'🇦🇷', away:'🇲🇦', hn:'Argentina',   an:'Maroc',         date:'11 Iun', status:'upcoming', result:null },
+  { id:'B2', group:'B', home:'🇫🇷', away:'🇺🇾', hn:'Franța',      an:'Uruguay',       date:'12 Iun', status:'upcoming', result:null },
+  { id:'B3', group:'B', home:'🇲🇦', away:'🇫🇷', hn:'Maroc',       an:'Franța',        date:'15 Iun', status:'upcoming', result:null },
+  { id:'B4', group:'B', home:'🇺🇾', away:'🇦🇷', hn:'Uruguay',     an:'Argentina',     date:'15 Iun', status:'upcoming', result:null },
+  { id:'B5', group:'B', home:'🇲🇦', away:'🇺🇾', hn:'Maroc',       an:'Uruguay',       date:'19 Iun', status:'upcoming', result:null },
+  { id:'B6', group:'B', home:'🇦🇷', away:'🇫🇷', hn:'Argentina',   an:'Franța',        date:'19 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP C ---- */
+  { id:'C1', group:'C', home:'🇧🇷', away:'🇨🇴', hn:'Brazilia',    an:'Columbia',      date:'12 Iun', status:'upcoming', result:null },
+  { id:'C2', group:'C', home:'🇪🇸', away:'🇨🇭', hn:'Spania',      an:'Elveția',       date:'12 Iun', status:'upcoming', result:null },
+  { id:'C3', group:'C', home:'🇨🇴', away:'🇪🇸', hn:'Columbia',    an:'Spania',        date:'16 Iun', status:'upcoming', result:null },
+  { id:'C4', group:'C', home:'🇨🇭', away:'🇧🇷', hn:'Elveția',     an:'Brazilia',      date:'16 Iun', status:'upcoming', result:null },
+  { id:'C5', group:'C', home:'🇨🇴', away:'🇨🇭', hn:'Columbia',    an:'Elveția',       date:'20 Iun', status:'upcoming', result:null },
+  { id:'C6', group:'C', home:'🇧🇷', away:'🇪🇸', hn:'Brazilia',    an:'Spania',        date:'20 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP D ---- */
+  { id:'D1', group:'D', home:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', away:'🇸🇳', hn:'Anglia',      an:'Senegal',       date:'12 Iun', status:'upcoming', result:null },
+  { id:'D2', group:'D', home:'🇵🇹', away:'🇨🇱', hn:'Portugalia',  an:'Chile',         date:'13 Iun', status:'upcoming', result:null },
+  { id:'D3', group:'D', home:'🇸🇳', away:'🇵🇹', hn:'Senegal',     an:'Portugalia',    date:'17 Iun', status:'upcoming', result:null },
+  { id:'D4', group:'D', home:'🇨🇱', away:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', hn:'Chile',        an:'Anglia',        date:'17 Iun', status:'upcoming', result:null },
+  { id:'D5', group:'D', home:'🇸🇳', away:'🇨🇱', hn:'Senegal',     an:'Chile',         date:'21 Iun', status:'upcoming', result:null },
+  { id:'D6', group:'D', home:'🇵🇹', away:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', hn:'Portugalia',  an:'Anglia',        date:'21 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP E ---- */
+  { id:'E1', group:'E', home:'🇩🇪', away:'🇯🇵', hn:'Germania',    an:'Japonia',       date:'13 Iun', status:'upcoming', result:null },
+  { id:'E2', group:'E', home:'🇳🇱', away:'🇸🇦', hn:'Olanda',      an:'Arabia Saudită',date:'13 Iun', status:'upcoming', result:null },
+  { id:'E3', group:'E', home:'🇯🇵', away:'🇳🇱', hn:'Japonia',     an:'Olanda',        date:'17 Iun', status:'upcoming', result:null },
+  { id:'E4', group:'E', home:'🇸🇦', away:'🇩🇪', hn:'Arabia Saudită',an:'Germania',    date:'17 Iun', status:'upcoming', result:null },
+  { id:'E5', group:'E', home:'🇯🇵', away:'🇸🇦', hn:'Japonia',     an:'Arabia Saudită',date:'21 Iun', status:'upcoming', result:null },
+  { id:'E6', group:'E', home:'🇩🇪', away:'🇳🇱', hn:'Germania',    an:'Olanda',        date:'21 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP F ---- */
+  { id:'F1', group:'F', home:'🇧🇪', away:'🇦🇺', hn:'Belgia',      an:'Australia',     date:'13 Iun', status:'upcoming', result:null },
+  { id:'F2', group:'F', home:'🇨🇷', away:'🇬🇭', hn:'Costa Rica',  an:'Ghana',         date:'14 Iun', status:'upcoming', result:null },
+  { id:'F3', group:'F', home:'🇦🇺', away:'🇨🇷', hn:'Australia',   an:'Costa Rica',    date:'18 Iun', status:'upcoming', result:null },
+  { id:'F4', group:'F', home:'🇬🇭', away:'🇧🇪', hn:'Ghana',       an:'Belgia',        date:'18 Iun', status:'upcoming', result:null },
+  { id:'F5', group:'F', home:'🇦🇺', away:'🇬🇭', hn:'Australia',   an:'Ghana',         date:'22 Iun', status:'upcoming', result:null },
+  { id:'F6', group:'F', home:'🇨🇷', away:'🇧🇪', hn:'Costa Rica',  an:'Belgia',        date:'22 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP G ---- */
+  { id:'G1', group:'G', home:'🇮🇹', away:'🇪🇨', hn:'Italia',      an:'Ecuador',       date:'14 Iun', status:'upcoming', result:null },
+  { id:'G2', group:'G', home:'🇺🇦', away:'🇲🇽', hn:'Ucraina',     an:'Mexic',         date:'14 Iun', status:'upcoming', result:null },
+  { id:'G3', group:'G', home:'🇪🇨', away:'🇺🇦', hn:'Ecuador',     an:'Ucraina',       date:'18 Iun', status:'upcoming', result:null },
+  { id:'G4', group:'G', home:'🇲🇽', away:'🇮🇹', hn:'Mexic',       an:'Italia',        date:'18 Iun', status:'upcoming', result:null },
+  { id:'G5', group:'G', home:'🇪🇨', away:'🇲🇽', hn:'Ecuador',     an:'Mexic',         date:'22 Iun', status:'upcoming', result:null },
+  { id:'G6', group:'G', home:'🇮🇹', away:'🇺🇦', hn:'Italia',      an:'Ucraina',       date:'22 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP H ---- */
+  { id:'H1', group:'H', home:'🇰🇷', away:'🇨🇿', hn:'Coreea de Sud',an:'Cehia',        date:'11 Iun', status:'ft', result:[2,1] },
+  { id:'H2', group:'H', home:'🇷🇴', away:'🇸🇪', hn:'România',     an:'Suedia',        date:'15 Iun', status:'upcoming', result:null },
+  { id:'H3', group:'H', home:'🇨🇿', away:'🇷🇴', hn:'Cehia',       an:'România',       date:'19 Iun', status:'upcoming', result:null },
+  { id:'H4', group:'H', home:'🇸🇪', away:'🇰🇷', hn:'Suedia',      an:'Coreea de Sud', date:'19 Iun', status:'upcoming', result:null },
+  { id:'H5', group:'H', home:'🇨🇿', away:'🇸🇪', hn:'Cehia',       an:'Suedia',        date:'23 Iun', status:'upcoming', result:null },
+  { id:'H6', group:'H', home:'🇷🇴', away:'🇰🇷', hn:'România',     an:'Coreea de Sud', date:'23 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP I ---- */
+  { id:'I1', group:'I', home:'🇶🇦', away:'🇨🇭', hn:'Qatar',       an:'Elveția',       date:'13 Iun', status:'ft', result:[1,1] },
+  { id:'I2', group:'I', home:'🇵🇪', away:'🇳🇬', hn:'Peru',        an:'Nigeria',       date:'14 Iun', status:'upcoming', result:null },
+  { id:'I3', group:'I', home:'🇨🇭', away:'🇵🇪', hn:'Elveția',     an:'Peru',          date:'18 Iun', status:'upcoming', result:null },
+  { id:'I4', group:'I', home:'🇳🇬', away:'🇶🇦', hn:'Nigeria',     an:'Qatar',         date:'18 Iun', status:'upcoming', result:null },
+  { id:'I5', group:'I', home:'🇨🇭', away:'🇳🇬', hn:'Elveția',     an:'Nigeria',       date:'22 Iun', status:'upcoming', result:null },
+  { id:'I6', group:'I', home:'🇶🇦', away:'🇵🇪', hn:'Qatar',       an:'Peru',          date:'22 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP J ---- */
+  { id:'J1', group:'J', home:'🇲🇽', away:'🇿🇦', hn:'Mexic',       an:'Africa de Sud', date:'15 Iun', status:'upcoming', result:null },
+  { id:'J2', group:'J', home:'🇺🇿', away:'🇬🇷', hn:'Uzbekistan',  an:'Grecia',        date:'15 Iun', status:'upcoming', result:null },
+  { id:'J3', group:'J', home:'🇿🇦', away:'🇺🇿', hn:'Africa de Sud',an:'Uzbekistan',   date:'19 Iun', status:'upcoming', result:null },
+  { id:'J4', group:'J', home:'🇬🇷', away:'🇲🇽', hn:'Grecia',      an:'Mexic',         date:'19 Iun', status:'upcoming', result:null },
+  { id:'J5', group:'J', home:'🇺🇿', away:'🇲🇽', hn:'Uzbekistan',  an:'Mexic',         date:'23 Iun', status:'upcoming', result:null },
+  { id:'J6', group:'J', home:'🇬🇷', away:'🇿🇦', hn:'Grecia',      an:'Africa de Sud', date:'23 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP K ---- */
+  { id:'K1', group:'K', home:'🇨🇦', away:'🇧🇦', hn:'Canada',      an:'Bosnia',        date:'12 Iun', status:'ft', result:[1,1] },
+  { id:'K2', group:'K', home:'🇳🇿', away:'🇮🇳', hn:'Noua Zeelandă',an:'India',        date:'16 Iun', status:'upcoming', result:null },
+  { id:'K3', group:'K', home:'🇧🇦', away:'🇳🇿', hn:'Bosnia',      an:'Noua Zeelandă', date:'20 Iun', status:'upcoming', result:null },
+  { id:'K4', group:'K', home:'🇮🇳', away:'🇨🇦', hn:'India',       an:'Canada',        date:'20 Iun', status:'upcoming', result:null },
+  { id:'K5', group:'K', home:'🇧🇦', away:'🇮🇳', hn:'Bosnia',      an:'India',         date:'24 Iun', status:'upcoming', result:null },
+  { id:'K6', group:'K', home:'🇨🇦', away:'🇳🇿', hn:'Canada',      an:'Noua Zeelandă', date:'24 Iun', status:'upcoming', result:null },
+
+  /* ---- GRUP L ---- */
+  { id:'L1', group:'L', home:'🇺🇸', away:'🇵🇾', hn:'SUA',         an:'Paraguay',      date:'12 Iun', status:'ft', result:[4,1] },
+  { id:'L2', group:'L', home:'🇹🇳', away:'🇮🇷', hn:'Tunisia',     an:'Iran',          date:'16 Iun', status:'upcoming', result:null },
+  { id:'L3', group:'L', home:'🇵🇾', away:'🇹🇳', hn:'Paraguay',    an:'Tunisia',       date:'20 Iun', status:'upcoming', result:null },
+  { id:'L4', group:'L', home:'🇮🇷', away:'🇺🇸', hn:'Iran',        an:'SUA',           date:'20 Iun', status:'upcoming', result:null },
+  { id:'L5', group:'L', home:'🇵🇾', away:'🇮🇷', hn:'Paraguay',    an:'Iran',          date:'24 Iun', status:'upcoming', result:null },
+  { id:'L6', group:'L', home:'🇹🇳', away:'🇺🇸', hn:'Tunisia',     an:'SUA',           date:'24 Iun', status:'upcoming', result:null },
+
+  /* ---- OPTIMI R16 (16 meciuri, echipe TBD) ---- */
+  { id:'R1', phase:'r16', home:'⚽', away:'⚽', hn:'1A vs 2B', an:'', date:'29 Iun', status:'tbd', result:null },
+  { id:'R2', phase:'r16', home:'⚽', away:'⚽', hn:'1C vs 2D', an:'', date:'29 Iun', status:'tbd', result:null },
+  { id:'R3', phase:'r16', home:'⚽', away:'⚽', hn:'1E vs 2F', an:'', date:'30 Iun', status:'tbd', result:null },
+  { id:'R4', phase:'r16', home:'⚽', away:'⚽', hn:'1G vs 2H', an:'', date:'30 Iun', status:'tbd', result:null },
+  { id:'R5', phase:'r16', home:'⚽', away:'⚽', hn:'1I vs 2J', an:'', date:'1 Iul', status:'tbd', result:null },
+  { id:'R6', phase:'r16', home:'⚽', away:'⚽', hn:'1K vs 2L', an:'', date:'1 Iul', status:'tbd', result:null },
+  { id:'R7', phase:'r16', home:'⚽', away:'⚽', hn:'2A vs 1B', an:'', date:'2 Iul', status:'tbd', result:null },
+  { id:'R8', phase:'r16', home:'⚽', away:'⚽', hn:'2C vs 1D', an:'', date:'2 Iul', status:'tbd', result:null },
+  { id:'R9', phase:'r16', home:'⚽', away:'⚽', hn:'2E vs 1F', an:'', date:'3 Iul', status:'tbd', result:null },
+  { id:'R10',phase:'r16', home:'⚽', away:'⚽', hn:'2G vs 1H', an:'', date:'3 Iul', status:'tbd', result:null },
+  { id:'R11',phase:'r16', home:'⚽', away:'⚽', hn:'2I vs 1J', an:'', date:'4 Iul', status:'tbd', result:null },
+  { id:'R12',phase:'r16', home:'⚽', away:'⚽', hn:'2K vs 1L', an:'', date:'4 Iul', status:'tbd', result:null },
+  { id:'R13',phase:'r16', home:'⚽', away:'⚽', hn:'3A/B/C vs 3D/E/F', an:'', date:'5 Iul', status:'tbd', result:null },
+  { id:'R14',phase:'r16', home:'⚽', away:'⚽', hn:'3G/H/I vs 3J/K/L', an:'', date:'5 Iul', status:'tbd', result:null },
+  { id:'R15',phase:'r16', home:'⚽', away:'⚽', hn:'1J vs 2K', an:'', date:'6 Iul', status:'tbd', result:null },
+  { id:'R16',phase:'r16', home:'⚽', away:'⚽', hn:'1L vs 2I', an:'', date:'6 Iul', status:'tbd', result:null },
+
+  /* ---- SFERTURI (8 meciuri) ---- */
+  { id:'Q1', phase:'qf', home:'⚽', away:'⚽', hn:'Câștigător R1 vs R2', an:'', date:'9 Iul', status:'tbd', result:null },
+  { id:'Q2', phase:'qf', home:'⚽', away:'⚽', hn:'Câștigător R3 vs R4', an:'', date:'9 Iul', status:'tbd', result:null },
+  { id:'Q3', phase:'qf', home:'⚽', away:'⚽', hn:'Câștigător R5 vs R6', an:'', date:'10 Iul', status:'tbd', result:null },
+  { id:'Q4', phase:'qf', home:'⚽', away:'⚽', hn:'Câștigător R7 vs R8', an:'', date:'10 Iul', status:'tbd', result:null },
+  { id:'Q5', phase:'qf', home:'⚽', away:'⚽', hn:'Câștigător R9 vs R10', an:'', date:'11 Iul', status:'tbd', result:null },
+  { id:'Q6', phase:'qf', home:'⚽', away:'⚽', hn:'Câștigător R11 vs R12', an:'', date:'11 Iul', status:'tbd', result:null },
+  { id:'Q7', phase:'qf', home:'⚽', away:'⚽', hn:'Câștigător R13 vs R14', an:'', date:'12 Iul', status:'tbd', result:null },
+  { id:'Q8', phase:'qf', home:'⚽', away:'⚽', hn:'Câștigător R15 vs R16', an:'', date:'12 Iul', status:'tbd', result:null },
+
+  /* ---- SEMIFINALE (4 meciuri) ---- */
+  { id:'S1', phase:'sf', home:'⚽', away:'⚽', hn:'Câștigător Q1 vs Q2', an:'', date:'15 Iul', status:'tbd', result:null },
+  { id:'S2', phase:'sf', home:'⚽', away:'⚽', hn:'Câștigător Q3 vs Q4', an:'', date:'15 Iul', status:'tbd', result:null },
+  { id:'S3', phase:'sf', home:'⚽', away:'⚽', hn:'Câștigător Q5 vs Q6', an:'', date:'16 Iul', status:'tbd', result:null },
+  { id:'S4', phase:'sf', home:'⚽', away:'⚽', hn:'Câștigător Q7 vs Q8', an:'', date:'16 Iul', status:'tbd', result:null },
+
+  /* ---- FINALA MICA (1 meci) ---- */
+  { id:'TP', phase:'tp', home:'⚽', away:'⚽', hn:'Locul 3 — Semifinalist 1 vs 2', an:'', date:'18 Iul', status:'tbd', result:null },
+
+  /* ---- FINALA MARE (1 meci) ---- */
+  { id:'F1', phase:'final', home:'⚽', away:'⚽', hn:'FINALA MARE', an:'19 Iulie 2026 · MetLife Stadium', date:'19 Iul', status:'tbd', result:null },
+];
+
+/* ============================================================
+   STORAGE
+   ============================================================ */
+var KEY_NICK  = 'golazo_nickname';
+var KEY_PREDS = 'golazo_predictions';
+var KEY_LB    = 'golazo_leaderboard';
+
+function getStorage(k) {
+  try { return JSON.parse(localStorage.getItem(k)); } catch(e) { return null; }
+}
+function setStorage(k, v) {
+  try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {}
+}
+
+var nickname = getStorage(KEY_NICK) || null;
+var predictions = getStorage(KEY_PREDS) || {};
+
+/* ============================================================
+   FILM GRAIN
+   ============================================================ */
+var canvas = document.getElementById('grain');
+if (canvas) {
+  var ctx = canvas.getContext('2d');
+  var gw, gh;
+  function resizeGrain() { gw = canvas.width = window.innerWidth; gh = canvas.height = window.innerHeight; }
+  resizeGrain();
+  window.addEventListener('resize', resizeGrain, {passive:true});
+  var lastG = 0;
+  function animateGrain(t) {
+    if (t - lastG > 50) {
+      var img = ctx.createImageData(gw, gh);
+      var d = img.data;
+      for (var i = 0; i < d.length; i += 4) { var v = Math.random()*255|0; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; }
+      ctx.putImageData(img,0,0);
+      lastG = t;
+    }
+    requestAnimationFrame(animateGrain);
+  }
+  requestAnimationFrame(animateGrain);
+}
+
+/* ============================================================
+   HAMBURGER
+   ============================================================ */
+var hamburger = document.getElementById('navHamburger');
+var mobileNav = document.getElementById('mobileNav');
+if (hamburger && mobileNav) {
+  hamburger.addEventListener('click', function() {
+    var open = mobileNav.classList.contains('open');
+    mobileNav.classList.toggle('open', !open);
+    hamburger.classList.toggle('open', !open);
+    hamburger.setAttribute('aria-expanded', String(!open));
+  });
+  document.addEventListener('click', function(e) {
+    if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+      mobileNav.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded','false');
+    }
+  });
+}
+
+/* ============================================================
+   NICKNAME MODAL
+   ============================================================ */
+function showNicknameModal() {
+  document.getElementById('nicknameOverlay').classList.remove('hidden');
+  setTimeout(function() { document.getElementById('nickInput').focus(); }, 100);
+}
+function hideNicknameModal() {
+  document.getElementById('nicknameOverlay').classList.add('hidden');
+}
+
+document.getElementById('nickSubmit').addEventListener('click', submitNick);
+document.getElementById('nickInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitNick();
+});
+
+function submitNick() {
+  var val = document.getElementById('nickInput').value.trim();
+  if (!val || val.length < 2) {
+    document.getElementById('nickInput').style.borderColor = 'var(--fire)';
+    document.getElementById('nickInput').focus();
+    return;
+  }
+  nickname = val.substring(0, 20);
+  setStorage(KEY_NICK, nickname);
+  hideNicknameModal();
+  renderLeaderboard();
+}
+
+/* ============================================================
+   TABS
+   ============================================================ */
+var tabs = document.querySelectorAll('.tab-btn');
+tabs.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var id = btn.getAttribute('data-tab');
+    tabs.forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+    var tc = document.getElementById('tab-' + id);
+    if (tc) tc.classList.add('active');
+    if (id === 'clasament') renderLeaderboard();
+    if (id === 'sharecard') setTimeout(generateShareCard, 100);
+  });
+});
+
+/* ============================================================
+   RENDER MATCH CARD (generic)
+   ============================================================ */
+function calcPoints(pred, result) {
+  if (!result || !pred) return null;
+  if (pred[0] === result[0] && pred[1] === result[1]) return 3;
+  var predWinner = pred[0] > pred[1] ? 'H' : (pred[0] < pred[1] ? 'A' : 'D');
+  var realWinner = result[0] > result[1] ? 'H' : (result[0] < result[1] ? 'A' : 'D');
+  if (predWinner === realWinner) return 1;
+  return 0;
+}
+
+function renderMatchCard(m) {
+  var pred = predictions[m.id] || null;
+  var pts = m.status === 'ft' && pred ? calcPoints(pred, m.result) : null;
+  var locked = (m.status === 'ft' || m.status === 'tbd');
+
+  var statusLabel = m.status === 'ft' ? 'FT' : (m.status === 'tbd' ? 'TBD' : 'Upcoming');
+  var statusClass = m.status === 'ft' ? 'ft' : (m.status === 'tbd' ? 'locked' : 'upcoming');
+
+  var isTBD = m.status === 'tbd';
+  var isDone = !!pred;
+
+  var html = '<div class="match-predict-card' + (isDone ? ' done' : '') + '" id="card-' + m.id + '">';
+
+  // meta
+  html += '<div class="mc-meta">';
+  html += (m.group ? 'GRUP ' + m.group : m.phase ? m.phase.toUpperCase() : '');
+  html += ' · ' + m.date;
+  html += '<span class="status-pill ' + statusClass + '">' + statusLabel + '</span>';
+  html += '</div>';
+
+  if (isTBD) {
+    // TBD card — simplified
+    html += '<div style="font-size:13px;color:var(--muted);line-height:1.5;padding:8px 0;">' + m.hn + '</div>';
+    html += '<div style="font-size:11px;color:var(--line);margin-top:8px;">Se deblochează după faza grupelor</div>';
+  } else {
+    // Teams
+    html += '<div class="mc-teams">';
+    html += '<div class="mc-team"><span class="mc-flag">' + m.home + '</span><span class="mc-name">' + m.hn + '</span></div>';
+    html += '<div class="mc-vs"><span class="mc-vs-text">vs</span></div>';
+    html += '<div class="mc-team right"><span class="mc-flag" style="text-align:right;">' + m.away + '</span><span class="mc-name">' + m.an + '</span></div>';
+    html += '</div>';
+
+    if (m.status === 'ft' && m.result) {
+      // Show result
+      html += '<div class="mc-result">' + m.result[0] + ' — ' + m.result[1] + '</div>';
+      if (pred) {
+        var ptLabel = pts === 3 ? '🔥 +3 SCOR EXACT' : (pts === 1 ? '✓ +1 CÂȘTIGĂTOARE' : '✗ 0 PTS');
+        var ptClass = pts === 3 ? 'correct-exact' : (pts === 1 ? 'correct-winner' : 'wrong');
+        html += '<div class="mc-prediction-result ' + ptClass + '">';
+        html += ptLabel + ' · Predicție: ' + pred[0] + '-' + pred[1];
+        html += '</div>';
+      } else {
+        html += '<div class="mc-prediction-result wrong">Nicio predicție făcută</div>';
+      }
+    } else {
+      // Input
+      var hVal = pred ? pred[0] : '';
+      var aVal = pred ? pred[1] : '';
+      html += '<div class="mc-input-wrap">';
+      html += '<input type="number" class="score-inp" id="h-' + m.id + '" min="0" max="20" value="' + hVal + '" ' + (locked ? 'disabled' : '') + ' placeholder="0">';
+      html += '<span class="score-sep">—</span>';
+      html += '<input type="number" class="score-inp" id="a-' + m.id + '" min="0" max="20" value="' + aVal + '" ' + (locked ? 'disabled' : '') + ' placeholder="0">';
+      var btnText = pred ? 'Salvat ✓' : 'Salvează';
+      var btnClass = pred ? 'mc-predict-btn saved' : 'mc-predict-btn';
+      html += '<button class="' + btnClass + '" id="btn-' + m.id + '" onclick="savePred(\'' + m.id + '\')" ' + (locked ? 'disabled' : '') + '>' + btnText + '</button>';
+      html += '</div>';
+      if (pred) {
+        html += '<div class="mc-my-pred">Prezis: <strong>' + pred[0] + '-' + pred[1] + '</strong></div>';
+      }
+    }
+  }
+
+  html += '</div>';
+  return html;
+}
+
+/* ============================================================
+   SAVE PREDICTION
+   ============================================================ */
+window.savePred = function(id) {
+  // Show nickname modal if no nickname
+  if (!nickname) {
+    showNicknameModal();
+    // After modal closes, retry
+    var originalSubmit = document.getElementById('nickSubmit').onclick;
+    document.getElementById('nickSubmit').onclick = function() {
+      var val = document.getElementById('nickInput').value.trim();
+      if (!val || val.length < 2) { document.getElementById('nickInput').style.borderColor='var(--fire)'; return; }
+      nickname = val.substring(0,20);
+      setStorage(KEY_NICK, nickname);
+      hideNicknameModal();
+      document.getElementById('nickSubmit').onclick = originalSubmit;
+      doSavePred(id);
+    };
+    return;
+  }
+  doSavePred(id);
+};
+
+function doSavePred(id) {
+  var hEl = document.getElementById('h-' + id);
+  var aEl = document.getElementById('a-' + id);
+  var btn = document.getElementById('btn-' + id);
+  if (!hEl || !aEl) return;
+
+  var h = parseInt(hEl.value, 10);
+  var a = parseInt(aEl.value, 10);
+
+  if (isNaN(h) || isNaN(a) || h < 0 || a < 0) {
+    hEl.style.borderColor = 'var(--fire)';
+    aEl.style.borderColor = 'var(--fire)';
+    hEl.focus();
+    return;
+  }
+
+  hEl.style.borderColor = '';
+  aEl.style.borderColor = '';
+
+  predictions[id] = [h, a];
+  setStorage(KEY_PREDS, predictions);
+
+  // Update button
+  if (btn) {
+    btn.textContent = 'Salvat ✓';
+    btn.className = 'mc-predict-btn saved';
+  }
+
+  // Update card done state
+  var card = document.getElementById('card-' + id);
+  if (card) card.classList.add('done');
+
+  // Update my pred display
+  var myPredEl = card ? card.querySelector('.mc-my-pred') : null;
+  if (myPredEl) {
+    myPredEl.innerHTML = 'Prezis: <strong>' + h + '-' + a + '</strong>';
+  } else if (card) {
+    var mp = document.createElement('div');
+    mp.className = 'mc-my-pred';
+    mp.innerHTML = 'Prezis: <strong>' + h + '-' + a + '</strong>';
+    card.appendChild(mp);
+  }
+
+  updateSummary();
+  updateLeaderboardStorage();
+}
+
+/* ============================================================
+   UPDATE SUMMARY HEADER
+   ============================================================ */
+function updateSummary() {
+  var totalPts = 0, totalPred = 0, exactHits = 0, winnerHits = 0;
+  MATCHES.forEach(function(m) {
+    var pred = predictions[m.id];
+    if (!pred) return;
+    totalPred++;
+    if (m.status === 'ft' && m.result) {
+      var pts = calcPoints(pred, m.result);
+      totalPts += pts;
+      if (pts === 3) exactHits++;
+      else if (pts === 1) winnerHits++;
+    }
+  });
+  var el = function(id) { return document.getElementById(id); };
+  if (el('totalPts'))    el('totalPts').textContent    = totalPts;
+  if (el('totalPred'))   el('totalPred').textContent   = totalPred;
+  if (el('exactHits'))   el('exactHits').textContent   = exactHits;
+  if (el('winnerHits'))  el('winnerHits').textContent  = winnerHits;
+}
+
+/* ============================================================
+   LEADERBOARD (local device only)
+   ============================================================ */
+function updateLeaderboardStorage() {
+  if (!nickname) return;
+  var lb = getStorage(KEY_LB) || [];
+  var totalPts = 0, totalPred = 0, exactHits = 0;
+  MATCHES.forEach(function(m) {
+    var pred = predictions[m.id];
+    if (!pred) return;
+    totalPred++;
+    if (m.status === 'ft' && m.result) {
+      var pts = calcPoints(pred, m.result);
+      totalPts += pts;
+      if (pts === 3) exactHits++;
+    }
+  });
+  var existing = lb.findIndex(function(r) { return r.nick === nickname; });
+  var entry = { nick: nickname, pts: totalPts, exact: exactHits, pred: totalPred, ts: Date.now() };
+  if (existing >= 0) lb[existing] = entry;
+  else lb.push(entry);
+  lb.sort(function(a,b) { return b.pts - a.pts || b.exact - a.exact; });
+  setStorage(KEY_LB, lb);
+}
+
+function renderLeaderboard() {
+  var lb = getStorage(KEY_LB) || [];
+  if (!lb.length && nickname) {
+    updateLeaderboardStorage();
+    lb = getStorage(KEY_LB) || [];
+  }
+  var container = document.getElementById('lbBody');
+  if (!container) return;
+
+  if (!lb.length) {
+    container.innerHTML = '<div style="padding:32px;text-align:center;font-size:13px;color:var(--muted);">Nicio predicție salvată încă. Începe din tab-ul Faza Grupelor!</div>';
+    return;
+  }
+
+  var html = '';
+  lb.forEach(function(r, i) {
+    var isMe = nickname && r.nick === nickname;
+    var posClass = i < 3 ? 'top3' : '';
+    html += '<div class="lb-table-row' + (isMe ? ' me' : '') + '">';
+    html += '<span class="lb-pos ' + posClass + '">' + (i+1) + '</span>';
+    html += '<div><div class="lb-player-name">' + escHtml(r.nick) + (isMe ? ' 👈' : '') + '</div>';
+    html += '<div class="lb-player-sub">' + r.pred + ' preziceri</div></div>';
+    html += '<span class="lb-td pts">' + r.pts + '</span>';
+    html += '<span class="lb-td">' + r.exact + '</span>';
+    html += '<span class="lb-td">' + r.pred + '</span>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ============================================================
+   RENDER GROUPS
+   ============================================================ */
+function renderGroups() {
+  var groups = {};
+  MATCHES.forEach(function(m) {
+    if (!m.group) return;
+    if (!groups[m.group]) groups[m.group] = [];
+    groups[m.group].push(m);
+  });
+
+  var container = document.getElementById('groupsContainer');
+  if (!container) return;
+  var html = '';
+
+  ['A','B','C','D','E','F','G','H','I','J','K','L'].forEach(function(g) {
+    var matches = groups[g];
+    if (!matches || !matches.length) return;
+    html += '<div class="group-block">';
+    html += '<div class="group-label"><span class="group-name">GRUP ' + g + '</span></div>';
+    html += '<div class="matches-list">';
+    matches.forEach(function(m) { html += renderMatchCard(m); });
+    html += '</div></div>';
+  });
+
+  container.innerHTML = html;
+}
+
+/* ============================================================
+   RENDER KNOCKOUT PHASES
+   ============================================================ */
+function renderPhase(phase, containerId) {
+  var matches = MATCHES.filter(function(m) { return m.phase === phase; });
+  var container = document.getElementById(containerId);
+  if (!container || !matches.length) return;
+  var html = '';
+  matches.forEach(function(m) { html += renderMatchCard(m); });
+  container.innerHTML = html;
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init() {
+  renderGroups();
+  renderPhase('r16', 'r16Container');
+  renderPhase('qf', 'qfContainer');
+  renderPhase('sf', 'sfContainer');
+  renderPhase('tp', 'tpContainer');
+  renderPhase('final', 'finalContainer');
+  updateSummary();
+
+  // Show nickname modal if no nickname and user has no predictions yet
+  if (!nickname && Object.keys(predictions).length === 0) {
+    setTimeout(function() { showNicknameModal(); }, 600);
+  }
+}
+
+/* ============================================================
+   SHARE CARD — Canvas 1080x1080
+   ============================================================ */
+function generateShareCard() {
+  var canvas = document.getElementById('shareCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  canvas.width = 1080;
+  canvas.height = 1080;
+
+  // Calculează stats
+  var totalPts = 0, totalPred = 0, exactHits = 0, winnerHits = 0;
+  MATCHES.forEach(function(m) {
+    var pred = predictions[m.id];
+    if (!pred) return;
+    totalPred++;
+    if (m.status === 'ft' && m.result) {
+      var pts = calcPoints(pred, m.result);
+      totalPts += pts;
+      if (pts === 3) exactHits++;
+      else if (pts === 1) winnerHits++;
+    }
+  });
+
+  var nick = nickname || 'GOLAZO FAN';
+
+  // BG negru
+  ctx.fillStyle = '#0d0d0d';
+  ctx.fillRect(0, 0, 1080, 1080);
+
+  // Gradient accent sus
+  var grad = ctx.createLinearGradient(0, 0, 1080, 400);
+  grad.addColorStop(0, 'rgba(255,60,0,0.15)');
+  grad.addColorStop(1, 'rgba(13,13,13,0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1080, 600);
+
+  // Linie portocalie sus
+  ctx.fillStyle = '#FF3C00';
+  ctx.fillRect(0, 0, 1080, 8);
+
+  // Logo GOLAZO
+  ctx.font = 'bold 96px Anton, Impact, sans-serif';
+  ctx.fillStyle = '#F5F0E8';
+  ctx.textAlign = 'left';
+  ctx.fillText('GOL', 80, 160);
+  ctx.fillStyle = '#FF3C00';
+  ctx.fillText('A', 80 + ctx.measureText('GOL').width, 160);
+  ctx.fillStyle = '#F5F0E8';
+  ctx.fillText('ZO', 80 + ctx.measureText('GOLA').width, 160);
+
+  // Subtitlu
+  ctx.font = '300 28px DM Sans, sans-serif';
+  ctx.fillStyle = '#6b6b6b';
+  ctx.fillText('WORLD CUP 2026 · PREDICTIONS', 80, 210);
+
+  // Separator
+  ctx.fillStyle = '#2a2a2a';
+  ctx.fillRect(80, 240, 920, 2);
+
+  // Nickname
+  ctx.font = 'bold 52px Anton, Impact, sans-serif';
+  ctx.fillStyle = '#FF3C00';
+  ctx.textAlign = 'left';
+  var nickUpper = nick.toUpperCase().substring(0, 18);
+  ctx.fillText(nickUpper, 80, 340);
+
+  // Stats grid — 2x2
+  var stats = [
+    { val: totalPts,    label: 'PUNCTE TOTALE' },
+    { val: totalPred,   label: 'PREZICERI FĂCUTE' },
+    { val: exactHits,   label: 'SCORURI EXACTE' },
+    { val: winnerHits,  label: 'CÂȘTIGĂTOARE CORECTE' },
+  ];
+
+  var boxW = 420, boxH = 180, gap = 40;
+  var startX = 80, startY = 400;
+
+  stats.forEach(function(s, i) {
+    var col = i % 2;
+    var row = Math.floor(i / 2);
+    var x = startX + col * (boxW + gap);
+    var y = startY + row * (boxH + gap);
+
+    // Box
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillRect(x, y, boxW, boxH);
+
+    // Accent left border
+    ctx.fillStyle = '#FF3C00';
+    ctx.fillRect(x, y, 6, boxH);
+
+    // Value
+    ctx.font = 'bold 72px Anton, Impact, sans-serif';
+    ctx.fillStyle = i === 0 ? '#FF3C00' : '#F5F0E8';
+    ctx.textAlign = 'left';
+    ctx.fillText(String(s.val), x + 30, y + 100);
+
+    // Label
+    ctx.font = '500 20px DM Sans, sans-serif';
+    ctx.fillStyle = '#6b6b6b';
+    ctx.fillText(s.label, x + 30, y + 140);
+  });
+
+  // Call to action
+  ctx.fillStyle = '#FF3C00';
+  ctx.fillRect(80, 870, 920, 100);
+
+  ctx.font = 'bold 36px Anton, Impact, sans-serif';
+  ctx.fillStyle = '#0d0d0d';
+  ctx.textAlign = 'center';
+  ctx.fillText('PREZICE ȘI TU GRATIS → golazo-sepia.vercel.app', 540, 932);
+
+  // Hashtag
+  ctx.font = '300 24px DM Sans, sans-serif';
+  ctx.fillStyle = '#6b6b6b';
+  ctx.textAlign = 'left';
+  ctx.fillText('#GOLAZO2026   #WorldCup2026   #CM2026', 80, 1020);
+
+  // Linie jos
+  ctx.fillStyle = '#2a2a2a';
+  ctx.fillRect(80, 1050, 920, 1);
+}
+
+function downloadShareCard() {
+  generateShareCard();
+  var canvas = document.getElementById('shareCanvas');
+  if (!canvas) return;
+  var link = document.createElement('a');
+  link.download = 'golazo-sharecard.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+/* ============================================================
+   MAILERLITE FORM
+   ============================================================ */
+function submitMailerLite() {
+  var emailEl = document.getElementById('mlEmail');
+  var nameEl  = document.getElementById('mlName');
+  var btn     = document.getElementById('mlBtn');
+  var msg     = document.getElementById('mlMsg');
+
+  if (!emailEl) return;
+  var email = emailEl.value.trim();
+  var name  = nameEl ? nameEl.value.trim() : '';
+
+  // Validare
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) {
+    emailEl.style.borderColor = '#FF3C00';
+    msg.style.color = '#FF3C00';
+    msg.textContent = 'Introdu un email valid.';
+    return;
+  }
+
+  emailEl.style.borderColor = '';
+  btn.disabled = true;
+  btn.textContent = 'SE TRIMITE...';
+  msg.style.color = '#6b6b6b';
+  msg.textContent = '';
+
+  // MailerLite API v2 — înlocuiește YOUR_API_KEY și YOUR_GROUP_ID
+  var ML_API_KEY  = 'YOUR_MAILERLITE_API_KEY';
+  var ML_GROUP_ID = 'YOUR_GROUP_ID';
+
+  var payload = {
+    email: email,
+    fields: { name: name },
+    groups: [ML_GROUP_ID],
+    resubscribe: true
+  };
+
+  fetch('https://api.mailerlite.com/api/v2/subscribers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-MailerLite-ApiKey': ML_API_KEY
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) {
+    if (res.ok || res.status === 200 || res.status === 201) {
+      btn.textContent = '✓ ABONAT CU SUCCES!';
+      btn.style.background = '#1a6644';
+      msg.style.color = '#1a6644';
+      msg.textContent = 'Verifică emailul pentru confirmare. Bun venit în GOLAZO VIP! 🔥';
+      emailEl.value = '';
+      if (nameEl) nameEl.value = '';
+    } else {
+      throw new Error('Status ' + res.status);
+    }
+  })
+  .catch(function(err) {
+    // Fallback: dacă API Key nu e setat, folosim form embed MailerLite
+    btn.disabled = false;
+    btn.textContent = 'VREAU TIPS GRATUITE →';
+    msg.style.color = '#FF3C00';
+    msg.textContent = 'Eroare temporară. Încearcă din nou sau setează API Key-ul MailerLite.';
+    console.warn('MailerLite error:', err);
+  });
+}
+
+init();
+
+})();
+</script>
+</body>
+</html>
