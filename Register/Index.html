@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Înregistrare — GOLAZO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0d0d0d;--fire:#FF3C00;--fire-dim:#CC3000;--ash:#1a1a1a;--bone:#F5F0E8;--muted:#6b6b6b;--line:#2a2a2a}
+body{background:var(--black);color:var(--bone);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+nav{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(13,13,13,.95);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 48px;z-index:100;backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.08em;color:var(--bone);text-decoration:none}
+.nav-logo span{color:var(--fire)}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:100px 24px 80px}
+.card{width:100%;max-width:440px;border:1px solid var(--line);background:var(--ash);padding:48px 40px}
+.card-logo{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:.08em;color:var(--bone);text-decoration:none;display:block;margin-bottom:8px}
+.card-logo span{color:var(--fire)}
+.card-subtitle{font-size:13px;color:var(--muted);margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.form-label{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.form-input{width:100%;background:var(--black);border:1px solid var(--line);color:var(--bone);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:300;padding:14px 16px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;margin-bottom:16px;display:block;border-radius:0}
+.form-input:focus{border-color:var(--bone)}
+.form-input::placeholder{color:var(--muted)}
+.form-submit{width:100%;background:var(--fire);color:var(--black);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:16px;border:none;cursor:pointer;transition:background .2s;display:block;margin-top:8px;border-radius:0}
+.form-submit:hover{background:var(--fire-dim)}
+.form-submit:disabled{background:var(--muted);cursor:default}
+.form-footer{font-size:12px;color:var(--muted);margin-top:20px;line-height:1.6;text-align:center}
+.form-footer a{color:var(--muted);text-decoration:underline}
+.success{display:none;text-align:center;padding:20px 0}
+.success h2{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:.04em;color:var(--fire);margin-bottom:12px}
+.success p{font-size:15px;color:var(--muted);line-height:1.7}
+.divider{display:flex;align-items:center;gap:12px;margin:24px 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--line)}
+.divider span{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.badge{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--black);border:1px solid var(--line);margin-bottom:12px}
+.badge-icon{font-size:20px;flex-shrink:0}
+.badge-text{font-size:13px;color:var(--muted);line-height:1.4}
+.badge-text strong{color:var(--bone);display:block;font-size:14px;margin-bottom:2px}
+@media(max-width:480px){.card{padding:32px 24px}.main{padding:80px 16px 60px}}
+</style>
+</head>
+<body>
+<nav><a href="/" class="nav-logo">GOL<span>A</span>ZO</a></nav>
+<main class="main">
+  <div class="card">
+    <a href="/" class="card-logo">GOL<span>A</span>ZO</a>
+    <p class="card-subtitle">World Cup 2026 — Intră în joc gratuit</p>
+
+    <div class="badge">
+      <span class="badge-icon">⚽</span>
+      <div class="badge-text"><strong>Lansăm în curând</strong>Lasă emailul și fii primul care intră în platformă.</div>
+    </div>
+    <div class="badge">
+      <span class="badge-icon">🏆</span>
+      <div class="badge-text"><strong>104 meciuri de prezis</strong>3 puncte scor exact, 1 punct câștigătoare.</div>
+    </div>
+    <div class="badge">
+      <span class="badge-icon">📊</span>
+      <div class="badge-text"><strong>Analiză statistică gratuită</strong>Date reale din 30 de ani de World Cup.</div>
+    </div>
+
+    <div class="divider"><span>Notifică-mă la lansare</span></div>
+
+    <div id="registerForm">
+      <label class="form-label" for="regEmail">Adresa de email *</label>
+      <input type="email" id="regEmail" class="form-input" placeholder="tu@email.com" autocomplete="email">
+      <label class="form-label" for="regName">Prenumele tău</label>
+      <input type="text" id="regName" class="form-input" placeholder="Prenume (opțional)" autocomplete="given-name">
+      <button class="form-submit" id="regBtn" onclick="handleRegister()">Intru în joc — gratuit</button>
+      <p class="form-footer">
+        Prin înregistrare ești de acord cu <a href="/terms">Termenii și Condițiile</a> și
+        <a href="/privacy">Politica de Confidențialitate</a>.<br>
+        <strong>18+ | Joacă responsabil</strong>
+      </p>
+    </div>
+
+    <div class="success" id="successMsg">
+      <h2>🔥 EȘTI PE LISTĂ!</h2>
+      <p>Te vom notifica imediat când GOLAZO se lansează.<br>Verifică și folderul Spam.</p>
+      <p style="margin-top:20px"><a href="/" style="color:var(--fire);font-weight:500;">← Înapoi la GOLAZO</a></p>
+    </div>
+  </div>
+</main>
+
+<script>
+function handleRegister() {
+  var emailEl = document.getElementById('regEmail');
+  var btn = document.getElementById('regBtn');
+  if (!emailEl || !btn) return;
+  var email = emailEl.value.trim();
+  if (!email || email.indexOf('@') === -1) {
+    emailEl.style.borderColor = 'var(--fire)';
+    emailEl.focus();
+    return;
+  }
+  emailEl.style.borderColor = '';
+  btn.textContent = 'Se procesează...';
+  btn.disabled = true;
+  setTimeout(function() {
+    document.getElementById('registerForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }, 800);
+}
+document.getElementById('regEmail').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') handleRegister();
+});
+</script>
+</body>
+</html>
+
