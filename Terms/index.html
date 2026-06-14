@@ -1,98 +1,257 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Termeni și Condiții — GOLAZO</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--black:#0d0d0d;--fire:#FF3C00;--ash:#1a1a1a;--bone:#F5F0E8;--muted:#6b6b6b;--line:#2a2a2a}
-body{background:var(--black);color:var(--bone);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
-nav{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(13,13,13,.95);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 48px;z-index:100;backdrop-filter:blur(12px)}
-.nav-logo{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.08em;color:var(--bone);text-decoration:none}
-.nav-logo span{color:var(--fire)}
-.container{max-width:760px;margin:0 auto;padding:120px 48px 80px}
-h1{font-family:'Anton',sans-serif;font-size:clamp(36px,5vw,56px);letter-spacing:.03em;color:var(--bone);line-height:.95;margin-bottom:12px}
-.subtitle{font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--line)}
-h2{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--bone);margin:36px 0 12px}
-p{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:16px}
-a{color:var(--fire);text-decoration:none}
-ul{margin:0 0 16px 20px}
-li{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:6px}
-.back{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:40px;transition:color .2s}
-.back:hover{color:var(--bone)}
-.warning{background:var(--ash);border:1px solid var(--line);border-left:3px solid var(--fire);padding:20px 24px;margin:24px 0}
-.warning p{margin:0;color:var(--bone)}
-@media(max-width:640px){nav{padding:0 20px}.container{padding:100px 20px 60px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use — GOLAZO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --fire: #FF3C00;
+      --fire-dim: #CC3000;
+      --ash: #1a1a1a;
+      --bone: #F5F0E8;
+      --muted: #6b6b6b;
+      --line: #2a2a2a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--bone);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    nav {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--bone);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--fire); }
+    .nav-back {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--fire); }
+    .hero {
+      border-bottom: 1px solid var(--line);
+      padding: 64px 40px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -10%; right: -10%; bottom: 0;
+      background: linear-gradient(8deg, transparent 60%, rgba(255,60,0,0.04) 100%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fire);
+      border: 1px solid var(--fire);
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero-meta { color: var(--muted); font-size: 0.85rem; letter-spacing: 0.05em; }
+    .content { max-width: 760px; margin: 0 auto; padding: 60px 40px 80px; }
+    .section { margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+    .section:last-child { border-bottom: none; margin-bottom: 0; }
+    .section-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fire); margin-bottom: 12px; }
+    h2 { font-family: 'Anton', sans-serif; font-size: 1.5rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bone); margin-bottom: 16px; }
+    p { color: var(--bone); opacity: 0.85; margin-bottom: 14px; font-size: 0.97rem; }
+    p:last-child { margin-bottom: 0; }
+    ul { list-style: none; margin: 14px 0; padding: 0; }
+    ul li { padding: 6px 0 6px 20px; position: relative; color: var(--bone); opacity: 0.85; font-size: 0.97rem; }
+    ul li::before { content: '—'; position: absolute; left: 0; color: var(--fire); }
+    a { color: var(--fire); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .contact-block { background: var(--ash); border: 1px solid var(--line); padding: 28px 32px; margin-top: 20px; }
+    .contact-block p { margin-bottom: 8px; }
+    .contact-block strong { color: var(--bone); font-weight: 700; }
+    .warning-block {
+      background: rgba(255,60,0,0.06);
+      border: 1px solid var(--fire-dim);
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+    .warning-block p { opacity: 1; font-weight: 500; }
+    footer { border-top: 1px solid var(--line); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-legal { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-legal a { font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+    .footer-legal a:hover { color: var(--fire); }
+    .footer-badge { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); border: 1px solid var(--line); padding: 4px 10px; }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 48px 20px 36px; }
+      .content { padding: 40px 20px 60px; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-<nav><a href="/" class="nav-logo">GOL<span>A</span>ZO</a></nav>
-<div class="container">
-  <a href="/" class="back">← Înapoi la GOLAZO</a>
-  <h1>TERMENI ȘI<br>CONDIȚII</h1>
-  <p class="subtitle">Ultima actualizare: 14 Iunie 2026</p>
 
-  <div class="warning">
-    <p><strong>18+ | Platformă de divertisment.</strong> GOLAZO este exclusiv o platformă de predicții pentru divertisment. Nu oferim servicii de pariuri cu bani reali și nu suntem un operator de jocuri de noroc.</p>
+  <nav>
+    <a href="/" class="nav-logo">GOL<span>AZ</span>O</a>
+    <a href="/" class="nav-back">← Back to GOLAZO</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-tag">Legal</div>
+    <h1>Terms of Use</h1>
+    <p class="hero-meta">Last updated: June 2025 &nbsp;·&nbsp; Effective: June 14, 2025</p>
   </div>
 
-  <h2>1. ACCEPTAREA TERMENILOR</h2>
-  <p>Prin accesarea și utilizarea platformei GOLAZO, ești de acord cu acești Termeni și Condiții. Dacă nu ești de acord, te rugăm să nu folosești platforma.</p>
+  <div class="content">
 
-  <h2>2. DESCRIEREA SERVICIULUI</h2>
-  <p>GOLAZO este o platformă digitală de divertisment care permite utilizatorilor să:</p>
-  <ul>
-    <li>Prezică scorurile meciurilor din World Cup 2026</li>
-    <li>Acumuleze puncte virtuale (3 puncte scor exact, 1 punct câștigătoare)</li>
-    <li>Concureze pe un clasament global și în grupuri private</li>
-    <li>Primească analize statistice despre meciuri</li>
-  </ul>
-  <p>Punctele acumulate sunt virtuale și nu au valoare monetară. Nu există premii în bani pe platformă.</p>
+    <div class="section">
+      <div class="section-num">01</div>
+      <h2>Acceptance of Terms</h2>
+      <p>By accessing or using GOLAZO ("the Platform"), you agree to be bound by these Terms of Use. If you do not agree, please do not use GOLAZO.</p>
+      <p>These terms apply to all visitors, users, and anyone who accesses the Platform. GOLAZO reserves the right to update these terms at any time. Continued use of the Platform after changes constitutes acceptance.</p>
+    </div>
 
-  <h2>3. ELIGIBILITATE</h2>
-  <ul>
-    <li>Trebuie să ai minimum 18 ani pentru a folosi platforma</li>
-    <li>Trebuie să furnizezi informații corecte la înregistrare</li>
-    <li>Un utilizator poate deține un singur cont</li>
-  </ul>
+    <div class="section">
+      <div class="section-num">02</div>
+      <h2>Platform Description</h2>
+      <p>GOLAZO is a sports entertainment platform offering:</p>
+      <ul>
+        <li>World Cup 2026 match predictions and leaderboards</li>
+        <li>Football statistics and match analysis</li>
+        <li>Group prediction competitions</li>
+        <li>Newsletter and content services</li>
+        <li>Links to licensed third-party betting operators</li>
+      </ul>
+      <p>GOLAZO is a <strong>free-to-play prediction platform</strong>. We do not accept real-money bets or wagers directly. Any gambling activity occurs on third-party licensed operator sites.</p>
+    </div>
 
-  <h2>4. LINKURI AFILIATE ȘI PARTENERI</h2>
-  <p>GOLAZO conține linkuri afiliate către platforme de pariuri licențiate (Betano, Superbet, Bet365). Aceste linkuri sunt clar marcate. Dacă te înregistrezi prin aceste linkuri, putem primi un comision de la partener.</p>
-  <p><strong>Important:</strong> Pariurile implică riscuri financiare reale. Joacă responsabil. Accesarea platformelor de pariuri este responsabilitatea exclusivă a utilizatorului.</p>
+    <div class="section">
+      <div class="section-num">03</div>
+      <h2>Eligibility</h2>
+      <div class="warning-block">
+        <p>⚠️ You must be at least <strong>18 years old</strong> (or the legal age in your jurisdiction, whichever is higher) to use GOLAZO and to access any linked betting services.</p>
+      </div>
+      <p>By using the Platform, you confirm that you are of legal age in your country of residence and that gambling is legal in your jurisdiction.</p>
+    </div>
 
-  <h2>5. CONȚINUT ȘI ANALIZĂ STATISTICĂ</h2>
-  <p>Analizele statistice oferite de GOLAZO sunt generate pe baza datelor istorice și sunt furnizate exclusiv în scop informativ și de divertisment. Nu reprezintă sfaturi de investiții sau recomandări de pariere. Acuratețea istorică a modelului nu garantează rezultate viitoare.</p>
+    <div class="section">
+      <div class="section-num">04</div>
+      <h2>User Accounts</h2>
+      <p>To access prediction features, you must create an account. You are responsible for:</p>
+      <ul>
+        <li>Providing accurate registration information</li>
+        <li>Maintaining the security of your account credentials</li>
+        <li>All activity that occurs under your account</li>
+        <li>Notifying us immediately of any unauthorised access</li>
+      </ul>
+      <p>We reserve the right to suspend or terminate accounts that violate these terms.</p>
+    </div>
 
-  <h2>6. CONDUITĂ UTILIZATOR</h2>
-  <p>Este interzis să:</p>
-  <ul>
-    <li>Creezi conturi multiple pentru a manipula clasamentul</li>
-    <li>Folosești boți sau automatizări pentru a introduce predicții</li>
-    <li>Publici conținut ofensator în grupurile private</li>
-    <li>Încerci să compromită securitatea platformei</li>
-  </ul>
+    <div class="section">
+      <div class="section-num">05</div>
+      <h2>Affiliate Links & Betting Operators</h2>
+      <p>GOLAZO contains affiliate links to licensed betting operators. We may receive a commission when you register or deposit through these links, at no additional cost to you.</p>
+      <ul>
+        <li>All linked operators are licensed and regulated</li>
+        <li>Gambling involves financial risk — never bet more than you can afford to lose</li>
+        <li>GOLAZO does not guarantee winnings or outcomes</li>
+        <li>Statistics and predictions are for entertainment purposes only</li>
+      </ul>
+      <p>GOLAZO is not responsible for the content, services, or actions of third-party betting operators.</p>
+    </div>
 
-  <h2>7. PROPRIETATE INTELECTUALĂ</h2>
-  <p>Tot conținutul platformei GOLAZO (design, logo, texte, cod) este proprietatea GOLAZO și este protejat de legislația privind drepturile de autor. Reproducerea fără acordul scris este interzisă.</p>
+    <div class="section">
+      <div class="section-num">06</div>
+      <h2>Intellectual Property</h2>
+      <p>All content on GOLAZO — including design, code, text, graphics, and data — is the property of GOLAZO or its licensors and is protected by applicable intellectual property laws.</p>
+      <p>You may not reproduce, distribute, or create derivative works from GOLAZO content without our explicit written permission.</p>
+    </div>
 
-  <h2>8. LIMITAREA RĂSPUNDERII</h2>
-  <p>GOLAZO nu este responsabil pentru:</p>
-  <ul>
-    <li>Deciziile de pariere luate de utilizatori pe platformele partenere</li>
-    <li>Pierderile financiare rezultate din pariuri</li>
-    <li>Inexactitățile analizelor statistice</li>
-    <li>Întreruperile temporare ale serviciului</li>
-  </ul>
+    <div class="section">
+      <div class="section-num">07</div>
+      <h2>Prohibited Use</h2>
+      <p>You agree not to:</p>
+      <ul>
+        <li>Use the Platform for any unlawful purpose</li>
+        <li>Attempt to gain unauthorised access to any part of the Platform</li>
+        <li>Use automated scripts or bots to access the Platform</li>
+        <li>Submit false or misleading information</li>
+        <li>Interfere with the Platform's operation or security</li>
+        <li>Use the Platform if you are under 18 years of age</li>
+      </ul>
+    </div>
 
-  <h2>9. MODIFICĂRI</h2>
-  <p>Ne rezervăm dreptul de a modifica acești termeni. Vei fi notificat prin email cu 14 zile înainte de intrarea în vigoare a modificărilor semnificative.</p>
+    <div class="section">
+      <div class="section-num">08</div>
+      <h2>Disclaimer of Warranties</h2>
+      <p>GOLAZO is provided "as is" without warranties of any kind. We do not guarantee that the Platform will be error-free, uninterrupted, or that predictions will be accurate.</p>
+      <p>Match statistics and AI predictions are for entertainment purposes only and should not be used as the sole basis for betting decisions.</p>
+    </div>
 
-  <h2>10. CONTACT</h2>
-  <p>Pentru întrebări: <a href="mailto:legal@golazo.app">legal@golazo.app</a></p>
-</div>
+    <div class="section">
+      <div class="section-num">09</div>
+      <h2>Limitation of Liability</h2>
+      <p>To the maximum extent permitted by law, GOLAZO shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Platform, including any losses incurred from betting decisions made with reference to GOLAZO content.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-num">10</div>
+      <h2>Governing Law</h2>
+      <p>These Terms shall be governed by and construed in accordance with applicable EU law. Any disputes shall be subject to the exclusive jurisdiction of the competent courts.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-num">11</div>
+      <h2>Contact</h2>
+      <div class="contact-block">
+        <p><strong>GOLAZO Legal</strong></p>
+        <p>Email: <a href="mailto:contactgolazo777@gmail.com">contactgolazo777@gmail.com</a></p>
+        <p>Response time: within 30 days</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-legal">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+      <a href="/cookies">Cookie Policy</a>
+      <a href="/responsible">Responsible Gambling</a>
+    </div>
+    <div class="footer-badge">18+ | PLAY RESPONSIBLY</div>
+  </footer>
+
 </body>
 </html>
-
