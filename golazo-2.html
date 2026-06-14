@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d">
+<title>GOLAZO — World Cup 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   RESET + ROOT
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:    #0d0d0d;
+  --fire:     #FF3C00;
+  --fire-dim: #CC3000;
+  --ash:      #1a1a1a;
+  --bone:     #F5F0E8;
+  --muted:    #6b6b6b;
+  --line:     #2a2a2a;
+  --nav-h:    64px;
+  --strip-h:  52px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--black);
+  color: var(--bone);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* padding bottom = sticky strip height */
+  padding-bottom: var(--strip-h);
+  /* padding top = nav height */
+  padding-top: var(--nav-h);
+}
+
+/* ============================================================
+   FILM GRAIN
+   ============================================================ */
+#grain {
+  position: fixed;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.028;
+  will-change: transform;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  padding: 0 48px;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(13,13,13,.95);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px;
+  letter-spacing: .08em;
+  color: var(--bone);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-logo span { color: var(--fire); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--bone); }
+
+.nav-cta {
+  background: var(--fire);
+  color: var(--black) !important;
+  padding: 10px 22px;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .2s !important;
+  display: inline-block;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--fire-dim) !important; }
+
+/* Hamburger — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--bone);
+  display: block;
+  transition: transform .3s, opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav drawer */
+#mobileNav {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  background: var(--ash);
+  border-bottom: 1px solid var(--line);
+  z-index: 899;
+  padding: 24px 24px 32px;
+}
+#mobileNav.open { display: block; }
+#mobileNav ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+#mobileNav ul li { border-bottom: 1px solid var(--line); }
+#mobileNav ul li:first-child { border-top: 1px solid var(--line); }
+.mob-link {
+  display: block;
+  padding: 16px 0;
+  color: var(--bone);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+.mob-link:hover { color: var(--fire); }
+.mob-cta {
+  display: block;
+  margin-top: 24px;
+  background: var(--fire);
+  color: var(--black);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 16px;
+  text-align: center;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: calc(100vh - var(--nav-h));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 48px 48px 80px;
+  overflow: hidden;
+}
+
+.hero-slash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-slash::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 55%;
+  width: 3px;
+  height: 160%;
+  background: var(--fire);
+  transform: rotate(8deg);
+  transform-origin: top left;
+  opacity: .7;
+}
+
+/* LIVE indicator */
+.hero-live {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 3;
+}
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--fire);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .4; transform: scale(.7); }
+}
+.hero-live-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--fire);
+}
+.hero-live-sub {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.hero-eyebrow span {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(64px, 10vw, 148px);
+  line-height: .92;
+  letter-spacing: .02em;
+  color: var(--bone);
+  margin-bottom: 16px;
+}
+.hero-title .fire { color: var(--fire); }
+
+.hero-subtitle {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(20px, 3.5vw, 48px);
+  letter-spacing: .04em;
+  color: var(--muted);
+  margin-bottom: 40px;
+  line-height: 1;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--fire);
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background .2s;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-primary:hover { background: var(--fire-dim); }
+
+.btn-ghost {
+  color: var(--bone);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color .2s;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-ghost:hover { color: var(--fire); }
+
+/* Ticker */
+.hero-ticker-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 42px;
+  border-top: 1px solid var(--line);
+  background: var(--ash);
+  overflow: hidden;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+}
+.ticker-label {
+  flex-shrink: 0;
+  background: var(--fire);
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 0 18px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.ticker-track {
+  display: flex;
+  animation: ticker-scroll 28s linear infinite;
+  white-space: nowrap;
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 32px;
+  border-right: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--muted);
+}
+.ticker-item .score {
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  color: var(--bone);
+  letter-spacing: .06em;
+}
+.ticker-item .live-badge {
+  background: var(--fire);
+  color: var(--black);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 2px 6px;
+}
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   STAT BAR
+   ============================================================ */
+.stat-bar {
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat-item {
+  padding: 36px 32px;
+  border-right: 1px solid var(--line);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1;
+  letter-spacing: .02em;
+  color: var(--bone);
+  display: block;
+}
+.stat-num span { color: var(--fire); }
+.stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 8px;
+  display: block;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   MATCHES
+   ============================================================ */
+.section { padding: 80px 48px; }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  gap: 16px;
+}
+.section-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.section-heading {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 5vw, 64px);
+  letter-spacing: .03em;
+  color: var(--bone);
+  line-height: .95;
+}
+.see-all {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color .2s, border-color .2s;
+}
+.see-all:hover { color: var(--bone); border-color: var(--bone); }
+
+.matches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.match-card {
+  background: var(--black);
+  padding: 24px;
+  position: relative;
+  transition: background .2s;
+  cursor: pointer;
+  overflow: hidden;
+}
+.match-card:hover { background: var(--ash); }
+.match-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--fire);
+  transition: height .3s;
+}
+.match-card:hover::before { height: 100%; }
+
+.match-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.match-group {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.match-status {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+}
+.match-status.live { background: var(--fire); color: var(--black); }
+.match-status.upcoming { color: var(--muted); border: 1px solid var(--line); }
+.match-status.finished { color: var(--muted); }
+
+.match-teams {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.match-team { flex: 1; }
+.match-team.right { text-align: right; }
+.team-flag { font-size: 26px; display: block; margin-bottom: 6px; line-height: 1; }
+.team-name {
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: .06em;
+  color: var(--bone);
+}
+.match-score { text-align: center; flex-shrink: 0; }
+.score-display {
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+  letter-spacing: .08em;
+  color: var(--bone);
+  line-height: 1;
+}
+.score-display.live-score { color: var(--fire); }
+.score-time {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: .06em;
+  margin-top: 4px;
+}
+
+.ai-confidence {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.confidence-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.confidence-bar-wrap {
+  flex: 1;
+  height: 3px;
+  background: var(--line);
+}
+.confidence-bar-fill {
+  height: 100%;
+  background: var(--fire);
+}
+.confidence-value {
+  font-family: 'Anton', sans-serif;
+  font-size: 13px;
+  letter-spacing: .04em;
+  color: var(--bone);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   STAT STRIP (ANALIZĂ)
+   ============================================================ */
+.ai-strip {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--ash);
+  padding: 64px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.ai-strip::before {
+  content: 'STAT';
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(100px, 18vw, 220px);
+  color: var(--line);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.ai-strip-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 64px;
+  align-items: center;
+}
+.ai-strip-copy .overline {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 20px;
+  display: block;
+}
+.ai-strip-copy h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 4vw, 58px);
+  letter-spacing: .03em;
+  color: var(--bone);
+  line-height: .95;
+  margin-bottom: 24px;
+}
+.ai-strip-copy p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.prob-card {
+  border: 1px solid var(--line);
+  background: var(--black);
+  padding: 24px;
+}
+.prob-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  gap: 12px;
+}
+.prob-match {
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  letter-spacing: .06em;
+  color: var(--bone);
+}
+.prob-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: var(--fire);
+  color: var(--black);
+  flex-shrink: 0;
+}
+.prob-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.prob-row:last-of-type { margin-bottom: 0; }
+.prob-team {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bone);
+  width: 90px;
+  flex-shrink: 0;
+}
+.prob-bar-wrap { flex: 1; height: 4px; background: var(--line); }
+.prob-bar-fill { height: 100%; background: var(--muted); }
+.prob-bar-fill.winner { background: var(--fire); }
+.prob-pct {
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: .04em;
+  color: var(--bone);
+  width: 38px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.prob-accuracy {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.accuracy-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.accuracy-value {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px;
+  letter-spacing: .04em;
+  color: var(--bone);
+}
+.accuracy-value span { color: var(--fire); }
+
+/* ============================================================
+   HOW IT WORKS
+   ============================================================ */
+.how-section { border-bottom: 1px solid var(--line); }
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-left: 1px solid var(--line);
+}
+.how-item {
+  padding: 56px 40px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.how-number {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(48px, 6vw, 80px);
+  color: var(--line);
+  line-height: 1;
+  display: block;
+  margin-bottom: 20px;
+  letter-spacing: .02em;
+}
+.how-item h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  letter-spacing: .06em;
+  color: var(--bone);
+  margin-bottom: 12px;
+}
+.how-item p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ============================================================
+   LEADERBOARD
+   ============================================================ */
+.leaderboard-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.lb-panel { background: var(--black); padding: 36px; }
+.lb-panel-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.lb-row:last-child { border-bottom: none; }
+.lb-rank {
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  letter-spacing: .04em;
+  color: var(--muted);
+  width: 24px;
+  flex-shrink: 0;
+}
+.lb-rank.top { color: var(--fire); }
+.lb-avatar {
+  width: 34px; height: 34px;
+  background: var(--ash);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.lb-info { flex: 1; min-width: 0; }
+.lb-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bone);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lb-detail {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .04em;
+}
+.lb-points {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  letter-spacing: .04em;
+  color: var(--bone);
+  flex-shrink: 0;
+}
+.lb-streak {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--fire);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   B2B
+   ============================================================ */
+.b2b-section {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--ash);
+  padding: 80px 48px;
+}
+.b2b-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+.b2b-header .overline {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 16px;
+  display: block;
+}
+.b2b-header h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 4vw, 56px);
+  letter-spacing: .03em;
+  color: var(--bone);
+  line-height: .95;
+}
+.b2b-header p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+  padding-top: 8px;
+}
+.b2b-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.b2b-card { background: var(--black); padding: 36px; }
+.b2b-card.featured { background: var(--fire); }
+.b2b-card.featured .b2b-price,
+.b2b-card.featured .b2b-tier,
+.b2b-card.featured .b2b-feature,
+.b2b-card.featured .b2b-desc { color: var(--black); }
+.b2b-card.featured .b2b-feature::before { background: var(--black); }
+.b2b-tier {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+  display: block;
+}
+.b2b-price {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(36px, 4vw, 52px);
+  letter-spacing: .02em;
+  color: var(--bone);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.b2b-price-period {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 24px;
+  display: block;
+}
+.b2b-card.featured .b2b-price-period { color: rgba(13,13,13,.6); }
+.b2b-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.b2b-card.featured .b2b-desc { border-color: rgba(13,13,13,.2); }
+.b2b-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.b2b-feature {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bone);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.4;
+}
+.b2b-feature::before {
+  content: '';
+  width: 4px; height: 4px;
+  background: var(--fire);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.b2b-cta {
+  display: block;
+  margin-top: 28px;
+  text-align: center;
+  padding: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  color: var(--bone);
+  transition: background .2s, color .2s, border-color .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.b2b-cta:hover { background: var(--bone); color: var(--black); border-color: var(--bone); }
+.b2b-card.featured .b2b-cta { background: var(--black); color: var(--bone); border-color: var(--black); }
+.b2b-card.featured .b2b-cta:hover { background: var(--ash); border-color: var(--ash); }
+
+/* ============================================================
+   NEWSLETTER
+   ============================================================ */
+.newsletter-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 64px;
+  align-items: center;
+}
+.newsletter-copy .overline {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 16px;
+  display: block;
+}
+.newsletter-copy h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  letter-spacing: .03em;
+  color: var(--bone);
+  line-height: .95;
+  margin-bottom: 16px;
+}
+.newsletter-copy p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.newsletter-form-wrap {
+  border: 1px solid var(--line);
+  padding: 32px;
+  background: var(--ash);
+}
+.form-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+.form-input {
+  width: 100%;
+  background: var(--black);
+  border: 1px solid var(--line);
+  color: var(--bone);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color .2s;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-bottom: 12px;
+  display: block;
+  border-radius: 0;
+}
+.form-input:focus { border-color: var(--bone); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit {
+  width: 100%;
+  background: var(--fire);
+  color: var(--black);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background .2s;
+  display: block;
+  margin-top: 12px;
+  border-radius: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.form-submit:hover { background: var(--fire-dim); }
+.form-disclaimer {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.form-disclaimer a { color: var(--muted); text-decoration: underline; }
+
+/* ============================================================
+   AFFILIATE STRIP — sticky bottom
+   ============================================================ */
+.affiliate-strip {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--strip-h);
+  background: var(--ash);
+  border-top: 1px solid var(--line);
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  padding: 0 48px;
+  gap: 24px;
+  /* Safe area for iPhone home bar */
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.aff-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.aff-partners {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex: 1;
+}
+.aff-partner {
+  font-family: 'Anton', sans-serif;
+  font-size: 13px;
+  letter-spacing: .06em;
+  color: var(--bone);
+  text-decoration: none;
+  cursor: default;
+}
+.aff-separator { width: 1px; height: 16px; background: var(--line); }
+.aff-disclaimer {
+  font-size: 10px;
+  color: var(--muted);
+  flex-shrink: 0;
+  letter-spacing: .03em;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  padding: 64px 48px 80px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+.footer-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+  letter-spacing: .08em;
+  color: var(--bone);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 16px;
+}
+.footer-logo span { color: var(--fire); }
+.footer-brand p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.footer-col h4 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--bone); }
+.footer-bottom {
+  padding: 24px 48px 32px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-disclaimer {
+  font-size: 11px;
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.6;
+}
+.footer-legal { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-legal a {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .06em;
+}
+.footer-legal a:hover { color: var(--bone); }
+
+/* ============================================================
+   FLIP ANIMATION (kept for future use)
+   ============================================================ */
+.flip-cell.flip-anim { animation: flip-once .35s cubic-bezier(.4,0,.2,1); }
+@keyframes flip-once {
+  0%   { transform: rotateX(0deg); }
+  50%  { transform: rotateX(-90deg); }
+  51%  { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+/* Page load fade */
+.hero-content { opacity: 0; transform: translateY(16px); transition: opacity .7s ease .1s, transform .7s ease .1s; }
+.hero-content.visible { opacity: 1; transform: none; }
+.stat-bar { opacity: 0; transition: opacity .5s ease .4s; }
+.stat-bar.visible { opacity: 1; }
+
+/* ============================================================
+   RESPONSIVE — TABLET (max 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  nav { padding: 0 24px; }
+  .hero { padding: 32px 24px 72px; }
+  .stat-bar { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 64px 24px; }
+  .matches-grid { grid-template-columns: 1fr 1fr; }
+  .ai-strip-inner { grid-template-columns: 1fr; gap: 40px; }
+  .ai-strip { padding: 56px 24px; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .leaderboard-preview { grid-template-columns: 1fr; }
+  .b2b-section { padding: 64px 24px; }
+  .b2b-header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; }
+  .b2b-cards { grid-template-columns: 1fr; }
+  .newsletter-section { grid-template-columns: 1fr; padding: 64px 24px; gap: 40px; }
+  footer { grid-template-columns: 1fr 1fr; padding: 48px 24px 64px; }
+  .footer-bottom { padding: 20px 24px 28px; flex-direction: column; align-items: flex-start; }
+  .affiliate-strip { padding: 0 24px; }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (max 640px)
+   ============================================================ */
+@media (max-width: 640px) {
+  :root { --strip-h: 48px; }
+
+  /* Nav */
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Hero */
+  .hero { padding: 24px 20px 68px; min-height: calc(100svh - var(--nav-h)); }
+  .hero-title { font-size: clamp(52px, 15vw, 72px); }
+  .hero-subtitle { font-size: clamp(18px, 5vw, 28px); margin-bottom: 28px; }
+  .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .btn-primary { width: 100%; text-align: center; padding: 16px 24px; }
+  .hero-slash::before { left: 70%; }
+
+  /* Stat bar */
+  .stat-bar { grid-template-columns: repeat(2, 1fr); }
+  .stat-item { padding: 24px 20px; }
+  .stat-label { font-size: 9px; letter-spacing: .05em; }
+
+  /* Sections */
+  .section { padding: 48px 20px; }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+  /* Matches */
+  .matches-grid { grid-template-columns: 1fr; }
+  .match-card { padding: 20px; }
+
+  /* Stat strip */
+  .ai-strip { padding: 48px 20px; }
+  .ai-strip::before { font-size: 80px; right: -5px; }
+
+  /* How it works */
+  .how-grid { grid-template-columns: 1fr; }
+  .how-item { padding: 36px 20px; }
+
+  /* Leaderboard */
+  .leaderboard-preview { grid-template-columns: 1fr; }
+  .lb-panel { padding: 24px 20px; }
+
+  /* B2B */
+  .b2b-section { padding: 48px 20px; }
+  .b2b-header { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+  .b2b-cards { grid-template-columns: 1fr; }
+  .b2b-card { padding: 28px 20px; }
+
+  /* Newsletter */
+  .newsletter-section { grid-template-columns: 1fr; padding: 48px 20px; gap: 32px; }
+  .newsletter-form-wrap { padding: 24px 20px; }
+
+  /* Affiliate strip */
+  .affiliate-strip { padding: 0 20px; gap: 12px; }
+  .aff-disclaimer { display: none; }
+  .aff-separator { display: none; }
+  .aff-partner { font-size: 10px; }
+
+  /* Footer */
+  footer { grid-template-columns: 1fr; padding: 40px 20px 56px; gap: 32px; }
+  .footer-bottom { padding: 20px 20px 24px; }
+  .footer-legal { gap: 16px; }
+}
+
+/* ============================================================
+   RESPONSIVE — SMALL PHONES (max 380px)
+   ============================================================ */
+@media (max-width: 380px) {
+  .hero-title { font-size: 46px; }
+  .stat-num { font-size: 32px; }
+}
+
+/* ============================================================
+   TV / LARGE SCREENS (min 1600px)
+   ============================================================ */
+@media (min-width: 1600px) {
+  nav { padding: 0 80px; }
+  .hero { padding: 64px 80px 100px; }
+  .section { padding: 100px 80px; }
+  .ai-strip { padding: 80px; }
+  .b2b-section { padding: 100px 80px; }
+  .newsletter-section { padding: 100px 80px; }
+  footer { padding: 80px 80px 100px; }
+  .footer-bottom { padding: 24px 80px 40px; }
+  .affiliate-strip { padding: 0 80px; }
+  .stat-item { padding: 40px 48px; }
+}
+
+/* ============================================================
+   FOCUS STYLES (accessibility — keyboard / TV nav)
+   ============================================================ */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--fire);
+  outline-offset: 2px;
+}
+</style>
+</head>
+<body>
+
+<!-- Film Grain -->
+<canvas id="grain"></canvas>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav id="nav">
+  <a href="/" class="nav-logo">GOL<span>A</span>ZO</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#meciuri">Meciuri</a></li>
+    <li><a href="#analiza">Analiză</a></li>
+    <li><a href="#leaderboard">Clasament</a></li>
+    <li><a href="#business">Business</a></li>
+    <a href="/register" class="nav-cta">Joacă Gratuit</a>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Meniu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div id="mobileNav" role="navigation" aria-label="Meniu mobil">
+  <ul>
+    <li><a href="#meciuri"    class="mob-link" onclick="closeMobileNav()">Meciuri</a></li>
+    <li><a href="#analiza"   class="mob-link" onclick="closeMobileNav()">Analiză</a></li>
+    <li><a href="#leaderboard" class="mob-link" onclick="closeMobileNav()">Clasament</a></li>
+    <li><a href="#business"  class="mob-link" onclick="closeMobileNav()">Business</a></li>
+  </ul>
+  <a href="/register" class="mob-cta" onclick="closeMobileNav()">Joacă Gratuit</a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-slash"></div>
+
+  <!-- LIVE indicator -->
+  <div class="hero-live">
+    <div class="live-dot"></div>
+    <span class="hero-live-text">LIVE — WORLD CUP 2026</span>
+    <span class="hero-live-sub">· 14 Iunie – 19 Iulie</span>
+  </div>
+
+  <!-- Hero content -->
+  <div class="hero-content" id="heroContent">
+    <div class="hero-eyebrow">
+      <span>World Cup 2026 — 48 echipe, 104 meciuri</span>
+    </div>
+    <h1 class="hero-title">
+      104<br>
+      <span class="fire">MECIURI.</span><br>
+      UN CÂȘTIGĂTOR.
+    </h1>
+    <p class="hero-subtitle">Tu îl știi deja.</p>
+    <div class="hero-actions">
+      <a href="/register" class="btn-primary">Intră în joc — gratuit</a>
+      <a href="#meciuri" class="btn-ghost">
+        Vezi meciurile
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Ticker -->
+  <div class="hero-ticker-wrap" aria-hidden="true">
+    <div class="ticker-label">Live</div>
+    <div style="overflow:hidden;flex:1;">
+      <div class="ticker-track" id="tickerTrack">
+        <div class="ticker-item">🇲🇽 Mexic <span class="score">2 — 1</span> 🇨🇦 Canada <span class="live-badge">72'</span></div>
+        <div class="ticker-item">🇧🇷 Brazilia <span class="score">— vs —</span> 🇦🇷 Argentina <span class="live-badge">15:00</span></div>
+        <div class="ticker-item">🇫🇷 Franța <span class="score">1 — 0</span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Anglia <span class="live-badge">45+2'</span></div>
+        <div class="ticker-item">🇩🇪 Germania <span class="score">3 — 2</span> 🇪🇸 Spania <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇵🇹 Portugalia <span class="score">— vs —</span> 🇯🇵 Japonia <span class="live-badge">18:00</span></div>
+        <div class="ticker-item">🇲🇽 Mexic <span class="score">2 — 1</span> 🇨🇦 Canada <span class="live-badge">72'</span></div>
+        <div class="ticker-item">🇧🇷 Brazilia <span class="score">— vs —</span> 🇦🇷 Argentina <span class="live-badge">15:00</span></div>
+        <div class="ticker-item">🇫🇷 Franța <span class="score">1 — 0</span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Anglia <span class="live-badge">45+2'</span></div>
+        <div class="ticker-item">🇩🇪 Germania <span class="score">3 — 2</span> 🇪🇸 Spania <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇵🇹 Portugalia <span class="score">— vs —</span> 🇯🇵 Japonia <span class="live-badge">18:00</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STAT BAR
+     ============================================================ -->
+<div class="stat-bar" id="statBar">
+  <div class="stat-item">
+    <span class="stat-num" data-target="104">0</span>
+    <span class="stat-label">Meciuri de prezis</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" data-target="48">0</span>
+    <span class="stat-label">Echipe naționale</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num"><span data-target="58">0</span>%</span>
+    <span class="stat-label">Acuratețe model</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" data-target="3">0</span>
+    <span class="stat-label">Puncte scor exact</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     MATCHES
+     ============================================================ -->
+<section class="section" id="meciuri">
+  <div class="section-header">
+    <div>
+      <p class="section-title">Program complet</p>
+      <h2 class="section-heading">MECIURI<br>DE ASTĂZI</h2>
+    </div>
+    <a href="/predict" class="see-all">Vezi toate 104 →</a>
+  </div>
+  <div class="matches-grid">
+    <div class="match-card">
+      <div class="match-meta">
+        <span class="match-group">Grupă A</span>
+        <span class="match-status live">Live 72'</span>
+      </div>
+      <div class="match-teams">
+        <div class="match-team">
+          <span class="team-flag">🇲🇽</span>
+          <span class="team-name">MEXIC</span>
+        </div>
+        <div class="match-score">
+          <div class="score-display live-score">2 — 1</div>
+          <div class="score-time">72'</div>
+        </div>
+        <div class="match-team right">
+          <span class="team-flag" style="text-align:right;display:block;">🇨🇦</span>
+          <span class="team-name">CANADA</span>
+        </div>
+      </div>
+      <div class="ai-confidence">
+        <span class="confidence-label">STAT</span>
+        <div class="confidence-bar-wrap"><div class="confidence-bar-fill" style="width:71%"></div></div>
+        <span class="confidence-value">71%</span>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-meta">
+        <span class="match-group">Grupă C</span>
+        <span class="match-status upcoming">15:00</span>
+      </div>
+      <div class="match-teams">
+        <div class="match-team">
+          <span class="team-flag">🇧🇷</span>
+          <span class="team-name">BRAZILIA</span>
+        </div>
+        <div class="match-score">
+          <div class="score-display">vs</div>
+          <div class="score-time">15:00</div>
+        </div>
+        <div class="match-team right">
+          <span class="team-flag" style="text-align:right;display:block;">🇦🇷</span>
+          <span class="team-name">ARGENTINA</span>
+        </div>
+      </div>
+      <div class="ai-confidence">
+        <span class="confidence-label">STAT</span>
+        <div class="confidence-bar-wrap"><div class="confidence-bar-fill" style="width:44%"></div></div>
+        <span class="confidence-value">44%</span>
+      </div>
+    </div>
+    <div class="match-card">
+      <div class="match-meta">
+        <span class="match-group">Grupă B</span>
+        <span class="match-status live">Live 45+2'</span>
+      </div>
+      <div class="match-teams">
+        <div class="match-team">
+          <span class="team-flag">🇫🇷</span>
+          <span class="team-name">FRANȚA</span>
+        </div>
+        <div class="match-score">
+          <div class="score-display live-score">1 — 0</div>
+          <div class="score-time">45+2'</div>
+        </div>
+        <div class="match-team right">
+          <span class="team-flag" style="text-align:right;display:block;">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+          <span class="team-name">ANGLIA</span>
+        </div>
+      </div>
+      <div class="ai-confidence">
+        <span class="confidence-label">STAT</span>
+        <div class="confidence-bar-wrap"><div class="confidence-bar-fill" style="width:62%"></div></div>
+        <span class="confidence-value">62%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STAT STRIP (ANALIZĂ)
+     ============================================================ -->
+<div class="ai-strip" id="analiza">
+  <div class="ai-strip-inner">
+    <div class="ai-strip-copy">
+      <span class="overline">Analiză bazată pe date reale</span>
+      <h2>NU GHICIM.<br>CALCULĂM.</h2>
+      <p>Logistic Regression + Random Forest antrenat pe toate edițiile Cupei Mondiale din 1994 încoace. Ranking FIFA, formă recentă, head-to-head, etapa turneului. Acuratețe publicată real, nu inventată.</p>
+    </div>
+    <div class="prob-card">
+      <div class="prob-card-header">
+        <span class="prob-match">Brazilia — Argentina</span>
+        <span class="prob-badge">High</span>
+      </div>
+      <div class="prob-row">
+        <span class="prob-team">🇧🇷 Brazilia</span>
+        <div class="prob-bar-wrap"><div class="prob-bar-fill winner" style="width:44%"></div></div>
+        <span class="prob-pct">44%</span>
+      </div>
+      <div class="prob-row">
+        <span class="prob-team">Egal</span>
+        <div class="prob-bar-wrap"><div class="prob-bar-fill" style="width:28%"></div></div>
+        <span class="prob-pct">28%</span>
+      </div>
+      <div class="prob-row">
+        <span class="prob-team">🇦🇷 Argentina</span>
+        <div class="prob-bar-wrap"><div class="prob-bar-fill" style="width:28%"></div></div>
+        <span class="prob-pct">28%</span>
+      </div>
+      <div class="prob-accuracy">
+        <span class="accuracy-label">Acuratețe model statistic</span>
+        <span class="accuracy-value"><span>58</span>%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HOW IT WORKS
+     ============================================================ -->
+<section class="how-section">
+  <div style="padding:64px 48px 0;">
+    <p class="section-title">Simplu prin design</p>
+    <h2 class="section-heading" style="margin-bottom:48px;">CUM<br>FUNCȚIONEAZĂ</h2>
+  </div>
+  <div class="how-grid">
+    <div class="how-item">
+      <span class="how-number">01</span>
+      <h3>PREZICI SCORUL</h3>
+      <p>Înainte de fiecare meci introduci scorul exact pe care îl anticipezi. 3 puncte pentru scor exact, 1 punct dacă ai ghicit câștigătoarea.</p>
+    </div>
+    <div class="how-item">
+      <span class="how-number">02</span>
+      <h3>DATELE ÎȚI ARATĂ ȘANSELE</h3>
+      <p>Modelul nostru calculează probabilitățile bazat pe 30 de ani de date reale. Tu decizi dacă urmezi statistica sau instinctul.</p>
+    </div>
+    <div class="how-item">
+      <span class="how-number">03</span>
+      <h3>CÂȘTIGI PE BUNE</h3>
+      <p>Clasament global și grupuri private. Cel care prezice cel mai bine toate cele 104 meciuri câștigă. Simplu, curat, fără noroc.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEADERBOARD
+     ============================================================ -->
+<section class="section" id="leaderboard">
+  <div class="section-header">
+    <div>
+      <p class="section-title">Competiție reală</p>
+      <h2 class="section-heading">CLASAMENT<br>GLOBAL</h2>
+    </div>
+    <a href="/leaderboard" class="see-all">Top 100 →</a>
+  </div>
+  <div class="leaderboard-preview">
+    <div class="lb-panel">
+      <div class="lb-panel-title">
+        <span>🌍</span> Global — actualizat live
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank top">1</span>
+        <div class="lb-avatar">🇷🇴</div>
+        <div class="lb-info">
+          <span class="lb-name">Andrei M.</span>
+          <span class="lb-detail">București · 8 prezis</span>
+        </div>
+        <span class="lb-streak">🔥 7</span>
+        <span class="lb-points">24</span>
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank top">2</span>
+        <div class="lb-avatar">🇷🇴</div>
+        <div class="lb-info">
+          <span class="lb-name">Maria D.</span>
+          <span class="lb-detail">Cluj · 8 prezis</span>
+        </div>
+        <span class="lb-streak">🔥 5</span>
+        <span class="lb-points">21</span>
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank">3</span>
+        <div class="lb-avatar">🇷🇴</div>
+        <div class="lb-info">
+          <span class="lb-name">Mihai P.</span>
+          <span class="lb-detail">Timișoara · 8 prezis</span>
+        </div>
+        <span class="lb-streak" style="visibility:hidden;">🔥 0</span>
+        <span class="lb-points">19</span>
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank">4</span>
+        <div class="lb-avatar">🇷🇴</div>
+        <div class="lb-info">
+          <span class="lb-name">Alex R.</span>
+          <span class="lb-detail">Iași · 7 prezis</span>
+        </div>
+        <span class="lb-streak" style="visibility:hidden;">🔥 0</span>
+        <span class="lb-points">18</span>
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank">5</span>
+        <div class="lb-avatar">🇷🇴</div>
+        <div class="lb-info">
+          <span class="lb-name">Tudor S.</span>
+          <span class="lb-detail">Brașov · 7 prezis</span>
+        </div>
+        <span class="lb-streak" style="visibility:hidden;">🔥 0</span>
+        <span class="lb-points">17</span>
+      </div>
+    </div>
+    <div class="lb-panel" style="background:var(--ash);">
+      <div class="lb-panel-title">Sistem de puncte</div>
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--fire);letter-spacing:.04em;">3 PTS</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px;">Scor exact</div>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--bone);letter-spacing:.04em;">1 PT</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px;">Câștigătoare corectă</div>
+        </div>
+        <div style="border-top:1px solid var(--line);padding-top:20px;">
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+            Streak bonus:<br>
+            🔥 3 preziceri consecutive → flacără pe profil<br>
+            🔥 7 consecutive → badge special<br>
+            🔥 10 consecutive → featured pe homepage
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     B2B
+     ============================================================ -->
+<div class="b2b-section" id="business">
+  <div class="b2b-header">
+    <div>
+      <span class="overline">Soluție pentru locații</span>
+      <h2>PENTRU<br>BARUL TĂU</h2>
+    </div>
+    <p>Transformă fiecare meci dintr-un eveniment pasiv într-o experiență interactivă. Leaderboard branded pe ecranul tău, QR pe fiecare masă, clienții tăi în competiție.</p>
+  </div>
+  <div class="b2b-cards">
+    <div class="b2b-card">
+      <span class="b2b-tier">Starter</span>
+      <div class="b2b-price">€150</div>
+      <span class="b2b-price-period">/ săptămână de turneu</span>
+      <p class="b2b-desc">Tot ce ai nevoie pentru a activa competiția în locație. Setup în 30 de minute, fără hardware nou.</p>
+      <ul class="b2b-features">
+        <li class="b2b-feature">Leaderboard branded pe ecran</li>
+        <li class="b2b-feature">QR-uri pentru 10 mese</li>
+        <li class="b2b-feature">Grup privat GOLAZO pentru clienți</li>
+        <li class="b2b-feature">Dashboard live cu statistici</li>
+      </ul>
+      <a href="/business" class="b2b-cta">Solicită oferta</a>
+    </div>
+    <div class="b2b-card featured">
+      <span class="b2b-tier">Brand Pack — Cel mai ales</span>
+      <div class="b2b-price">€250</div>
+      <span class="b2b-price-period">/ săptămână de turneu</span>
+      <p class="b2b-desc">Totul din Starter plus notificări push și plasament în newsletter-ul zilnic GOLAZO.</p>
+      <ul class="b2b-features">
+        <li class="b2b-feature">Tot din Starter</li>
+        <li class="b2b-feature">Push notifications branded</li>
+        <li class="b2b-feature">Plasament newsletter zilnic</li>
+        <li class="b2b-feature">Card viral cu logo-ul tău</li>
+        <li class="b2b-feature">Raport săptămânal de reach</li>
+      </ul>
+      <a href="/business" class="b2b-cta">Cel mai ales</a>
+    </div>
+    <div class="b2b-card">
+      <span class="b2b-tier">Group War</span>
+      <div class="b2b-price">€400</div>
+      <span class="b2b-price-period">/ întregul turneu</span>
+      <p class="b2b-desc">Pub-ul tău intră în competiție cu alte locații din același oraș.</p>
+      <ul class="b2b-features">
+        <li class="b2b-feature">Tot din Brand Pack</li>
+        <li class="b2b-feature">Competiție city-wide</li>
+        <li class="b2b-feature">PR organic garantat</li>
+        <li class="b2b-feature">Prioritate la plasamente media</li>
+      </ul>
+      <a href="/business" class="b2b-cta">Intră în Group War</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     NEWSLETTER
+     ============================================================ -->
+<div class="newsletter-section">
+  <div class="newsletter-copy">
+    <span class="overline">Zilnic, cu 2h înainte de meci</span>
+    <h2>ANALIZA ZILEI<br>PE EMAIL.</h2>
+    <p>Nu spam. Un singur email pe zi de meci, cu analiza statistică, ce se știe despre echipe și cele mai bune date. Dezabonare cu un click.</p>
+  </div>
+  <div class="newsletter-form-wrap">
+    <label class="form-label" for="emailInput">Adresa de email</label>
+    <input type="email" id="emailInput" class="form-input" placeholder="tu@email.com" autocomplete="email">
+    <label class="form-label" for="numeInput">Prenumele tău</label>
+    <input type="text" id="numeInput" class="form-input" placeholder="Prenume" autocomplete="given-name">
+    <button class="form-submit" onclick="handleSubscribe()">Abonează-mă gratuit</button>
+    <p class="form-disclaimer">
+      Prin abonare ești de acord cu <a href="/privacy">Politica de confidențialitate</a>.
+      Niciun spam, niciodată. 18+ | Joacă responsabil.
+    </p>
+  </div>
+</div>
+
+<!-- ============================================================
+     AFFILIATE STRIP
+     ============================================================ -->
+<div class="affiliate-strip">
+  <span class="aff-label">GOLAZO</span>
+  <div class="aff-partners">
+    <span class="aff-partner">104 MECIURI</span>
+    <div class="aff-separator"></div>
+    <span class="aff-partner">ANALIZĂ STATISTICĂ</span>
+    <div class="aff-separator"></div>
+    <span class="aff-partner">DIVERTISMENT PUR</span>
+  </div>
+  <span class="aff-disclaimer">18+ · Joacă responsabil · Pariurile pot crea dependență</span>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-brand">
+    <a href="/" class="footer-logo">GOL<span>A</span>ZO</a>
+    <p>Cel mai complet ecosistem de predicții pentru World Cup 2026. Date reale, transparență totală, competiție autentică.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Produs</h4>
+    <ul class="footer-links">
+      <li><a href="/predict">Predicții</a></li>
+      <li><a href="/leaderboard">Clasament</a></li>
+      <li><a href="/war-room">War Room</a></li>
+      <li><a href="/teams">Echipe</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Business</h4>
+    <ul class="footer-links">
+      <li><a href="/business">Pub Pack</a></li>
+      <li><a href="/business">Brand Pack</a></li>
+      <li><a href="/business">Group War</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Legal</h4>
+    <ul class="footer-links">
+      <li><a href="/privacy">Confidențialitate</a></li>
+      <li><a href="/terms">Termeni</a></li>
+      <li><a href="/responsible">Joc responsabil</a></li>
+      <li><a href="/cookies">Cookie policy</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <p class="footer-disclaimer">GOLAZO este o platformă de predicții pentru divertisment, bazată pe analiză statistică. Nu oferim servicii de pariuri și nu garantăm rezultatele meciurilor. 18+ | Joacă responsabil | gambleaware.org</p>
+  <div class="footer-legal">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">T&C</a>
+    <a href="/responsible">Gambling Help</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT — zero erori garantat
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ---- Film Grain ---- */
+  var canvas = document.getElementById('grain');
+  if (canvas) {
+    var ctx = canvas.getContext('2d');
+    var w, h;
+    function resizeGrain() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    resizeGrain();
+    window.addEventListener('resize', resizeGrain, { passive: true });
+    var lastGrain = 0;
+    function animateGrain(t) {
+      if (t - lastGrain > 50) {
+        var img = ctx.createImageData(w, h);
+        var d = img.data;
+        for (var i = 0; i < d.length; i += 4) {
+          var v = Math.random() * 255 | 0;
+          d[i] = d[i+1] = d[i+2] = v;
+          d[i+3] = 255;
+        }
+        ctx.putImageData(img, 0, 0);
+        lastGrain = t;
+      }
+      requestAnimationFrame(animateGrain);
+    }
+    requestAnimationFrame(animateGrain);
+  }
+
+  /* ---- Nav scroll ---- */
+  var nav = document.getElementById('nav');
+  if (nav) {
+    window.addEventListener('scroll', function() {
+      nav.style.borderBottomColor = window.scrollY > 40 ? 'var(--line)' : 'var(--line)';
+    }, { passive: true });
+  }
+
+  /* ---- Hero fade in ---- */
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var hc = document.getElementById('heroContent');
+      var sb = document.getElementById('statBar');
+      if (hc) hc.classList.add('visible');
+      if (sb) sb.classList.add('visible');
+    }, 100);
+  });
+
+  /* ---- Counter animation ---- */
+  function animateCounter(el, target, duration) {
+    if (!el) return;
+    duration = duration || 1200;
+    var start = performance.now();
+    function step(now) {
+      var progress = Math.min((now - start) / duration, 1);
+      var ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(ease * target);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  var statBar = document.getElementById('statBar');
+  if (statBar && window.IntersectionObserver) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var els = entry.target.querySelectorAll('[data-target]');
+          els.forEach(function(el) {
+            animateCounter(el, parseInt(el.getAttribute('data-target'), 10));
+          });
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    obs.observe(statBar);
+  } else if (statBar) {
+    /* Fallback for older browsers (PS4 browser, old Smart TV) */
+    var els = statBar.querySelectorAll('[data-target]');
+    els.forEach(function(el) {
+      el.textContent = el.getAttribute('data-target');
+    });
+  }
+
+  /* ---- Hamburger menu ---- */
+  var hamburger = document.getElementById('navHamburger');
+  var mobileNav = document.getElementById('mobileNav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function() {
+      var isOpen = mobileNav.classList.contains('open');
+      if (isOpen) {
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileNav.classList.add('open');
+        hamburger.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+      }
+    });
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+      if (!nav.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* ---- Newsletter subscribe ---- */
+  window.handleSubscribe = function() {
+    var emailEl = document.getElementById('emailInput');
+    var btn = document.querySelector('.form-submit');
+    if (!emailEl || !btn) return;
+    var email = emailEl.value.trim();
+    if (!email || email.indexOf('@') === -1) {
+      emailEl.style.borderColor = 'var(--fire)';
+      emailEl.focus();
+      return;
+    }
+    emailEl.style.borderColor = '';
+    btn.textContent = 'Se procesează...';
+    btn.disabled = true;
+    setTimeout(function() {
+      btn.textContent = 'Abonat! ✓';
+      btn.style.background = '#1a6644';
+    }, 800);
+  };
+
+  /* ---- Close mobile nav helper ---- */
+  window.closeMobileNav = function() {
+    if (mobileNav) mobileNav.classList.remove('open');
+    if (hamburger) {
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  };
+
+  /* ---- Terminal Easter Egg (G → O → L) ---- */
+  var seq = ['g', 'o', 'l'];
+  var pos = 0;
+  var termActive = false;
+  document.addEventListener('keydown', function(e) {
+    if (e.key && e.key.toLowerCase() === seq[pos]) {
+      pos++;
+      if (pos === seq.length) {
+        pos = 0;
+        toggleTerminal();
+      }
+    } else {
+      pos = (e.key && e.key.toLowerCase() === seq[0]) ? 1 : 0;
+    }
+  });
+
+  function toggleTerminal() {
+    termActive = !termActive;
+    if (termActive) {
+      document.body.style.filter = 'hue-rotate(120deg) saturate(2) brightness(.8)';
+      var div = document.createElement('div');
+      div.id = 'terminalMsg';
+      div.style.cssText = 'position:fixed;bottom:80px;left:48px;z-index:9999;background:#000;border:1px solid #00ff00;padding:16px 24px;font-family:Courier New,monospace;font-size:13px;color:#00ff00;line-height:1.6;max-width:calc(100vw - 96px);';
+      div.innerHTML = '> GOLAZO terminal v1.0<br>> World Cup 2026 loaded<br>> Press G-O-L again to exit_';
+      document.body.appendChild(div);
+    } else {
+      document.body.style.filter = '';
+      var msg = document.getElementById('terminalMsg');
+      if (msg) msg.remove();
+    }
+  }
+
+})();
+</script>
+</body>
+</html>
