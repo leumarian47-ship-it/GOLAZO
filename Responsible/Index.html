@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joc Responsabil — GOLAZO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0d0d0d;--fire:#FF3C00;--ash:#1a1a1a;--bone:#F5F0E8;--muted:#6b6b6b;--line:#2a2a2a}
+body{background:var(--black);color:var(--bone);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(13,13,13,.95);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 48px;z-index:100;backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.08em;color:var(--bone);text-decoration:none}
+.nav-logo span{color:var(--fire)}
+.container{max-width:760px;margin:0 auto;padding:120px 48px 80px}
+h1{font-family:'Anton',sans-serif;font-size:clamp(36px,5vw,56px);letter-spacing:.03em;color:var(--bone);line-height:.95;margin-bottom:12px}
+.subtitle{font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+h2{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--bone);margin:36px 0 12px}
+p{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:16px}
+a{color:var(--fire);text-decoration:none}
+ul{margin:0 0 16px 20px}
+li{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:6px}
+.back{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:40px;transition:color .2s}
+.back:hover{color:var(--bone)}
+.alert{background:var(--ash);border:1px solid var(--line);border-left:3px solid var(--fire);padding:24px;margin:24px 0}
+.alert p{margin:0;color:var(--bone);font-size:16px;line-height:1.6}
+.helpline{background:var(--ash);border:1px solid var(--line);padding:24px;margin:16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.helpline-name{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.04em;color:var(--bone)}
+.helpline-contact{font-size:14px;color:var(--fire);font-weight:500}
+@media(max-width:640px){nav{padding:0 20px}.container{padding:100px 20px 60px}.helpline{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<nav><a href="/" class="nav-logo">GOL<span>A</span>ZO</a></nav>
+<div class="container">
+  <a href="/" class="back">← Înapoi la GOLAZO</a>
+  <h1>JOC<br>RESPONSABIL</h1>
+  <p class="subtitle">GOLAZO se angajează pentru un mediu de divertisment sigur</p>
+
+  <div class="alert">
+    <p>🛑 <strong>Dacă simți că pariurile îți afectează viața, caută ajutor imediat.</strong> Există resurse gratuite disponibile 24/7.</p>
+  </div>
+
+  <h2>GOLAZO ȘI JOCUL RESPONSABIL</h2>
+  <p>GOLAZO este o platformă de predicții pentru <strong>divertisment</strong>. Nu oferim servicii de pariuri. Linkurile noastre afiliate duc către platforme de pariuri licențiate, unde utilizatorii decid în mod independent dacă pariază sau nu.</p>
+  <p>Ne angajăm să promovăm un mediu sigur și să informăm utilizatorii despre riscurile asociate jocurilor de noroc.</p>
+
+  <h2>SEMNE ALE PROBLEMELOR CU JOCURILE DE NOROC</h2>
+  <ul>
+    <li>Pariezi mai mult decât îți permiți să pierzi</li>
+    <li>Pariezi pentru a recupera pierderi anterioare</li>
+    <li>Jocul interferează cu munca, familia sau relațiile</li>
+    <li>Minți despre cât pariezi</li>
+    <li>Te gândești obsesiv la pariuri</li>
+    <li>Împrumuți bani pentru a paria</li>
+  </ul>
+
+  <h2>SFATURI PENTRU UN JOC RESPONSABIL</h2>
+  <ul>
+    <li>Stabilește un buget fix și respectă-l</li>
+    <li>Nu paria bani pe care nu îți permiți să îi pierzi</li>
+    <li>Privește pariurile ca divertisment, nu ca sursă de venit</li>
+    <li>Ia pauze regulate</li>
+    <li>Nu paria sub influența alcoolului sau stresului</li>
+    <li>Folosește instrumentele de auto-excludere oferite de platforme</li>
+  </ul>
+
+  <h2>RESURSE DE AJUTOR — ROMÂNIA</h2>
+
+  <div class="helpline">
+    <div>
+      <div class="helpline-name">Jucători Anonimi România</div>
+      <p style="font-size:13px;color:var(--muted);margin:4px 0 0;">Grupuri de suport pentru dependența de jocuri de noroc</p>
+    </div>
+    <div class="helpline-contact"><a href="https://www.jaromania.org" target="_blank">jaromania.org</a></div>
+  </div>
+
+  <div class="helpline">
+    <div>
+      <div class="helpline-name">GamCare</div>
+      <p style="font-size:13px;color:var(--muted);margin:4px 0 0;">Consiliere și suport internațional</p>
+    </div>
+    <div class="helpline-contact"><a href="https://www.gamcare.org.uk" target="_blank">gamcare.org.uk</a></div>
+  </div>
+
+  <div class="helpline">
+    <div>
+      <div class="helpline-name">GambleAware</div>
+      <p style="font-size:13px;color:var(--muted);margin:4px 0 0;">Informații și resurse despre jocul responsabil</p>
+    </div>
+    <div class="helpline-contact"><a href="https://www.gambleaware.org" target="_blank">gambleaware.org</a></div>
+  </div>
+
+  <div class="helpline">
+    <div>
+      <div class="helpline-name">Betano — Auto-excludere</div>
+      <p style="font-size:13px;color:var(--muted);margin:4px 0 0;">Setează limite sau exclude-te de pe platformă</p>
+    </div>
+    <div class="helpline-contact"><a href="https://www.betano.ro/responsible-gaming/" target="_blank">betano.ro/responsible-gaming</a></div>
+  </div>
+
+  <h2>PROTECȚIA MINORILOR</h2>
+  <p>GOLAZO este o platformă dedicată exclusiv persoanelor cu vârsta de <strong>minimum 18 ani</strong>. Nu colectăm date de la minori în mod intenționat. Dacă ești părinte și crezi că un minor a accesat platforma, contactează-ne la <a href="mailto:privacy@golazo.app">privacy@golazo.app</a>.</p>
+  <p>Recomandăm folosirea de software de control parental pentru a restricționa accesul minorilor la conținut de gambling.</p>
+
+  <h2>CONTACT</h2>
+  <p>Pentru orice problemă legată de jocul responsabil: <a href="mailto:responsible@golazo.app">responsible@golazo.app</a></p>
+</div>
+</body>
+</html>
+
