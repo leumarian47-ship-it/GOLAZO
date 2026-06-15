@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d">
+<title>Newsletter — GOLAZO World Cup 2026</title>
+<meta name="description" content="Abonează-te la newsletterul GOLAZO. Analiză zilnică, predicții și statistici reale cu 2 ore înainte de fiecare meci. Gratuit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:    #0d0d0d;
+  --fire:     #FF3C00;
+  --fire-dim: #CC3000;
+  --ash:      #1a1a1a;
+  --bone:     #F5F0E8;
+  --muted:    #6b6b6b;
+  --line:     #2a2a2a;
+  --green:    #1a6644;
+  --nav-h:    64px;
+  --strip-h:  52px;
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--black);
+  color: var(--bone);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--nav-h);
+  padding-bottom: var(--strip-h);
+}
+
+/* FILM GRAIN */
+#grain {
+  position: fixed;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.028;
+  will-change: transform;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  padding: 0 48px;
+  height: var(--nav-h);
+  background: var(--black);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  letter-spacing: .08em;
+  color: var(--bone);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--fire); }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--bone); }
+.nav-links a.active { color: var(--fire); }
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--bone);
+  transition: transform .3s, opacity .3s;
+}
+#mobileNav {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: var(--ash);
+  border-bottom: 1px solid var(--line);
+  z-index: 899;
+  padding: 24px 24px 32px;
+  flex-direction: column;
+}
+#mobileNav.open { display: flex; }
+#mobileNav a {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  transition: color .2s;
+}
+#mobileNav a:last-child { border-bottom: none; }
+#mobileNav a:hover, #mobileNav a.active { color: var(--fire); }
+
+/* HERO */
+.hero {
+  position: relative;
+  padding: 80px 48px 80px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: -40px;
+  width: 600px; height: 400px;
+  background: var(--fire);
+  opacity: .04;
+  transform: skewY(-8deg);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--fire);
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: .95;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero h1 span { color: var(--fire); }
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+.hero-sub strong { color: var(--bone); font-weight: 500; }
+
+/* STATS ROW */
+.stats-row {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--line);
+  max-width: 500px;
+  margin-bottom: 48px;
+}
+.stat-item {
+  padding: 20px 28px;
+  border-right: 1px solid var(--line);
+  flex: 1;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Anton', sans-serif;
+  font-size: 32px;
+  color: var(--fire);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* FORM */
+.form-wrap {
+  max-width: 480px;
+}
+.form-row {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--line);
+}
+.form-input {
+  flex: 1;
+  background: var(--ash);
+  border: none;
+  padding: 16px 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--bone);
+  outline: none;
+}
+.form-input::placeholder { color: var(--muted); }
+.form-input:focus { background: #222; }
+.form-btn {
+  background: var(--fire);
+  color: var(--black);
+  border: none;
+  padding: 16px 28px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.form-btn:hover { background: var(--fire-dim); }
+.form-btn:disabled { background: var(--muted); cursor: not-allowed; }
+.form-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+.form-success {
+  display: none;
+  background: var(--green);
+  color: var(--bone);
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #2a8855;
+  margin-top: 12px;
+}
+.form-error {
+  display: none;
+  background: #3a1010;
+  color: #ff6b6b;
+  padding: 16px 20px;
+  font-size: 14px;
+  border: 1px solid #5a2020;
+  margin-top: 12px;
+}
+
+/* BENEFITS */
+.benefits-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--line);
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+}
+.benefit {
+  padding: 40px 32px;
+  border-right: 1px solid var(--line);
+}
+.benefit:last-child { border-right: none; }
+.benefit-icon { font-size: 28px; margin-bottom: 16px; }
+.benefit-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.benefit-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* EMAIL PREVIEW */
+.preview-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--line);
+  background: var(--ash);
+}
+.email-mockup {
+  max-width: 560px;
+  border: 1px solid var(--line);
+  background: var(--black);
+}
+.email-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.email-from {
+  font-size: 12px;
+  color: var(--muted);
+}
+.email-from strong { color: var(--bone); font-weight: 500; }
+.email-date {
+  font-size: 11px;
+  color: var(--muted);
+}
+.email-subject {
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bone);
+}
+.email-body {
+  padding: 28px;
+}
+.email-body p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.email-body p strong { color: var(--bone); font-weight: 500; }
+.email-match {
+  border: 1px solid var(--line);
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.email-match-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 8px;
+}
+.email-match-teams {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px;
+  letter-spacing: .04em;
+  margin-bottom: 8px;
+}
+.email-match-stat {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.email-verdict {
+  background: var(--fire);
+  color: var(--black);
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-top: 20px;
+  display: inline-block;
+}
+.email-footer-strip {
+  padding: 16px 28px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* FAQ */
+.faq-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--line);
+}
+.faq-list {
+  max-width: 700px;
+  margin-top: 48px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 24px 0;
+}
+.faq-item:first-child { border-top: 1px solid var(--line); }
+.faq-q {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bone);
+  margin-bottom: 10px;
+}
+.faq-a {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.faq-a a { color: var(--fire); text-decoration: none; }
+
+/* CTA FINAL */
+.cta-section {
+  padding: 100px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%;
+  transform: translateX(-50%) skewY(-8deg);
+  width: 800px; height: 400px;
+  background: var(--fire);
+  opacity: .03;
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.cta-section h2 span { color: var(--fire); }
+.cta-section p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 40px;
+}
+.cta-form-wrap {
+  max-width: 480px;
+  margin: 0 auto;
+}
+.cta-form-row {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--line);
+}
+
+/* FOOTER STRIP */
+.footer-strip {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--strip-h);
+  background: var(--ash);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 800;
+  padding: 0 24px;
+}
+.footer-strip a {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .04em;
+  transition: color .2s;
+}
+.footer-strip a:hover { color: var(--bone); }
+.footer-strip span { color: var(--line); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .hero, .benefits-section, .preview-section, .faq-section, .cta-section { padding: 60px 24px; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .benefit { border-right: none; border-bottom: 1px solid var(--line); }
+  .benefit:last-child { border-bottom: none; }
+  .stats-row { max-width: 100%; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 42px; }
+  .form-row, .cta-form-row { flex-direction: column; }
+  .form-btn { width: 100%; }
+  .stats-row { flex-direction: column; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--line); }
+  .stat-item:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="grain"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">GOL<span>A</span>ZO</a>
+  <ul class="nav-links">
+    <li><a href="/">Acasă</a></li>
+    <li><a href="/predict">Predicții</a></li>
+    <li><a href="/newsletter" class="active">Newsletter</a></li>
+    <li><a href="/vip">VIP Telegram</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Meniu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div id="mobileNav">
+  <a href="/">Acasă</a>
+  <a href="/predict">Predicții</a>
+  <a href="/newsletter" class="active">Newsletter</a>
+  <a href="/vip">VIP Telegram</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Gratuit · Zilnic · Fără spam</div>
+  <h1>FOTBAL<br><span>PE DATE.</span></h1>
+  <p class="hero-sub">
+    Primești în fiecare zi, <strong>cu 2 ore înainte de meciuri</strong>, o analiză bazată pe statistici reale. Nu opinii. Nu zvonuri. Numere.
+  </p>
+
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num" id="sub-count">—</div>
+      <div class="stat-label">Abonați</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">104</div>
+      <div class="stat-label">Meciuri acoperite</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">30+</div>
+      <div class="stat-label">Ani de date</div>
+    </div>
+  </div>
+
+  <div class="form-wrap">
+    <div class="form-row">
+      <input type="email" class="form-input" id="heroEmail" placeholder="emailul tău@gmail.com" autocomplete="email">
+      <button class="form-btn" id="heroBtn" onclick="subscribe('heroEmail', 'heroSuccess', 'heroError', 'heroBtn')">ABONEAZĂ-MĂ →</button>
+    </div>
+    <p class="form-note">Gratuit. Dezabonare oricând cu un click. GDPR compliant.</p>
+    <div class="form-success" id="heroSuccess">✓ Ești abonat! Primul email vine înaintea meciului de mâine.</div>
+    <div class="form-error" id="heroError">Ceva nu a mers. Încearcă din nou.</div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-section">
+  <div class="section-label">Ce primești</div>
+  <div class="section-title">UN EMAIL.<br>TOT CE CONTEAZĂ.</div>
+  <div class="benefits-grid">
+    <div class="benefit">
+      <div class="benefit-icon">📊</div>
+      <div class="benefit-title">Statistici Reale</div>
+      <div class="benefit-desc">Win rate, head-to-head, formă recentă, medie goluri — date din 30+ ani de fotbal internațional, nu opinii.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">⏱</div>
+      <div class="benefit-title">Cu 2h Înainte</div>
+      <div class="benefit-desc">Emailul ajunge exact când ai nevoie de el — înainte să înceapă meciurile zilei, nu după.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🎯</div>
+      <div class="benefit-title">Zero Zgomot</div>
+      <div class="benefit-desc">Un singur email pe zi. Scurt, clar, util. Fără reclame, fără clickbait, fără 10 emailuri pe săptămână.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL PREVIEW -->
+<section class="preview-section">
+  <div class="section-label">Exemplu</div>
+  <div class="section-title">CE PRIMEȘTI<br>ÎN INBOX</div>
+
+  <div class="email-mockup">
+    <div class="email-header">
+      <div class="email-from">De la: <strong>GOLAZO Daily</strong> &lt;daily@golazo.ro&gt;</div>
+      <div class="email-date">Azi, 10:00</div>
+    </div>
+    <div class="email-subject">🔴 Analiza zilei — Argentina vs Franta + 3 meciuri</div>
+    <div class="email-body">
+      <p>Bună ziua,</p>
+      <p>Astăzi avem <strong>4 meciuri</strong> în Cupa Mondială. Iată ce spun datele:</p>
+
+      <div class="email-match">
+        <div class="email-match-title">Meciul zilei · Grupa B · 21:00</div>
+        <div class="email-match-teams">ARGENTINA vs FRANȚA</div>
+        <div class="email-match-stat">
+          Win rate Argentina (ultimii 10 ani): <strong style="color:var(--bone)">61%</strong><br>
+          Head-to-head: 5V 2E 3P în favoarea Argentinei<br>
+          Formă recentă Argentina: V V V E V (ultimele 5)<br>
+          Medie goluri meci: 2.8 · BTTS: 64%
+        </div>
+        <div class="email-verdict">GOLAZO: Argentina sau egal · Valoare</div>
+      </div>
+
+      <p>Predicțiile complete pentru toate meciurile de azi le găsești pe <strong>golazo-sepia.vercel.app/predict</strong></p>
+      <p style="font-size:11px; color:var(--muted)">Vrei mai mult? Intră în grupul VIP Telegram pentru tips detaliate înainte de fiecare meci → golazo-sepia.vercel.app/vip</p>
+    </div>
+    <div class="email-footer-strip">
+      GOLAZO · 18+ · Joacă responsabil · <a href="/responsible" style="color:var(--fire); text-decoration:none;">Dezabonare</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-label">Întrebări</div>
+  <div class="section-title">FAQ</div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">E gratuit?</div>
+      <div class="faq-a">Da, 100% gratuit. Nu există versiune plătită a newsletterului. Dacă vrei mai mult, există <a href="/vip">grupul VIP Telegram</a>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Cât de des primesc emailuri?</div>
+      <div class="faq-a">Un email pe zi, în zilele cu meciuri. Dacă nu sunt meciuri, nu primești nimic.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">De unde vin datele statistice?</div>
+      <div class="faq-a">Din baze de date de fotbal internațional cu istoric de 30+ ani. Win rate, head-to-head, formă recentă — nu opinii subiective.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Pot să mă dezabonez?</div>
+      <div class="faq-a">Da, oricând. Fiecare email are un link de dezabonare în footer. Un click și gata.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Ce faceți cu emailul meu?</div>
+      <div class="faq-a">Îl folosim doar pentru a-ți trimite newsletterul. Nu îl vindem, nu îl sharing cu nimeni. <a href="/privacy">Privacy Policy completă.</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <h2>GATA SĂ<br><span>ȘTII MAI MULT?</span></h2>
+  <p>Gratuit. Un email pe zi. Dezabonare oricând.</p>
+  <div class="cta-form-wrap">
+    <div class="cta-form-row form-row">
+      <input type="email" class="form-input" id="ctaEmail" placeholder="emailul tău@gmail.com" autocomplete="email">
+      <button class="form-btn" id="ctaBtn" onclick="subscribe('ctaEmail', 'ctaSuccess', 'ctaError', 'ctaBtn')">ABONEAZĂ-MĂ →</button>
+    </div>
+    <p class="form-note">GDPR compliant. Dezabonare oricând cu un click.</p>
+    <div class="form-success" id="ctaSuccess">✓ Ești abonat! Primul email vine înaintea meciului de mâine.</div>
+    <div class="form-error" id="ctaError">Ceva nu a mers. Încearcă din nou.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-strip">
+  <a href="/privacy">Privacy</a>
+  <span>|</span>
+  <a href="/terms">Terms</a>
+  <span>|</span>
+  <a href="/responsible">Joc Responsabil</a>
+  <span>|</span>
+  <span style="color:var(--muted); font-size:11px;">© 2026 GOLAZO. 18+</span>
+</footer>
+
+<script>
+// Film grain
+(function() {
+  var canvas = document.getElementById('grain');
+  var ctx = canvas.getContext('2d');
+  var w, h;
+  function resize() { w = canvas.width = window.innerWidth * 4; h = canvas.height = window.innerHeight * 4; }
+  resize();
+  window.addEventListener('resize', resize);
+  function drawGrain() {
+    var imageData = ctx.createImageData(w, h);
+    var data = imageData.data;
+    for (var i = 0; i < data.length; i += 4) {
+      var v = Math.random() * 255 | 0;
+      data[i] = data[i+1] = data[i+2] = v;
+      data[i+3] = 255;
+    }
+    ctx.putImageData(imageData, 0, 0);
+    canvas.style.transform = 'translate(' + (Math.random()*4-2) + '%,' + (Math.random()*4-2) + '%)';
+  }
+  setInterval(drawGrain, 1000/20);
+})();
+
+// Hamburger
+document.getElementById('navHamburger').addEventListener('click', function() {
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+
+// Subscribe function
+function subscribe(inputId, successId, errorId, btnId) {
+  var email = document.getElementById(inputId).value.trim();
+  var btn = document.getElementById(btnId);
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById(errorId).style.display = 'block';
+    document.getElementById(errorId).textContent = 'Introdu un email valid.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'SE TRIMITE...';
+
+  // MailerLite API v2
+  fetch('https://connect.mailerlite.com/api/subscribers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer YOUR_MAILERLITE_API_KEY'
+    },
+    body: JSON.stringify({
+      email: email,
+      groups: ['YOUR_GROUP_ID']
+    })
+  })
+  .then(function(r) {
+    if (r.status === 200 || r.status === 201) {
+      document.getElementById(successId).style.display = 'block';
+      document.getElementById(inputId).value = '';
+      btn.textContent = '✓ ABONAT';
+    } else {
+      throw new Error('API error');
+    }
+  })
+  .catch(function() {
+    document.getElementById(errorId).style.display = 'block';
+    document.getElementById(errorId).textContent = 'Ceva nu a mers. Încearcă din nou.';
+    btn.disabled = false;
+    btn.textContent = 'ABONEAZĂ-MĂ →';
+  });
+}
+
+// Enter key pe input
+document.getElementById('heroEmail').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') subscribe('heroEmail', 'heroSuccess', 'heroError', 'heroBtn');
+});
+document.getElementById('ctaEmail').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') subscribe('ctaEmail', 'ctaSuccess', 'ctaError', 'ctaBtn');
+});
+</script>
+</body>
+</html>
