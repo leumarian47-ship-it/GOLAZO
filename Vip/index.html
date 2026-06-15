@@ -622,7 +622,7 @@ nav {
   </p>
   <div class="members-badge">
     <div class="members-dot"></div>
-    <span class="members-text"><strong>12 membri activi</strong> în grup acum</span>
+    <span class="members-text"><strong id="members-count">...</strong> <span id="members-label">membri activi</span> în grup acum</span>
   </div>
   <br>
   <a href="#pricing" class="btn-vip" style="display:inline-block; width:auto; padding: 16px 40px;">VREAU ACCES VIP →</a>
@@ -819,6 +819,33 @@ hamburger.addEventListener('click', function() {
   var open = navMobile.classList.toggle('open');
   hamburger.classList.toggle('open', open);
 });
+
+// Telegram membri live
+(function() {
+  var TOKEN = '8993660228:AAGPIRlC6BFZ6zcQRf2VLEbEp5dWWlEKuNM';
+  var CHAT_ID = '-1004352795411';
+  var countEl = document.getElementById('members-count');
+  var labelEl = document.getElementById('members-label');
+
+  fetch('https://api.telegram.org/bot' + TOKEN + '/getChatMemberCount?chat_id=' + CHAT_ID)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok && data.result) {
+        var n = data.result;
+        // Scadem 1 pentru bot
+        var members = Math.max(n - 1, 0);
+        countEl.textContent = members;
+        labelEl.textContent = members === 1 ? 'membru activ' : 'membri activi';
+      } else {
+        countEl.textContent = '—';
+        labelEl.textContent = 'membri activi';
+      }
+    })
+    .catch(function() {
+      countEl.textContent = '—';
+      labelEl.textContent = 'membri activi';
+    });
+})();
 
 // Smooth scroll pentru anchor links
 document.querySelectorAll('a[href^="#"]').forEach(function(a) {
