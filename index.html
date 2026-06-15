@@ -183,6 +183,8 @@ nav {
   transition: color .2s;
 }
 .nav-links a:hover { color: var(--bone); }
+.nav-links a.active { color: var(--fire); }
+.mob-link.active { color: var(--fire); }
 
 .nav-cta {
   background: var(--fire);
@@ -1504,12 +1506,10 @@ a:focus-visible, button:focus-visible {
 <nav id="nav">
   <a href="/" class="nav-logo">GOL<span>A</span>ZO</a>
   <ul class="nav-links" id="navLinks">
+    <li><a href="/" class="active">Acasă</a></li>
     <li><a href="/predict">Predicții</a></li>
-    <li><a href="#meciuri">Meciuri</a></li>
-    <li><a href="#analiza">Analiză</a></li>
-    <li><a href="#leaderboard">Clasament</a></li>
-    <li><a href="#business">Business</a></li>
-    <a href="/register" class="nav-cta">Joacă Gratuit</a>
+    <li><a href="/newsletter">Newsletter</a></li>
+    <li><a href="/vip">VIP Telegram</a></li>
   </ul>
   <button class="nav-hamburger" id="navHamburger" aria-label="Meniu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -1519,13 +1519,11 @@ a:focus-visible, button:focus-visible {
 <!-- Mobile nav drawer -->
 <div id="mobileNav" role="navigation" aria-label="Meniu mobil">
   <ul>
-    <li><a href="/predict" class="mob-link" onclick="closeMobileNav()">Predicții</a></li>
-    <li><a href="#meciuri"    class="mob-link" onclick="closeMobileNav()">Meciuri</a></li>
-    <li><a href="#analiza"   class="mob-link" onclick="closeMobileNav()">Analiză</a></li>
-    <li><a href="#leaderboard" class="mob-link" onclick="closeMobileNav()">Clasament</a></li>
-    <li><a href="#business"  class="mob-link" onclick="closeMobileNav()">Business</a></li>
+    <li><a href="/"          class="mob-link active" onclick="closeMobileNav()">Acasă</a></li>
+    <li><a href="/predict"   class="mob-link" onclick="closeMobileNav()">Predicții</a></li>
+    <li><a href="/newsletter" class="mob-link" onclick="closeMobileNav()">Newsletter</a></li>
+    <li><a href="/vip"       class="mob-link" onclick="closeMobileNav()">VIP Telegram</a></li>
   </ul>
-  <a href="/register" class="mob-cta" onclick="closeMobileNav()">Joacă Gratuit</a>
 </div>
 
 <!-- ============================================================
@@ -1538,7 +1536,7 @@ a:focus-visible, button:focus-visible {
   <div class="hero-live">
     <div class="live-dot"></div>
     <span class="hero-live-text">LIVE — WORLD CUP 2026</span>
-    <span class="hero-live-sub">· 11 Iunie – 19 Iulie · Ziua 4</span>
+    <span class="hero-live-sub">· 11 Iunie – 19 Iulie · Ziua 5</span>
   </div>
 
   <!-- Hero content -->
@@ -1553,9 +1551,9 @@ a:focus-visible, button:focus-visible {
     </h1>
     <p class="hero-subtitle">Tu îl știi deja.</p>
     <div class="hero-actions">
-      <a href="/register" class="btn-primary">Intră în joc — gratuit</a>
-      <a href="#meciuri" class="btn-ghost">
-        Vezi meciurile
+      <a href="/predict" class="btn-primary">Prezice acum — gratuit</a>
+      <a href="/vip" class="btn-ghost">
+        VIP Telegram
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
         </svg>
@@ -1570,16 +1568,36 @@ a:focus-visible, button:focus-visible {
       <div class="ticker-track" id="tickerTrack">
         <div class="ticker-item">🇲🇽 Mexic <span class="score">2 — 0</span> 🇿🇦 Africa de Sud <span class="live-badge">FT</span></div>
         <div class="ticker-item">🇰🇷 Coreea de Sud <span class="score">2 — 1</span> 🇨🇿 Cehia <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇦🇷 Argentina <span class="score">2 — 1</span> 🇲🇦 Maroc <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇫🇷 Franța <span class="score">3 — 0</span> 🇺🇾 Uruguay <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇧🇷 Brazilia <span class="score">2 — 0</span> 🇨🇴 Columbia <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇪🇸 Spania <span class="score">3 — 1</span> 🇨🇭 Elveția <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Anglia <span class="score">4 — 0</span> 🇸🇳 Senegal <span class="live-badge">FT</span></div>
         <div class="ticker-item">🇨🇦 Canada <span class="score">1 — 1</span> 🇧🇦 Bosnia <span class="live-badge">FT</span></div>
         <div class="ticker-item">🇺🇸 SUA <span class="score">4 — 1</span> 🇵🇾 Paraguay <span class="live-badge">FT</span></div>
         <div class="ticker-item">🇶🇦 Qatar <span class="score">1 — 1</span> 🇨🇭 Elveția <span class="live-badge">FT</span></div>
-        <div class="ticker-item">🇧🇷 Brazilia <span class="score">1 — 1</span> 🇲🇦 Maroc <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇵🇹 Portugalia <span class="score">2 — 1</span> 🇨🇱 Chile <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇩🇪 Germania <span class="score">2 — 2</span> 🇯🇵 Japonia <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇳🇱 Olanda <span class="score">3 — 0</span> 🇸🇦 Arabia Saudită <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇩🇪 Germania <span class="score">7 — 1</span> 🇨🇼 Curaçao <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇳🇱 Olanda <span class="score">2 — 2</span> 🇯🇵 Japonia <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇨🇮 Coasta de Fildeș <span class="score">1 — 0</span> 🇪🇨 Ecuador <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇸🇪 Suedia <span class="score">5 — 1</span> 🇹🇳 Tunisia <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇺🇸 SUA <span class="score">1 — 2</span> 🇨🇦 Canada <span class="live-badge">FT</span></div>
+        <!-- Duplicate for seamless loop -->
         <div class="ticker-item">🇲🇽 Mexic <span class="score">2 — 0</span> 🇿🇦 Africa de Sud <span class="live-badge">FT</span></div>
         <div class="ticker-item">🇰🇷 Coreea de Sud <span class="score">2 — 1</span> 🇨🇿 Cehia <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇦🇷 Argentina <span class="score">2 — 1</span> 🇲🇦 Maroc <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇫🇷 Franța <span class="score">3 — 0</span> 🇺🇾 Uruguay <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇧🇷 Brazilia <span class="score">2 — 0</span> 🇨🇴 Columbia <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇪🇸 Spania <span class="score">3 — 1</span> 🇨🇭 Elveția <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Anglia <span class="score">4 — 0</span> 🇸🇳 Senegal <span class="live-badge">FT</span></div>
         <div class="ticker-item">🇨🇦 Canada <span class="score">1 — 1</span> 🇧🇦 Bosnia <span class="live-badge">FT</span></div>
         <div class="ticker-item">🇺🇸 SUA <span class="score">4 — 1</span> 🇵🇾 Paraguay <span class="live-badge">FT</span></div>
-        <div class="ticker-item">🇶🇦 Qatar <span class="score">1 — 1</span> 🇨🇭 Elveția <span class="live-badge">FT</span></div>
-        <div class="ticker-item">🇧🇷 Brazilia <span class="score">1 — 1</span> 🇲🇦 Maroc <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇩🇪 Germania <span class="score">7 — 1</span> 🇨🇼 Curaçao <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇳🇱 Olanda <span class="score">2 — 2</span> 🇯🇵 Japonia <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇨🇮 Coasta de Fildeș <span class="score">1 — 0</span> 🇪🇨 Ecuador <span class="live-badge">FT</span></div>
+        <div class="ticker-item">🇸🇪 Suedia <span class="score">5 — 1</span> 🇹🇳 Tunisia <span class="live-badge">FT</span></div>
       </div>
     </div>
   </div>
@@ -1613,7 +1631,7 @@ a:focus-visible, button:focus-visible {
 <section class="section" id="meciuri">
   <div class="section-header">
     <div>
-      <p class="section-title">Rezultate reale · Ziua 1–3</p>
+      <p class="section-title">Rezultate reale · Ziua 1–4</p>
       <h2 class="section-heading">MECIURI<br>JUCATE</h2>
     </div>
     <a href="/predict" class="see-all">Vezi toate 104 →</a>
@@ -1645,36 +1663,10 @@ a:focus-visible, button:focus-visible {
         <span class="confidence-value">68%</span>
       </div>
     </div>
-    <!-- Meci 2 — SUA vs Paraguay, 12 Iunie, FT -->
+    <!-- Meci 2 — Brazilia vs Columbia, 12 Iunie, FT -->
     <div class="match-card">
       <div class="match-meta">
-        <span class="match-group">Grupă D · 12 Iunie</span>
-        <span class="match-status finished">FT</span>
-      </div>
-      <div class="match-teams">
-        <div class="match-team">
-          <span class="team-flag">🇺🇸</span>
-          <span class="team-name">SUA</span>
-        </div>
-        <div class="match-score">
-          <div class="score-display">4 — 1</div>
-          <div class="score-time">FT</div>
-        </div>
-        <div class="match-team right">
-          <span class="team-flag" style="text-align:right;display:block;">🇵🇾</span>
-          <span class="team-name">PARAGUAY</span>
-        </div>
-      </div>
-      <div class="ai-confidence">
-        <span class="confidence-label">STAT GOLAZO</span>
-        <div class="confidence-bar-wrap"><div class="confidence-bar-fill" style="width:71%"></div></div>
-        <span class="confidence-value">71%</span>
-      </div>
-    </div>
-    <!-- Meci 3 — Brazilia vs Maroc, 13 Iunie, FT -->
-    <div class="match-card">
-      <div class="match-meta">
-        <span class="match-group">Grupă C · 13 Iunie</span>
+        <span class="match-group">Grupă B · 12 Iunie</span>
         <span class="match-status finished">FT</span>
       </div>
       <div class="match-teams">
@@ -1683,18 +1675,44 @@ a:focus-visible, button:focus-visible {
           <span class="team-name">BRAZILIA</span>
         </div>
         <div class="match-score">
-          <div class="score-display">1 — 1</div>
+          <div class="score-display">2 — 0</div>
           <div class="score-time">FT</div>
         </div>
         <div class="match-team right">
-          <span class="team-flag" style="text-align:right;display:block;">🇲🇦</span>
-          <span class="team-name">MAROC</span>
+          <span class="team-flag" style="text-align:right;display:block;">🇨🇴</span>
+          <span class="team-name">COLUMBIA</span>
         </div>
       </div>
       <div class="ai-confidence">
         <span class="confidence-label">STAT GOLAZO</span>
-        <div class="confidence-bar-wrap"><div class="confidence-bar-fill" style="width:55%"></div></div>
-        <span class="confidence-value">55%</span>
+        <div class="confidence-bar-wrap"><div class="confidence-bar-fill" style="width:71%"></div></div>
+        <span class="confidence-value">71%</span>
+      </div>
+    </div>
+    <!-- Meci 3 — Germania vs Curaçao, 14 Iunie, FT -->
+    <div class="match-card">
+      <div class="match-meta">
+        <span class="match-group">Grupă E · 14 Iunie</span>
+        <span class="match-status finished">FT</span>
+      </div>
+      <div class="match-teams">
+        <div class="match-team">
+          <span class="team-flag">🇩🇪</span>
+          <span class="team-name">GERMANIA</span>
+        </div>
+        <div class="match-score">
+          <div class="score-display">7 — 1</div>
+          <div class="score-time">FT</div>
+        </div>
+        <div class="match-team right">
+          <span class="team-flag" style="text-align:right;display:block;">🇨🇼</span>
+          <span class="team-name">CURAÇAO</span>
+        </div>
+      </div>
+      <div class="ai-confidence">
+        <span class="confidence-label">STAT GOLAZO</span>
+        <div class="confidence-bar-wrap"><div class="confidence-bar-fill" style="width:91%"></div></div>
+        <span class="confidence-value">91%</span>
       </div>
     </div>
   </div>
@@ -1921,14 +1939,11 @@ a:focus-visible, button:focus-visible {
     <p>Nu spam. Un singur email pe zi de meci, cu analiza statistică, ce se știe despre echipe și cele mai bune date. Dezabonare cu un click.</p>
   </div>
   <div class="newsletter-form-wrap">
-    <label class="form-label" for="emailInput">Adresa de email</label>
-    <input type="email" id="emailInput" class="form-input" placeholder="tu@email.com" autocomplete="email">
-    <label class="form-label" for="numeInput">Prenumele tău</label>
-    <input type="text" id="numeInput" class="form-input" placeholder="Prenume" autocomplete="given-name">
-    <button class="form-submit" onclick="handleSubscribe()">Abonează-mă gratuit</button>
+    <p style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:24px;">Email zilnic cu analiza meciurilor de azi, cu 2h înainte de start. Fără spam. Dezabonare cu un click.</p>
+    <a href="/newsletter" class="btn-primary" style="display:inline-block;text-align:center;width:100%;">Abonează-mă gratuit</a>
     <p class="form-disclaimer">
-      Prin abonare ești de acord cu <a href="/privacy">Politica de confidențialitate</a>.
-      Niciun spam, niciodată. 18+ | Joacă responsabil.
+      GDPR compliant · Double opt-in · <a href="/privacy">Politica de confidențialitate</a><br>
+      18+ | Joacă responsabil.
     </p>
   </div>
 </div>
